@@ -347,7 +347,7 @@ function render(){
       <div class="body">
         <div class="nm">${d.name}</div>
         <div class="meta">${[d.engine, d.fuel, d.gearbox, d.km ? fmt(d.km)+' km' : ''].filter(Boolean).join(' · ')}</div>
-        <div class="price">${fmt(d.price)} <small>₼</small></div>
+        <div class="price">${d.price ? fmt(d.price) + ' <small>₼</small>' : '<small style="font-size:16px">Qiymət: razılaşma</small>'}</div>
         <div class="foot">
           <span class="city">${d.city || ''}</span>
           <a class="more" href="${d.url}" target="_blank" rel="noopener">Elana bax <span>→</span></a>
