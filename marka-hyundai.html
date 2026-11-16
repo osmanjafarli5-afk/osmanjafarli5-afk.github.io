@@ -218,7 +218,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
       </div>
     </div>
 
-    <div class="fgroup">
+    <div class="fgroup" id="bodyGroup">
       <label class="flabel">Ban növü</label>
       <div class="chips" id="bodyChips"></div>
     </div>
@@ -300,6 +300,7 @@ function chip(text, container, set){
 }
 brands.forEach(b => chip(b, document.getElementById('brandChips'), selBrands));
 bodies.forEach(b => chip(b, document.getElementById('bodyChips'), selBodies));
+if (!bodies.length) document.getElementById('bodyGroup').style.display = 'none';
 
 function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
