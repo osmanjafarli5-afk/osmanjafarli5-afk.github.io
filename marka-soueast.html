@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Soueast elanları Bakı — 2 maşın, 23500 ₼-dən</title>
-<meta name="description" content="Soueast markalı 2 avtomobil elanı: qiymət, il, yürüş və foto. Ən ucuz Soueast — 23500 ₼. Bakı və bölgələr.">
+<title>Soueast elanları Bakı — 5 maşın, 23500 ₼-dən</title>
+<meta name="description" content="Soueast markalı 5 avtomobil elanı: qiymət, il, yürüş və foto. Ən ucuz Soueast — 23500 ₼. Bakı və bölgələr.">
 <meta name="keywords" content="maşın elanları, avtomobil satışı, Bakı maşın, ikinci əl avtomobil, maşın alqı satqı, ucuz maşın, turbo.az elanları, Azərbaycan avtomobil">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://osmanjafarli5-afk.github.io/marka-soueast.html">
@@ -48,6 +48,11 @@ header.hero{
 h1{font-size:24px;letter-spacing:-.5px;line-height:1.15}
 h1 em{font-style:normal;color:var(--acc)}
 .sub{color:var(--dim);font-size:13.5px;margin-top:3px}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+ background:linear-gradient(135deg,#eef4ff,#e8f0ff);border:1px solid #d6e2fa;border-radius:var(--r);
+ padding:14px 18px;margin:0 0 16px}
+.cta-txt{display:flex;flex-direction:column;gap:2px;font-size:14px;color:#22314a}
+.cta-txt b{font-size:15px}
 .btns{display:flex;gap:10px;flex-wrap:wrap}
 .btn{
  display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:11px;
@@ -121,6 +126,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
  transition:transform .38s var(--ease),box-shadow .38s var(--ease),border-color .38s var(--ease);
  animation:rise .5s var(--ease) both;
  will-change:transform;
+ contain:layout paint;
 }
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .card:hover{transform:translateY(-6px);box-shadow:var(--shadow2);border-color:#dbe3f0}
@@ -132,6 +138,11 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
  position:absolute;top:10px;left:10px;background:rgba(255,255,255,.94);color:var(--txt);
  font-size:11.5px;font-weight:700;padding:5px 9px;border-radius:8px;backdrop-filter:blur(6px);
  box-shadow:0 2px 8px rgba(0,0,0,.10);
+}
+.seller-tag{
+ position:absolute;top:10px;right:10px;background:var(--ok);color:#fff;
+ font-size:11px;font-weight:700;padding:5px 9px;border-radius:8px;letter-spacing:.2px;
+ box-shadow:0 2px 8px rgba(0,0,0,.14);
 }
 .body{padding:13px 14px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
 .nm{font-weight:700;font-size:15px;line-height:1.3;letter-spacing:-.2px}
@@ -189,7 +200,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     </div>
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
-      <a class="btn btn-ghost" href="https://t.me/yetimhanekundakcis_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
     </div>
   </div>
   <div class="stats">
@@ -201,6 +212,13 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 </div></header>
 
 <div class="wrap">
+<div class="cta">
+  <div class="cta-txt">
+    <b>🚗 Maşınınızı satırsınız?</b>
+    <span>Elanınızı <b>pulsuz</b> yerləşdiririk — kanalda və saytda, şəkilli.</span>
+  </div>
+  <a class="btn btn-primary" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər →</a>
+</div>
 <div class="layout">
   <aside>
     <div class="fgroup">
@@ -249,6 +267,9 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
       </select>
     </div>
     <div class="grid" id="grid"></div>
+    <div style="text-align:center;margin:26px 0 10px">
+      <button class="btn btn-ghost" id="more" style="display:none">Daha çox göstər ↓</button>
+    </div>
     <div class="empty" id="empty" style="display:none">
       <b>Uyğun elan tapılmadı</b>
       Filtrləri dəyişdirin və ya axtarışı qısaldın.
@@ -260,22 +281,22 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 <div class="wrap">
 <section class="seo">
   <h2>Soueast elanları</h2>
-  <p>Saytda <b>Soueast</b> markası üzrə 2 elan var. Ən aşağı qiymət — 23500 ₼. Elanlar buraxılış ili, yürüş və qiymətə görə süzülə bilər.</p>
+  <p>Saytda <b>Soueast</b> markası üzrə 5 elan var. Ən aşağı qiymət — 23500 ₼. Elanlar buraxılış ili, yürüş və qiymətə görə süzülə bilər.</p>
   <h3 style="font-size:15px;margin:18px 0 8px">Markalar üzrə elanlar</h3>
-  <div class="brandlinks"><a href="marka-aston.html">Aston (2)</a><a href="marka-audi.html">Audi (19)</a><a href="marka-avatr.html">Avatr (5)</a><a href="marka-bmw.html">BMW (162)</a><a href="marka-byd.html">BYD (20)</a><a href="marka-baic.html">Baic (3)</a><a href="marka-bentley.html">Bentley (27)</a><a href="marka-bestune.html">Bestune (2)</a><a href="marka-cadillac.html">Cadillac (3)</a><a href="marka-changan.html">Changan (117)</a><a href="marka-chery.html">Chery (5)</a><a href="marka-chevrolet.html">Chevrolet (76)</a><a href="marka-dacia.html">Dacia (2)</a><a href="marka-denza.html">Denza (3)</a><a href="marka-dongfeng.html">DongFeng (8)</a><a href="marka-ferrari.html">Ferrari (5)</a><a href="marka-fiat.html">Fiat (4)</a><a href="marka-ford.html">Ford (30)</a><a href="marka-gac.html">GAC (8)</a><a href="marka-geely.html">Geely (18)</a><a href="marka-genesis.html">Genesis (5)</a><a href="marka-haojue.html">Haojue (2)</a><a href="marka-haval.html">Haval (15)</a><a href="marka-honda.html">Honda (4)</a><a href="marka-hummer.html">Hummer (2)</a><a href="marka-hyundai.html">Hyundai (185)</a><a href="marka-infiniti.html">Infiniti (3)</a><a href="marka-jac.html">JAC (4)</a><a href="marka-jetour.html">JETOUR (6)</a><a href="marka-jmc.html">JMC (3)</a><a href="marka-jaguar.html">Jaguar (3)</a><a href="marka-jeep.html">Jeep (21)</a><a href="marka-kyc.html">KYC (2)</a><a href="marka-kia.html">Kia (124)</a><a href="marka-lada.html">LADA (51)</a><a href="marka-lamborghini.html">Lamborghini (2)</a><a href="marka-land.html">Land (148)</a><a href="marka-lexus.html">Lexus (38)</a><a href="marka-li.html">Li (21)</a><a href="marka-lincoln.html">Lincoln (2)</a><a href="marka-lynk.html">Lynk (14)</a><a href="marka-maserati.html">Maserati (3)</a><a href="marka-mazda.html">Mazda (14)</a><a href="marka-mercedes.html">Mercedes (235)</a><a href="marka-mercedes-maybach.html">Mercedes-Maybach (9)</a><a href="marka-mini.html">Mini (2)</a><a href="marka-mitsubishi.html">Mitsubishi (16)</a><a href="marka-nissan.html">Nissan (36)</a><a href="marka-opel.html">Opel (19)</a><a href="marka-peugeot.html">Peugeot (2)</a><a href="marka-porsche.html">Porsche (32)</a><a href="marka-ravon.html">Ravon (3)</a><a href="marka-renault.html">Renault (6)</a><a href="marka-rolls-royce.html">Rolls-Royce (2)</a><a href="marka-samauto.html">SamAuto (2)</a><a href="marka-seres.html">Seres (8)</a><a href="marka-skoda.html">Skoda (7)</a><a href="marka-soueast.html">Soueast (2)</a><a href="marka-suzuki.html">Suzuki (4)</a><a href="marka-tesla.html">Tesla (5)</a><a href="marka-toyota.html">Toyota (136)</a><a href="marka-volkswagen.html">Volkswagen (17)</a><a href="marka-volvo.html">Volvo (10)</a><a href="marka-voyah.html">Voyah (5)</a><a href="marka-xpeng.html">XPeng (2)</a><a href="marka-zeekr.html">ZEEKR (13)</a></div>
+  <div class="brandlinks"><a href="marka-aston.html">Aston (3)</a><a href="marka-audi.html">Audi (48)</a><a href="marka-avatr.html">Avatr (8)</a><a href="marka-baw.html">BAW (2)</a><a href="marka-bmw.html">BMW (333)</a><a href="marka-byd.html">BYD (56)</a><a href="marka-baic.html">Baic (7)</a><a href="marka-bentley.html">Bentley (38)</a><a href="marka-bestune.html">Bestune (8)</a><a href="marka-cadillac.html">Cadillac (10)</a><a href="marka-changan.html">Changan (200)</a><a href="marka-chery.html">Chery (16)</a><a href="marka-chevrolet.html">Chevrolet (235)</a><a href="marka-chrysler.html">Chrysler (4)</a><a href="marka-dfsk.html">DFSK (10)</a><a href="marka-dacia.html">Dacia (3)</a><a href="marka-daewoo.html">Daewoo (7)</a><a href="marka-dayun.html">Dayun (2)</a><a href="marka-denza.html">Denza (11)</a><a href="marka-dongfeng.html">DongFeng (9)</a><a href="marka-ferrari.html">Ferrari (5)</a><a href="marka-fiat.html">Fiat (15)</a><a href="marka-ford.html">Ford (125)</a><a href="marka-gac.html">GAC (14)</a><a href="marka-gaz.html">GAZ (3)</a><a href="marka-gmc.html">GMC (8)</a><a href="marka-geely.html">Geely (39)</a><a href="marka-genesis.html">Genesis (10)</a><a href="marka-haojue.html">Haojue (2)</a><a href="marka-haval.html">Haval (22)</a><a href="marka-honda.html">Honda (35)</a><a href="marka-hongqi.html">Hongqi (4)</a><a href="marka-hummer.html">Hummer (3)</a><a href="marka-hyundai.html">Hyundai (365)</a><a href="marka-im.html">IM (3)</a><a href="marka-infiniti.html">Infiniti (18)</a><a href="marka-iran.html">Iran (3)</a><a href="marka-jac.html">JAC (11)</a><a href="marka-jaecoo.html">JAECOO (2)</a><a href="marka-jetour.html">JETOUR (15)</a><a href="marka-jmc.html">JMC (5)</a><a href="marka-jaguar.html">Jaguar (8)</a><a href="marka-jeep.html">Jeep (59)</a><a href="marka-kaiyi.html">KAIYI (6)</a><a href="marka-kyc.html">KYC (2)</a><a href="marka-khazar.html">Khazar (11)</a><a href="marka-kia.html">Kia (303)</a><a href="marka-lada.html">LADA (224)</a><a href="marka-lamborghini.html">Lamborghini (2)</a><a href="marka-land.html">Land (292)</a><a href="marka-lexus.html">Lexus (154)</a><a href="marka-li.html">Li (36)</a><a href="marka-lincoln.html">Lincoln (6)</a><a href="marka-lynk.html">Lynk (35)</a><a href="marka-m-hero.html">M-Hero (8)</a><a href="marka-man.html">MAN (8)</a><a href="marka-mg.html">MG (5)</a><a href="marka-maple.html">Maple (3)</a><a href="marka-maserati.html">Maserati (8)</a><a href="marka-mazda.html">Mazda (26)</a><a href="marka-mercedes.html">Mercedes (436)</a><a href="marka-mercedes-maybach.html">Mercedes-Maybach (12)</a><a href="marka-mini.html">Mini (7)</a><a href="marka-mitsubishi.html">Mitsubishi (58)</a><a href="marka-nissan.html">Nissan (164)</a><a href="marka-opel.html">Opel (87)</a><a href="marka-peugeot.html">Peugeot (6)</a><a href="marka-porsche.html">Porsche (90)</a><a href="marka-rox.html">ROX (12)</a><a href="marka-ravon.html">Ravon (4)</a><a href="marka-renault.html">Renault (17)</a><a href="marka-rolls-royce.html">Rolls-Royce (2)</a><a href="marka-seat.html">SEAT (3)</a><a href="marka-saipa.html">Saipa (2)</a><a href="marka-samauto.html">SamAuto (2)</a><a href="marka-seres.html">Seres (14)</a><a href="marka-skoda.html">Skoda (13)</a><a href="marka-soueast.html">Soueast (5)</a><a href="marka-subaru.html">Subaru (6)</a><a href="marka-suzuki.html">Suzuki (6)</a><a href="marka-tesla.html">Tesla (17)</a><a href="marka-tofas.html">Tofas (12)</a><a href="marka-toyota.html">Toyota (313)</a><a href="marka-uaz.html">UAZ (2)</a><a href="marka-volkswagen.html">Volkswagen (66)</a><a href="marka-volvo.html">Volvo (18)</a><a href="marka-voyah.html">Voyah (15)</a><a href="marka-wuling.html">Wuling (4)</a><a href="marka-xpeng.html">XPeng (3)</a><a href="marka-xiaomi.html">Xiaomi (3)</a><a href="marka-zeekr.html">ZEEKR (34)</a></div>
 </section>
 </div>
 
 <footer><div class="wrap fgrid">
   <div class="fnote">
-    Elan yerləşdirmək <b>pulsuzdur</b> — <a href="https://t.me/yetimhanekundakcis_bot" target="_blank" rel="noopener">@yetimhanekundakcis_bot</a>-a yazın.<br>
+    Elan yerləşdirmək <b>pulsuzdur</b> — <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">@yetimhanekundakcis_bot</a>-a yazın.<br>
     Bütün elanlar: <a href="https://t.me/mashinelanlari" target="_blank" rel="noopener">t.me/mashinelanlari</a> · Mənbə: turbo.az
   </div>
   <div class="fnote">© 2026 Maşın Elanları</div>
 </div></footer>
 
 <script>
-const DATA = [{"id": 10578272, "name": "Soueast S05", "price": 23500, "year": 2026, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F27%2F16%2F25%2F54%2F6083e0f7-a7a0-432b-a4a8-b47f53bca304%2F52104_TwmbqpPU7uQz-_EPGbDLwA.jpg", "url": "https://turbo.az/autos/10578272-soueast-s05", "km": 0, "engine": "1.5 L"}, {"id": 10565766, "name": "Soueast S05", "price": 23500, "year": 2026, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F27%2F16%2F36%2F23%2Fc20daf1a-28b4-40f3-8906-8a53d2d5bbe3%2F30655_RqGa0Skge2lVgXWbwmLikg.jpg", "url": "https://turbo.az/autos/10565766-soueast-s05", "km": 0, "engine": "1.5 L"}];
+const DATA = [{"id": 10578272, "name": "Soueast S05", "price": 23500, "year": 2026, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F27%2F16%2F25%2F54%2F6083e0f7-a7a0-432b-a4a8-b47f53bca304%2F52104_TwmbqpPU7uQz-_EPGbDLwA.jpg", "url": "https://turbo.az/autos/10578272-soueast-s05", "km": 0, "engine": "1.5 L"}, {"id": 10577191, "name": "Soueast S05", "price": 28500, "year": 2026, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F12%2F09%2F25%2F21%2F6cdf448c-15fa-4289-98b5-2e37e649df55%2F56055_97q7dpek_OTXzseImdbkNQ.jpg", "url": "https://turbo.az/autos/10577191-soueast-s05", "km": 0, "engine": "1.5 L"}, {"id": 10835046, "name": "Soueast S07", "price": 31000, "year": 2026, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F11%2F34%2F48%2Fe6a08e8c-5082-462a-a946-9ba4a51698aa%2F39270_gC6i7_6l12KvSCtjnwpdrQ.jpg", "url": "https://turbo.az/autos/10835046-soueast-s07", "km": 0, "engine": "1.5 L"}, {"id": 10842031, "name": "Soueast S07", "price": 37500, "year": 2026, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F13%2F33%2F45%2Ff32fbd99-66c5-4f46-b761-1faca285c356%2F34232__8Hekghk3W2AzuStrmGdqQ.jpg", "url": "https://turbo.az/autos/10842031-soueast-s07", "km": 0, "engine": "1.5 L"}, {"id": 10400923, "name": "Soueast S09 DM", "price": 39900, "year": 2025, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F17%2F15%2F06%2F35%2Fa1dd7c26-a780-446f-b5a7-95b513685661%2F77950_dUmUPyO6UmHZ0ByXVmTQ1A.jpg", "url": "https://turbo.az/autos/10400923-soueast-s09-dm", "km": 8000, "engine": "1.5 L"}];
 const grid = document.getElementById('grid');
 const empty = document.getElementById('empty');
 const q = document.getElementById('q');
@@ -313,7 +334,11 @@ if (!bodies.length) document.getElementById('bodyGroup').style.display = 'none';
 
 function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
-function render(){
+let LIMIT = 24;
+let PIN = null;                     // linkdən gələn elan həmişə birinci
+
+function render(reset){
+  if (reset !== false) LIMIT = 24;
   const term = q.value.trim().toLowerCase();
   const lo = pmin.value ? +pmin.value : 0;
   const hi = pmax.value ? +pmax.value :
@@ -335,31 +360,48 @@ function render(){
   else if (s === 'km') rows.sort((a,b)=>(a.km||1e9)-(b.km||1e9));
   else rows.sort((a,b)=>b.year-a.year);
 
+  if (PIN) {                                   // linkdən gələn elanı önə çıxar
+    const pi = rows.findIndex(d => String(d.id) === String(PIN));
+    if (pi > 0) rows.unshift(rows.splice(pi, 1)[0]);
+  }
+
   shown.textContent = rows.length;
   empty.style.display = rows.length ? 'none' : 'block';
 
-  grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+  grid.innerHTML = rows.slice(0, LIMIT).map((d,i) => `
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
-        <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
+        ${d.id >= 900000000 ? '<span class="seller-tag">Satıcı</span>' : ''}
+        ${d.img
+          ? `<img loading="lazy" decoding="async" src="${d.img}" alt="${d.name} ${d.year} — ${d.price ? fmt(d.price) + ' AZN' : 'qiymət razılaşma'}, ${d.city||''}" onerror="this.style.opacity=.12">`
+          : `<div style="display:grid;place-items:center;height:100%;font-size:34px;color:#9aa4b2">🚗</div>`}
       </div>
       <div class="body">
         <div class="nm">${d.name}</div>
         <div class="meta">${[d.engine, d.fuel, d.gearbox, d.km ? fmt(d.km)+' km' : ''].filter(Boolean).join(' · ')}</div>
-        <div class="price">${fmt(d.price)} <small>₼</small></div>
+        <div class="price">${d.price ? fmt(d.price) + ' <small>₼</small>' : '<small style="font-size:16px">Qiymət: razılaşma</small>'}</div>
         <div class="foot">
           <span class="city">${d.city || ''}</span>
           <a class="more" href="${d.url}" target="_blank" rel="noopener">Elana bax <span>→</span></a>
         </div>
       </div>
     </article>`).join('');
+  document.getElementById('more').style.display =
+    rows.length > LIMIT ? 'inline-flex' : 'none';
 }
 
-[q, pmin, pmax, ymin, ymax, sortSel].forEach(el => {
-  el.addEventListener('input', render);
-  el.addEventListener('change', render);
+document.getElementById('more').addEventListener('click', () => {
+  LIMIT += 24;
+  render(false);
 });
+
+[pmin, pmax, ymin, ymax, sortSel].forEach(el => {
+  el.addEventListener('input', () => render());
+  el.addEventListener('change', () => render());
+});
+let qt;
+q.addEventListener('input', () => { clearTimeout(qt); qt = setTimeout(() => render(), 220); });
 prange.addEventListener('input', () => {
   prange.style.setProperty('--p', prange.value + '%');
   if (!pmax.value) render();
@@ -377,8 +419,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin elanı önə çıxarır və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  const want = m[1];
+  if (!DATA.some(d => String(d.id) === want)) return;
+  PIN = want;
+  render();
+  setTimeout(() => {
+    const el = document.getElementById('ad-' + want);
+    if (!el) return;
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.style.outline = '3px solid var(--acc)';
+    el.style.outlineOffset = '3px';
+    el.style.animation = 'none';
+  }, 350);
+})();
 </script>
 
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Soueast elanları Bakı — 2 maşın, 23500 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Soueast S05", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F27%2F16%2F25%2F54%2F6083e0f7-a7a0-432b-a4a8-b47f53bca304%2F52104_TwmbqpPU7uQz-_EPGbDLwA.jpg", "offers": {"@type": "Offer", "price": 23500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10578272-soueast-s05"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Soueast S05", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F27%2F16%2F36%2F23%2Fc20daf1a-28b4-40f3-8906-8a53d2d5bbe3%2F30655_RqGa0Skge2lVgXWbwmLikg.jpg", "offers": {"@type": "Offer", "price": 23500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10565766-soueast-s05"}}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Soueast elanları Bakı — 5 maşın, 23500 ₼-dən", "numberOfItems": 5, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Soueast S05", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F27%2F16%2F25%2F54%2F6083e0f7-a7a0-432b-a4a8-b47f53bca304%2F52104_TwmbqpPU7uQz-_EPGbDLwA.jpg", "offers": {"@type": "Offer", "price": 23500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10578272-soueast-s05"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Soueast S05", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F12%2F09%2F25%2F21%2F6cdf448c-15fa-4289-98b5-2e37e649df55%2F56055_97q7dpek_OTXzseImdbkNQ.jpg", "offers": {"@type": "Offer", "price": 28500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10577191-soueast-s05"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Soueast S07", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F11%2F34%2F48%2Fe6a08e8c-5082-462a-a946-9ba4a51698aa%2F39270_gC6i7_6l12KvSCtjnwpdrQ.jpg", "offers": {"@type": "Offer", "price": 31000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10835046-soueast-s07"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Soueast S07", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F13%2F33%2F45%2Ff32fbd99-66c5-4f46-b761-1faca285c356%2F34232__8Hekghk3W2AzuStrmGdqQ.jpg", "offers": {"@type": "Offer", "price": 37500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10842031-soueast-s07"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Soueast S09 DM", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F17%2F15%2F06%2F35%2Fa1dd7c26-a780-446f-b5a7-95b513685661%2F77950_dUmUPyO6UmHZ0ByXVmTQ1A.jpg", "offers": {"@type": "Offer", "price": 39900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10400923-soueast-s09-dm"}}}]}</script>
 </body>
 </html>
