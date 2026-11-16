@@ -342,7 +342,9 @@ function render(){
     <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
-        <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
+        ${d.img
+          ? `<img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${d.price ? fmt(d.price) + ' AZN' : 'qiymət razılaşma'}, ${d.city||''}">`
+          : `<div style="display:grid;place-items:center;height:100%;font-size:34px;color:#9aa4b2">🚗</div>`}
       </div>
       <div class="body">
         <div class="nm">${d.name}</div>
