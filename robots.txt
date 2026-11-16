@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://osmanjafarli5-afk.github.io/sitemap.xml
