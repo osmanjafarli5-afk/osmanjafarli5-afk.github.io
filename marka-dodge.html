@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Dodge elanları Bakı — 8 maşın, 8500 ₼-dən", "numberOfItems": 8, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Dodge Hornet", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F23%2F08%2F07%2F86986871-c681-4623-bc43-8f2dd88f2dcb%2F61271_sMux6ZST7xEGXxh7q6oqpQ.jpg", "offers": {"@type": "Offer", "price": 40000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853623-dodge-hornet"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Dodge Ram", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F20%2F16%2F23%2F05%2F4a1d9ae0-6872-4abe-80f9-2dbb101c968b%2F96863_uWeyJOVW3hJu4QnhFXRz2w.jpg", "offers": {"@type": "Offer", "price": 92800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10790366-dodge-ram"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Dodge Charger", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F06%2F00%2F48%2F39%2F038399ba-a09d-42fc-b816-ddd086e8ddf6%2F54390_RO8qdR-Hr6CLX8Pr5a8Pnw.jpg", "offers": {"@type": "Offer", "price": 98000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10830776-dodge-charger"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Dodge Charger", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F08%2F16%2F36%2F07%2F34db7f01-107e-4157-b193-785e4fb4fe9f%2F26051_HiSx5kmnnF430776askSDA.jpg", "offers": {"@type": "Offer", "price": 59500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10455733-dodge-charger"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Dodge Dart", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F10%2F19%2F32%2F26%2Fbbe4eb05-f72f-4212-a171-efa76a5af56a%2F39476_RzRC4r8xCtnrg-6uUvdJ1w.jpg", "offers": {"@type": "Offer", "price": 8500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10840713-dodge-dart"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Dodge Journey", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F18%2F23%2F49%2F43%2F056eebff-57e5-4191-96ce-d2415f0a9faa%2F1437_A6YIQXnDE3l6YdA7YDA1mg.jpg", "offers": {"@type": "Offer", "price": 20000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10556454-dodge-journey"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Dodge Caliber", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F17%2F00%2F48%2F08%2F19874632-1cbc-4be2-aede-162f097401ae%2F72949_wVbexE_aZ0WKJzfgoUQ0kQ.jpg", "offers": {"@type": "Offer", "price": 10900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10319959-dodge-caliber"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Dodge Ram", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F19%2F31%2F35%2F38f6dece-5ec8-45ad-8c89-a87a1d3c1f07%2F86463_1uahfLvpjvBz8auuS9Y_9Q.jpg", "offers": {"@type": "Offer", "price": 263500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10847567-dodge-ram"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

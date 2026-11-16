@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Bestune elanları Bakı — 11 maşın, 16900 ₼-dən", "numberOfItems": 11, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Bestune T77", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F31%2F14%2F33%2F14%2F77b3c219-8e80-4803-9c2a-d05c07679d31%2F53255_peEQoL8gVDcebuLgNq9NYw.jpg", "offers": {"@type": "Offer", "price": 26500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10815782-bestune-t77"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Bestune T77", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F17%2F18%2F28%2F0b61e475-dc86-4935-93b6-331cac67867c%2F34223_FA7cB3kttLIzNYCxPBGvug.jpg", "offers": {"@type": "Offer", "price": 28000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849527-bestune-t77"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Bestune T55", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F01%2F24%2F15%2F16%2F07%2F90df9d13-03ac-4c19-b24b-1ab41af094e8%2F15247_eRuz4Do5pS0g3SY6jF6RZg.jpg", "offers": {"@type": "Offer", "price": 29000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9143116-bestune-t55"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Bestune T77", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F11%2F13%2F37%2F26%2F066e28c7-f3ad-45d4-a32c-4e65207d56a0%2F14627_azioaHRIET3DJpzY5ORG_w.jpg", "offers": {"@type": "Offer", "price": 31500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10147453-bestune-t77"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Bestune B70", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F05%2F19%2F10%2F47%2F45%2F8759fc0d-8b07-49ed-9354-37c2e6040e12%2F4513_SdFmiiX51JZHxZnCDO0xMg.jpg", "offers": {"@type": "Offer", "price": 33000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9354063-bestune-b70"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Bestune T77", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F18%2F59%2F36%2Ff53650de-659b-4d5e-b517-40eec24c6bd6%2F61427_poJrXM6J5k9xF6rYItdp1w.jpg", "offers": {"@type": "Offer", "price": 26000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855475-bestune-t77"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Bestune T99", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F03%2F13%2F51%2Fd94287ff-0289-46be-bea5-f0fd17b3cc77%2F26448_PrMIKxs5z_dOHCYXml2g0A.jpg", "offers": {"@type": "Offer", "price": 29700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10841412-bestune-t99"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Bestune T77", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F14%2F30%2F18%2F63e62502-f145-43c8-bee9-af863825f496%2F51757_UzwM5_KY73n_3ojkyHd7OA.jpg", "offers": {"@type": "Offer", "price": 22500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10854673-bestune-t77"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Bestune T77", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F23%2F19%2F45%2F43%2Fa81c90a3-0159-47c3-897a-8c881d1cb630%2F59842__LY1qHrUPVnT2BymOdFwPw.jpg", "offers": {"@type": "Offer", "price": 25900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10798014-bestune-t77"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Bestune T99", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F06%2F19%2F04%2F07%2F01605c66-0049-43ba-8ffd-4899c5cb24db%2F39462_abyEliN4tyKXO6jVRskTxg.jpg", "offers": {"@type": "Offer", "price": 26900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10832234-bestune-t99"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Bestune T33", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F09%2F16%2F36%2F1c6e6bec-92a0-4f24-928a-2ecd8581d3c2%2F34232__dHwdd4AZNvLNwGyYf2Fzw.jpg", "offers": {"@type": "Offer", "price": 16900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10749779-bestune-t33"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

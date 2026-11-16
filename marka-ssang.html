@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Ssang elanları Bakı — 3 maşın, 6600 ₼-dən", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Ssang Yong Tivoli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F16%2F24%2F11%2F6710b961-f28a-44ce-baea-b81005cba441%2F7639_CxiiM4JqsJO8MzMxOmh5DA.jpg", "offers": {"@type": "Offer", "price": 15000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844629-ssang-yong-tivoli"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Ssang Yong Kyron", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F27%2F23%2F28%2F45%2Fe13e03f4-6138-4c24-8af5-d51ba4963cc3%2F59362_X8EYpQ7Wx1iWsAh0PWTiJA.jpg", "offers": {"@type": "Offer", "price": 6600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10734983-ssang-yong-kyron"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Ssang Yong Rexton", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F17%2F12%2F25%2F0e5b523c-3d08-4ff2-bf8a-86dbaba65915%2F85578_bTDH8YZvxlNec1pRLwALMA.jpg", "offers": {"@type": "Offer", "price": 9000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10852488-ssang-yong-rexton"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

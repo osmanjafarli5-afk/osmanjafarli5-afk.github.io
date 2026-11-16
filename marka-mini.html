@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Mini elanları Bakı — 14 maşın, 9900 ₼-dən", "numberOfItems": 14, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Mini Cooper S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F31%2F11%2F58%2F23%2Fbb7fbf1b-df62-4d27-8cc8-a836c2c9217d%2F90168_iL16r7sLeb8JSOuSN8BgjQ.jpg", "offers": {"@type": "Offer", "price": 64900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10815441-mini-cooper-s"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Mini Cooper E", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F12%2F24%2F15%2F06%2F23%2Feb83c5f2-9740-4988-a8f5-6b3bb83d8292%2F47133_hlROxWuFVVw2qpOMb4Ibgg.jpg", "offers": {"@type": "Offer", "price": 64622, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10025024-mini-cooper-e"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Mini Cooper SE", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F03%2F10%2F12%2F39%2F48%2Fc11e15a9-d747-42c9-96fa-926908ffa959%2F69225_zCvu-NK5ZxEwY1NQMtwRKA.jpg", "offers": {"@type": "Offer", "price": 67244, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10221724-mini-cooper-se"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Mini Cooper SE", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F17%2F12%2F58%2F10%2F8a1341a1-1945-4a01-9cc2-afb140397779%2F9608_CktRbcaMBeOChtNEtbUN_w.jpg", "offers": {"@type": "Offer", "price": 68368, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10163684-mini-cooper-se"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Mini Cabrio", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F03%2F07%2F11%2F45%2F12%2Fcfac8c1d-118c-41b7-bebe-dd6a4c3c7d5e%2F14207_O16N2s6P7ncXiOUhnvkbnw.jpg", "offers": {"@type": "Offer", "price": 83300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10212975-mini-cabrio"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Mini Cooper", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F12%2F10%2F11%2F48%2F31%2F89a24ea0-80c0-4ef8-ab89-7dd6ee15f9ad%2F95296_nft1FtR_8kslMghvjfoAoA.jpg", "offers": {"@type": "Offer", "price": 84290, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9992621-mini-cooper"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Mini Countryman C", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F20%2F22%2F06%2F50%2F9ad76873-257a-4240-8022-aa29415bd08c%2F78709_L3qpFJ1iNKL6NgRuGhalvw.jpg", "offers": {"@type": "Offer", "price": 90000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10768260-mini-countryman-c"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Mini Countryman", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F12%2F38%2F46%2Fe2977c1f-d71e-4476-8a89-b569f76c0bee%2F18712_NRmKRbvweyME1aVqxqJT8Q.jpg", "offers": {"@type": "Offer", "price": 33333, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10813448-mini-countryman"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Mini Countryman", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F02%2F31%2F54%2F9d4c22ed-4801-41b8-9346-f9cf2fb2b69a%2F22467_mxcoM7xafEJUd82jEgbnLg.jpg", "offers": {"@type": "Offer", "price": 25500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853813-mini-countryman"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Mini Cooper", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F13%2F11%2F07%2F873784a9-11d1-4b0f-93d8-3aa6cb953520%2F24693_gP1lFASgw9f2DyFqQCjDMg.jpg", "offers": {"@type": "Offer", "price": 16500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10413545-mini-cooper"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Mini Cooper S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F14%2F50%2F50%2F7989fc4d-767f-4fc7-937f-2c7a8fccea99%2F42481_tsuDGovjZMkg8TA5bdJzNQ.jpg", "offers": {"@type": "Offer", "price": 19000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851840-mini-cooper-s"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Mini Cooper", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F18%2F03%2F10%2F06c49868-a48d-44df-8b17-01b30d855ce0%2F53249_7HCYkgPWr-faE_4K3_hNIQ.jpg", "offers": {"@type": "Offer", "price": 13500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10814308-mini-cooper"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Mini Clubman", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F27%2F22%2F21%2F53%2F7906aa8f-a5da-4427-a6e0-9504578ccdc7%2F64205_obTffcIjRFL_lQPITCrxmw.jpg", "offers": {"@type": "Offer", "price": 11500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10349541-mini-clubman"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Mini Cooper", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F15%2F08%2F26%2F76a77e88-8afe-4102-807b-1a79b3b51c02%2F45572_mb4ukvfuEq710sxceX46OA.jpg", "offers": {"@type": "Offer", "price": 9900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851958-mini-cooper"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

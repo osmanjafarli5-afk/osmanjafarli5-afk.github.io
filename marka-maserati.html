@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Maserati elanları Bakı — 20 maşın, 33999 ₼-dən", "numberOfItems": 20, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Maserati Grecale 300", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F14%2F17%2F32%2F10%2F3da518f9-0016-4c75-8e06-ae79c0311915%2F22952_7xmYOxYzrHK9Pm81DOJcpQ.jpg", "offers": {"@type": "Offer", "price": 130180, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10544842-maserati-grecale-300"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Maserati Grecale 300", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F07%2F21%2F09%2F51%2F12%2F6675b95c-43a2-4b62-bee2-3716bb2671cd%2F66008_-f1hpkebL9FYqnHCOa3oWQ.jpg", "offers": {"@type": "Offer", "price": 120815, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9630962-maserati-grecale-300"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Maserati Grecale Folgore", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F02%2F04%2F09%2F01%2F29%2F6f6ace05-abf9-4d6a-b5cd-ec3f9d3b5594%2F67900_VsfyEqu9G0cxtdUTwCN1tQ.jpg", "offers": {"@type": "Offer", "price": 131117, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9178301-maserati-grecale-folgore"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Maserati Ghibli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F04%2F18%2F47%2F22%2Fae9e0472-6cef-495d-9908-92fd7f4b03d5%2F52486_z-q1zHPVp-dZjI_ymEZtHQ.jpg", "offers": {"@type": "Offer", "price": 75000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10827633-maserati-ghibli"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Maserati Ghibli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F17%2F13%2F46%2F27159a92-412f-4567-ab26-927a2eeae94e%2F26740_elxmuXy0yem_3Wr-6zdU0w.jpg", "offers": {"@type": "Offer", "price": 64600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10835958-maserati-ghibli"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Maserati Quattroporte", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F22%2F12%2F30%2F11%2F4386e577-635d-4f4f-beb8-427bd64a131b%2F90976_sL1JwBERXmACJ_k74668ag.jpg", "offers": {"@type": "Offer", "price": 122400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10794629-maserati-quattroporte"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Maserati Levante", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F12%2F23%2F09%2F09%2F11%2F0275727c-7571-4836-b59c-7a5628e2a312%2F32512_x1wkuS0fl3Od3CLyqRj30g.jpg", "offers": {"@type": "Offer", "price": 149000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10021968-maserati-levante"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Maserati Ghibli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F03%2F07%2F20%2F55%2F35%2F2abe8eac-ab65-4f9a-9090-46cb1581ae9d%2F14169_VXMWc94cU-Saec6VzOYstA.jpg", "offers": {"@type": "Offer", "price": 50000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10214613-maserati-ghibli"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Maserati Levante", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F31%2F16%2F44%2F00%2Ff0e96d76-ba0a-4953-84e4-74d8c34c5ab2%2F53253_qIcZOXHRi2ebZjnfz-90ug.jpg", "offers": {"@type": "Offer", "price": 77000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10816211-maserati-levante"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Maserati Levante", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F28%2F18%2F12%2F02%2F33b694cf-ab6d-47e3-b3af-e72e24e71dc2%2F83971_z8u6gMLbfJj5VfrU7mKsFw.jpg", "offers": {"@type": "Offer", "price": 76500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10504740-maserati-levante"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Maserati Ghibli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F10%2F18%2F26%2F11%2F8941ab8e-8b06-40b2-969f-f8765ab5d825%2F72583__t5wQ7BV83q94wvRkD9r1A.jpg", "offers": {"@type": "Offer", "price": 54700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10840485-maserati-ghibli"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Maserati Ghibli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F13%2F18%2F36%2F03%2F5e969450-f35e-4cdd-9108-48712ee5980a%2F60013_gknvLCycop8dM79uP6blzw.jpg", "offers": {"@type": "Offer", "price": 33999, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10566349-maserati-ghibli"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Maserati Quattroporte", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F00%2F04%2F34%2F874131e0-dbdc-4936-9a8e-73ae8c2ef18e%2F1376_DFwKOo0E8wnQAJdOFuJwwA.jpg", "offers": {"@type": "Offer", "price": 35700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843513-maserati-quattroporte"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Maserati Ghibli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F22%2F00%2F07%2Ff3dd508e-4f2e-4872-9744-75830b3d332e%2F61247_JHN9j5RyNFlNqgKIKh7XlQ.jpg", "offers": {"@type": "Offer", "price": 38000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843272-maserati-ghibli"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "Maserati Quattroporte", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F12%2F50%2F26%2F5d0b2aae-7576-47c0-824f-60cd6c8a7348%2F53496_ApXI9AdC1vMhXNkTSkd-fA.jpg", "offers": {"@type": "Offer", "price": 35600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10829016-maserati-quattroporte"}}}, {"@type": "ListItem", "position": 16, "item": {"@type": "Product", "name": "Maserati Quattroporte", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F01%2F03%2F09%2F36%2F02%2Fe06cf449-3824-4fb8-aeb2-bc9daac983af%2F80427_H_V4buAx8VryS5Xt2d2_7w.jpg", "offers": {"@type": "Offer", "price": 45560, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10042213-maserati-quattroporte"}}}, {"@type": "ListItem", "position": 17, "item": {"@type": "Product", "name": "Maserati Quattroporte", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F09%2F14%2F19%2F47%2F15%2F50d8781d-0e86-4d2e-9b45-be40694ce73b%2F92313_wLbwyJGJi75X1LikQGRJwg.jpg", "offers": {"@type": "Offer", "price": 58650, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9775580-maserati-quattroporte"}}}, {"@type": "ListItem", "position": 18, "item": {"@type": "Product", "name": "Maserati GranTurismo S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F09%2F04%2F52%2F07%2Fe4003a6a-73c7-44a7-a12b-f1abb3b21e48%2F66721_yjCbMY56uVKXvax4twGbdw.jpg", "offers": {"@type": "Offer", "price": 187000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9652443-maserati-granturismo-s"}}}, {"@type": "ListItem", "position": 19, "item": {"@type": "Product", "name": "Maserati GranTurismo S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F09%2F16%2F54%2F07%2Fd0df0b74-b18a-4e71-8357-20e368dc296d%2F67502_bxFaxWokrY93aZ4yKdSrIw.jpg", "offers": {"@type": "Offer", "price": 44000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10705873-maserati-granturismo-s"}}}, {"@type": "ListItem", "position": 20, "item": {"@type": "Product", "name": "Maserati Quattroporte Sport GT S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F21%2F48%2F47%2F40df6bb7-390c-4eea-85d0-fce3369b6341%2F1959_qzqpqK9AL8EaryJfvVGd-A.jpg", "offers": {"@type": "Offer", "price": 39000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10830526-maserati-quattroporte-sport-gt-s"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

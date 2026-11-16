@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Lincoln elanları Bakı — 8 maşın, 17500 ₼-dən", "numberOfItems": 8, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Lincoln Aviator", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F16%2F33%2F52%2F07264cbd-38fc-4a75-9d6b-0e5a07bc203a%2F83077_8RmuaLjkFy0Shv2xVPi36Q.jpg", "offers": {"@type": "Offer", "price": 84150, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10814060-lincoln-aviator"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Lincoln MKC", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F12%2F22%2F27%2F02%2F3222c162-6b22-4006-81ee-81461a57c393%2F26053_SYodNqv47shvSQiegzCNXQ.jpg", "offers": {"@type": "Offer", "price": 29700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10466143-lincoln-mkc"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Lincoln Navigator", "image": "https://cdn4.telesco.pe/file/mSN2amqNWiGuoWGRkNVFzIWR4r2oi-i_BRQSW0MSRiOXLuwtpe9v2ErVMEVnGzSouIUp1BbWVlVLtCruASP1UvmcLTqIjBY0_UQ_dCPerKs27LNIPdKo-3g3m-mgz8Xi5F1_1SKEhaF4o5O8_EQdfv4gjf6YCf8IWyYi_OYbTI91DO4qFrcnP5vcgyvz_qUaLzzK_Pv_Kli5bvp59TqD2SCMtRl-BhKVTURLkWsgAeU4ibDV7e4mGe25j-W-bPlD0hMcCXovtSWr5irHzIcB1wtkR-IjSkwXzPI0-3pJywaJniyLcu1HKhRCE8HhWn3Mrf8nVkdwhWAZJP5fabkQ5w.jpg", "offers": {"@type": "Offer", "price": 102000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10835972"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F06%2F13%2F55%2F11%2Fd35cd7a8-13f1-407f-b4c8-1fc77a8be182%2F60580_xHLxIoomW_XOtjtLFMXpHQ.jpg", "offers": {"@type": "Offer", "price": 22500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10754683-lincoln-mkz"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F11%2F24%2F48%2F843a0ce7-883b-45ad-9d2c-472c913125b4%2F22494_mA6hftatKm6jde5xSO8G6A.jpg", "offers": {"@type": "Offer", "price": 19900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851089-lincoln-mkz"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F24%2F22%2F36%2F57%2Fe766702d-5588-4390-bc6a-a5c243e9fa28%2F69035_nCluHySTv3wIHGecgbcMmw.jpg", "offers": {"@type": "Offer", "price": 21500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10799656-lincoln-mkz"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "img/ad-139.jpg", "offers": {"@type": "Offer", "price": 1000000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://t.me/mashinelanlari/139"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F10%2F11%2F31%2Ff8f7f418-3f0f-4e19-915d-58270e978963%2F67479_cdwxDVIFWZzhuG5rhCMAbw.jpg", "offers": {"@type": "Offer", "price": 17500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853992-lincoln-mkz"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

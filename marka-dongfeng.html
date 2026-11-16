@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "DongFeng elanları Bakı — 15 maşın, 7600 ₼-dən", "numberOfItems": 15, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "DongFeng YiPai 007", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F08%2F13%2F56%2F12%2Fdef332af-96c8-4f1a-8a06-afb61a28b7be%2F37067_RWPY9Ztsa9JPhGGSafpckQ.jpg", "offers": {"@type": "Offer", "price": 44900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10759225-dongfeng-yipai-007"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "DongFeng Aeolus L8", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F22%2F17%2F36%2F15%2F257edc11-90f5-4085-bc0f-b23573a55171%2F68289_cugli709YytgqSlcYJOwjw.jpg", "offers": {"@type": "Offer", "price": 46900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10721408-dongfeng-aeolus-l8"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "DongFeng Aeolus L8", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F30%2F11%2F15%2F18%2F8e04d832-b40a-441e-8dd6-b485d294010e%2F92017_-7bbxS9GAEl6AHpRCgzEVA.jpg", "offers": {"@type": "Offer", "price": 47900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10431860-dongfeng-aeolus-l8"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "DongFeng Captain V", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F13%2F10%2F59%2F10%2Fdb7d4d68-09e0-4417-8fde-81fbb8b56e8c%2F60564_CkgNUDg_WRC3ifVYssQO3g.jpg", "offers": {"@type": "Offer", "price": 52000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10492567-dongfeng-captain-v"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "DongFeng Z9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F08%2F13%2F47%2F01%2F0b18ce8b-5fe7-4390-b17d-eb7827a0de4b%2F37086_KWfU6PBj9REnJPCo7hCkvw.jpg", "offers": {"@type": "Offer", "price": 54900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10759190-dongfeng-z9"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "DongFeng YiPai 008", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F08%2F14%2F13%2F17%2Fe4749183-9656-4164-914d-6538a5868b1a%2F60938_1QylbalrO2tr0jO3XWVX_A.jpg", "offers": {"@type": "Offer", "price": 58900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10759262-dongfeng-yipai-008"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "DongFeng Z9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F22%2F17%2F25%2F22%2F9327330f-3619-4ff0-b757-c8c9e2aae40a%2F22785_KLJWAKD_zNu6UQOCp0LTKg.jpg", "offers": {"@type": "Offer", "price": 66900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9824539-dongfeng-z9"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "DongFeng Captain V", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F12%2F08%2F48%2F47%2F3ce91e53-abf9-4445-9dc8-9edc0fa19cf7%2F37048_gTqKSHsQ32KzoWC1Ac1nHA.jpg", "offers": {"@type": "Offer", "price": 67500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10492507-dongfeng-captain-v"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "DongFeng Z9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F27%2F14%2F00%2F35%2F0128b65b-3903-49f7-b7b6-68e0c46bb740%2F71654_KOtASLICYUupoe2fvoIJ0A.jpg", "offers": {"@type": "Offer", "price": 71900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10732896-dongfeng-z9"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "DongFeng D9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F13%2F11%2F31%2F44%2Fa40ce531-144d-43c6-9e14-b65a9f2cb00d%2F72708_DM_dpvPDMhr2sziuNC7aQg.jpg", "offers": {"@type": "Offer", "price": 111500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10771298-dongfeng-d9"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "DongFeng Aeolus Shine GS", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F24%2F21%2F27%2F29%2F0853c3d0-4767-4820-a04e-224020dfe3dc%2F24731_xeofyMREtNiVZ6uXH-4B1Q.jpg", "offers": {"@type": "Offer", "price": 30900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10185958-dongfeng-aeolus-shine-gs"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "DongFeng DLQ5075ZLJ5", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F27%2F19%2F12%2F19%2Fd88c06dd-17ef-47e2-9687-99c3ac77b794%2F73429_PmRGpg4bAUHj9Uj3WJIjLA.jpg", "offers": {"@type": "Offer", "price": 46000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10348919-dongfeng-dlq5075zlj5"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "DongFeng Nammi Box", "image": "https://turbo.azstatic.com/uploads/f460x343/2024%2F10%2F29%2F11%2F25%2F33%2F68043ac7-8d78-4447-a64f-5026c6a2e24c%2F26954_DWgEQQqRrb1W5yDQKFgsVA.jpg", "offers": {"@type": "Offer", "price": 23900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8901448-dongfeng-nammi-box"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "DongFeng Aeolus S30", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F20%2F20%2F34%2F12%2F1d10a545-fb1c-40f8-8a16-48e3ad07214d%2F92573_aTpC1qHG8SyJt2FrBbyz6w.jpg", "offers": {"@type": "Offer", "price": 7600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10791138-dongfeng-aeolus-s30"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "DongFeng Aeolus S30", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F11%2F00%2F17%2F51%2Fe3268134-4f23-4d28-8345-ddeba89470c3%2F24705_ZG-OHGVzX_pmRxh0YrL-ow.jpg", "offers": {"@type": "Offer", "price": 8000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10146821-dongfeng-aeolus-s30"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Foton elanları Bakı — 8 maşın, 3700 ₼-dən", "numberOfItems": 8, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F08%2F54%2F28%2Fea152d6a-874d-4cd5-918d-1858cd92c11d%2F24530_7gvicJO8-iP54xNL7T_P_g.jpg", "offers": {"@type": "Offer", "price": 13000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853881-foton-forland"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F16%2F22%2F53%2Fd9936a69-5f7c-43e1-b2f2-af1bbd9ec8f7%2F45572_BROM1NlxvnNY1MUEF3LXsA.jpg", "offers": {"@type": "Offer", "price": 5500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10842485-foton-forland"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F07%2F23%2F39%2F45%2F1becc8de-08bb-4063-b566-a05e70833e42%2F99077_8SZu9MtTJBz_QNYOtxS3sw.jpg", "offers": {"@type": "Offer", "price": 10000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10834651-foton-forland"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F00%2F02%2F33%2F4e63e23e-0f46-45ef-a60c-6feb10afa3a3%2F35855_kQTYKbNG24yeGzU_9zMJ-w.jpg", "offers": {"@type": "Offer", "price": 6500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10841288-foton-forland"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F17%2F50%2F03%2F797a80e2-c772-4544-8ecd-c95f59dcc738%2F39455_zC5EKaoTZ8_Wj9bgDeqKWA.jpg", "offers": {"@type": "Offer", "price": 7800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10847273-foton-forland"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F17%2F36%2F11%2F6393dbfe-af68-4e8b-a246-c37da48f5294%2F86643_lMzocIjqlH79hQ90_WU1Ug.jpg", "offers": {"@type": "Offer", "price": 19500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849613-foton-forland"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F24%2F10%2F11%2F36%2F398f6e67-5cc1-4558-adb8-43d5c6af0b3d%2F1572_B2Sky5rV6vKQYsyNGLnNdw.jpg", "offers": {"@type": "Offer", "price": 3700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10379462-foton-forland"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Foton Forland", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F10%2F20%2F26%2F44%2F90d5a0aa-33f5-40cb-9ca7-5177535ac394%2F58252_mx92QAkQz0LXJ1sCejYwGg.jpg", "offers": {"@type": "Offer", "price": 6800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10840837-foton-forland"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

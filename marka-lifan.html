@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Lifan elanları Bakı — 13 maşın, 2800 ₼-dən", "numberOfItems": 13, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F17%2F04%2F41%2Fd291dc2b-d2b7-46bd-8425-63664ac0a1de%2F34232_pxdOBgw59DiNkVgVuCgIEg.jpg", "offers": {"@type": "Offer", "price": 5500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10852531-lifan-320"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F13%2F22%2F02%2F03fdd3e7-a4ce-4d89-bf3a-27f777f925b7%2F34229_hrIy617I4DQ80xdVQKHNEA.jpg", "offers": {"@type": "Offer", "price": 10200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10846425-lifan-320"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F19%2F04%2F07%2F8f7fe5ca-779f-418a-a08b-f6b02803a9ee%2F34229_KWGDbKjd_0K5P9AmAfuUBg.jpg", "offers": {"@type": "Offer", "price": 3500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10847476-lifan-320"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F12%2F15%2F59%2F46fdc40f-ab08-40ed-9d4d-7357604c94cd%2F36101_KxM917OA2Zt6Gb839ifGHQ.jpg", "offers": {"@type": "Offer", "price": 4000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851218-lifan-320"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F09%2F11%2F49%2F15%2Ff1c64435-4763-46bd-b85e-8bc7161d176e%2F86462_IGBDS7KIX9b5Uq0w-QxtWg.jpg", "offers": {"@type": "Offer", "price": 5000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10837083-lifan-320"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F15%2F22%2F25%2F75cfff99-a9df-4e80-b0d8-201231431fd1%2F25762_GluIl3ikUBXyjrYxvFe1HA.jpg", "offers": {"@type": "Offer", "price": 6000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10846823-lifan-320"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F11%2F58%2F14%2F3cf1ec55-9220-4d96-bde3-75aef5f35be9%2F72598_TPIETBNrqCerie0p5Vbr4g.jpg", "offers": {"@type": "Offer", "price": 7000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843937-lifan-320"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Lifan 320", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F16%2F20%2F29%2F9b55756b-b05e-4fa1-90b1-6aff196a3e7b%2F39463_B8ncpTXY5m-NHQpPyuQ4zg.jpg", "offers": {"@type": "Offer", "price": 7900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844630-lifan-320"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Lifan 630", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F16%2F20%2F12%2F962762e3-0a19-48c2-8c26-b1bac09141fb%2F67463_lRr2_hpd60ty-HERGfianQ.jpg", "offers": {"@type": "Offer", "price": 10500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844652-lifan-630"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Lifan 620", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F15%2F27%2F52%2F35895561-372b-458e-9937-d2a8595ce2d0%2F26741_J2qcr7_ixqYIOX4wPwB_OA.jpg", "offers": {"@type": "Offer", "price": 6000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844452-lifan-620"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Lifan 620", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F16%2F13%2F33%2F40%2F522bfbc8-212c-41f5-adf4-64f24ad0baf1%2F12575_AaLwM9NMPe3F3f3Hgyna6Q.jpg", "offers": {"@type": "Offer", "price": 7400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10628111-lifan-620"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Lifan 520", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F09%2F18%2F00%2F20%2F94f6ade2-3ba3-4e6e-b7f0-9cc179682d95%2F13745_itIs8h5eK86yVO3OxyN0lg.jpg", "offers": {"@type": "Offer", "price": 2800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10838148-lifan-520"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Lifan 520", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F16%2F13%2F17%2F749bb757-7843-4008-a4da-97ed09d0d9f4%2F41272_ma_9GBBKGAWtOQHA22e0_g.jpg", "offers": {"@type": "Offer", "price": 4900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10829615-lifan-520"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

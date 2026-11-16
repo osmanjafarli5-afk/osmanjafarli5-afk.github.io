@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Hongqi elanları Bakı — 8 maşın, 25500 ₼-dən", "numberOfItems": 8, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Hongqi H5", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F29%2F01%2F58%2F47%2F8926b62e-59bd-4708-9b26-1a6d6a8792da%2F68710_VvLg8IFvRa-a9Yjv83UDqQ.jpg", "offers": {"@type": "Offer", "price": 45000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10659303-hongqi-h5"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Hongqi H9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F02%2F02%2F37%2F05%2F1184b0ab-c725-4606-8b33-c660700c8a9f%2F72309_bJivJBWdpl1bMya9t_xJ7g.jpg", "offers": {"@type": "Offer", "price": 60860, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10669111-hongqi-h9"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Hongqi E-HS9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F03%2F20%2F19%2F10%2F9ca54bba-80cd-4e40-89a3-a6db6d23aba3%2F39460_fmXsEgSsppDKvdHrwIoMkA.jpg", "offers": {"@type": "Offer", "price": 90500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10825298-hongqi-e-hs9"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Hongqi H9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F03%2F18%2F25%2F06%2Fa81349a5-8c01-4511-bfa4-29616c9f8154%2F75487__07PPqrLf6GloO8Kk3RC2w.jpg", "offers": {"@type": "Offer", "price": 90950, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10748334-hongqi-h9"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Hongqi E-HS9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F04%2F16%2F32%2F17%2F0a84612f-4c12-46a4-bf88-9cb840d69f14%2F63795_0zYoGO2K4m3FagJnP0G8mA.jpg", "offers": {"@type": "Offer", "price": 95000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10675203-hongqi-e-hs9"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Hongqi E-HS9", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F05%2F28%2F19%2F04%2F58%2Fe9359264-044e-485f-866e-8328d10173a3%2F92313_wLbwyJGJi75X1LikQGRJwg.jpg", "offers": {"@type": "Offer", "price": 109650, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9495802-hongqi-e-hs9"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Hongqi E-HS9", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F10%2F27%2F18%2F16%2F59%2F6906411b-0153-4673-9235-763e8620b234%2F13017_XQnsOqZNTk7pAJTxuXLkPA.jpg", "offers": {"@type": "Offer", "price": 127000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9884864-hongqi-e-hs9"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Hongqi HS5", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F15%2F19%2F09%2F1ff65138-0321-4ac3-ae7e-15ff0dc4873a%2F86463_v5te-yfE3BATr3LbR6KJrw.jpg", "offers": {"@type": "Offer", "price": 25500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10829409-hongqi-hs5"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

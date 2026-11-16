@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "GMC elanları Bakı — 12 maşın, 24500 ₼-dən", "numberOfItems": 12, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "GMC Sierra", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F06%2F15%2F24%2F39%2Ffc1886d3-ad83-4a2b-a4a1-829799c682b6%2F67494_CApyo0VJmwXGuP8NNBmWmg.jpg", "offers": {"@type": "Offer", "price": 98000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10831651-gmc-sierra"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "GMC Hummer EV", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F07%2F14%2F04%2F55%2Ff6466c6d-57da-4e74-bcb1-888eba957bb9%2F39498_hGgj5dBgXa-wUgzXlMyjAQ.jpg", "offers": {"@type": "Offer", "price": 168300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10833494-gmc-hummer-ev"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "GMC Hummer EV", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F04%2F11%2F14%2F27%2F3763c523-128f-4eb6-8fa5-d325f5f13008%2F94159_IAUhYA0rVRziGyEdiR3c4Q.jpg", "offers": {"@type": "Offer", "price": 246500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10365803-gmc-hummer-ev"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "GMC Hummer EV", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F30%2F11%2F27%2F34%2Fe8272bf7-14a7-49b8-a2ec-8c4270fffee9%2F78314_MYyxy47JlU5hUAa7OlhWcQ.jpg", "offers": {"@type": "Offer", "price": 255000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10354847-gmc-hummer-ev"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "GMC Yukon", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F18%2F18%2F57%2F52%2Fd32bc6e0-a597-4513-87ff-bea772bc627d%2F89663_Dn17OaNg9-GSJ-W9gdw8hw.jpg", "offers": {"@type": "Offer", "price": 185300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10711021-gmc-yukon"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "GMC Terrain", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F26%2F00%2F45%2F48%2Fe316d436-ef4f-491a-b7b0-4aaebd93d299%2F69155_8ePzMKKguWT7JY88y-Clqg.jpg", "offers": {"@type": "Offer", "price": 29700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10779430-gmc-terrain"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "GMC Sierra", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F26%2F13%2F20%2F18%2F1daea723-a39b-4765-9e26-1c0c8bfc74c9%2F71638_5kJgAdMTzgyc9b86LxAY5A.jpg", "offers": {"@type": "Offer", "price": 85900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10730247-gmc-sierra"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "GMC Terrain", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F16%2F17%2F40%2F48%2F9a8d29a1-f3bd-43ea-818e-3ed6d4b49e0f%2F87254__BJJiW-DiNGxeMwIOJtEmA.jpg", "offers": {"@type": "Offer", "price": 24500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10779956-gmc-terrain"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "GMC Terrain", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F28%2F21%2F53%2F22%2F3aa92128-031b-4dfa-9ae4-56aa09f744cc%2F90171_DIKQHdtiMEx5j57rP64RIA.jpg", "offers": {"@type": "Offer", "price": 26900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10810619-gmc-terrain"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "GMC Terrain", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F16%2F46%2F47%2Faed99b3c-e500-4075-84ae-05c74c7b76a8%2F39442_eG458QB8vhw27giGWix2DA.jpg", "offers": {"@type": "Offer", "price": 25200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855108-gmc-terrain"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "GMC Sierra", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F07%2F16%2F22%2F21%2Fcdbc085d-b906-448b-be2b-62192d270347%2F25762_z7g3cdq_shvvHO1Mw12TNQ.jpg", "offers": {"@type": "Offer", "price": 69900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10833792-gmc-sierra"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "GMC Terrain", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F29%2F17%2F58%2F04%2F9a0549f4-e8f9-471a-868b-a367fb58775f%2F65654__2rJIAA_oC1RXNMRVqV2zw.jpg", "offers": {"@type": "Offer", "price": 24900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10660584-gmc-terrain"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

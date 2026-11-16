@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Ravon elanları Bakı — 15 maşın, 7900 ₼-dən", "numberOfItems": 15, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F23%2F44%2F38%2F7f06d120-d400-43c6-b03c-cd7b53bf4023%2F53248_NLuo8Cyhww3FOnQIFswUXQ.jpg", "offers": {"@type": "Offer", "price": 9500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10814990-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F03%2F19%2F13%2F17%2Fcbee5361-9a23-4c81-b62f-7b60287f3d39%2F63763_Nk1NO9ebLQG3y4CFsew1RA.jpg", "offers": {"@type": "Offer", "price": 9500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10136496-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F06%2F24%2F12%2F45%2F07%2F9ac8fb67-6405-4271-8232-27e0cea617f7%2F66008_-f1hpkebL9FYqnHCOa3oWQ.jpg", "offers": {"@type": "Offer", "price": 23400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9561402-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F23%2F42%2F26%2F1452354f-42a7-4f61-9c73-fa3245ad5b0f%2F39478_u5lxEaTNeE3gec3dBWGL9Q.jpg", "offers": {"@type": "Offer", "price": 9700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10834481-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F18%2F11%2F30%2F2753c606-fe73-43b2-a6e3-d115d765fba6%2F4540_9uHGiK-omjtDYB_Mihc8-A.jpg", "offers": {"@type": "Offer", "price": 10600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849720-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Ravon R2", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F25%2F02%2F57%2F04%2Fe402ebd8-8d8a-4abf-bbc5-4bc9a1517886%2F23864_Ob7ahdkLsfGjiDfQ2Va9pQ.jpg", "offers": {"@type": "Offer", "price": 11000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10341313-ravon-r2"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F16%2F46%2F16%2F1a415adc-bfc2-4015-a43f-b25837e817a9%2F14730_dCCBMtqoVCTSVLjQVFgGKA.jpg", "offers": {"@type": "Offer", "price": 7900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844686-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F12%2F36%2F25%2F44907c1f-11f3-4986-b6a8-c3a991bd5bd9%2F35855_dGmlBHBZlaEoUk9cmE710w.jpg", "offers": {"@type": "Offer", "price": 8000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851320-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F09%2F41%2F54%2F140b645f-f761-4fe6-96bb-6f6cf100decf%2F99089_p3JRiNq0Sg2hEENgmP9KFg.jpg", "offers": {"@type": "Offer", "price": 8900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10850833-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F22%2F36%2F05%2F934db341-8237-4419-9e29-7c00acd7f7e8%2F7776_lucTdBlKyREFGJuLevIonw.jpg", "offers": {"@type": "Offer", "price": 9000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10856020-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F14%2F26%2F56%2Fd65d9a53-1980-4b32-acde-2cda52756ffa%2F39451_CS7aD4TjAmbsOJ_6BlZ4Zg.jpg", "offers": {"@type": "Offer", "price": 9300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10848986-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Ravon R4", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F16%2F42%2F08%2F2316243c-bf0f-489d-802d-e8aeb0ac47e0%2F67477_NDRn-pj3xRI8ua7YsfwKWA.jpg", "offers": {"@type": "Offer", "price": 9300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844681-ravon-r4"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F18%2F53%2F06%2Fe6000ea0-a9be-4256-9e50-e98fcecbf641%2F31642_ZWxdk2grxb-OwNg97Of0pg.jpg", "offers": {"@type": "Offer", "price": 9500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855435-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F14%2F54%2F04%2Fa35d473e-bd37-4dec-8420-642ca490ef08%2F67487_5-tA4M_HBMbEJz4OEDkcqg.jpg", "offers": {"@type": "Offer", "price": 10500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10846742-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "Ravon R4", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F10%2F28%2F47%2F4b9feac4-1e2c-40e0-8939-6162040cf496%2F39476_yDPfojUlHUkfXNjMDZYqGQ.jpg", "offers": {"@type": "Offer", "price": 10900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843758-ravon-r4"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

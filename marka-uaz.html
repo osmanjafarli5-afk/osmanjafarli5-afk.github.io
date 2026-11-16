@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "UAZ elanları Bakı — 6 maşın, 7100 ₼-dən", "numberOfItems": 6, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "UAZ Profi", "image": "https://turbo.azstatic.com/uploads/f460x343/2024%2F01%2F24%2F10%2F04%2F59%2Fe7b1cc85-e822-4fe5-9858-39958fa8eb4e%2F3679_Ad_k6lAqQWHRlPhzhpR0Ew.jpg", "offers": {"@type": "Offer", "price": 46500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8094628-uaz-profi"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "UAZ Pickup", "image": "https://turbo.azstatic.com/uploads/f460x343/2024%2F01%2F24%2F10%2F06%2F52%2F69f2a933-dc33-4ddc-ad90-be1013089a15%2F3728_3kK0Y3ke0TCQhJpy36n9tw.jpg", "offers": {"@type": "Offer", "price": 35500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8093848-uaz-pickup"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "UAZ Profi", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F08%2F14%2F44%2F30%2F68a3482c-862b-4b64-a24e-7e147953a252%2F59798_LCO81ZpDOSgfkHHqTNWL2A.jpg", "offers": {"@type": "Offer", "price": 23500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10455453-uaz-profi"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "UAZ 390995", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F31%2F15%2F10%2F10%2F4d7a29d6-1fb9-4046-88d8-1ef526ba4769%2F90183_AvSnT8hRV1VOefZ-W_cfgQ.jpg", "offers": {"@type": "Offer", "price": 9800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10815888-uaz-390995"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "UAZ Patriot", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F22%2F33%2F07%2F34173590-d670-4ab0-b633-44b808967a16%2F39478_ADFIKzt6uJ0Ys4z4TuI9HQ.jpg", "offers": {"@type": "Offer", "price": 7100, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10830585-uaz-patriot"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "UAZ 31514", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F07%2F15%2F33%2F06%2Fa1a99e55-2a44-4807-be4d-30eaccfb18cf%2F34225_9YwqIEOsKKnrg_WpuTLZpg.jpg", "offers": {"@type": "Offer", "price": 9600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10833674-uaz-31514"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

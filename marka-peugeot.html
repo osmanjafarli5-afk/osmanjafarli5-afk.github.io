@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Peugeot elanları Bakı — 22 maşın, 2000 ₼-dən", "numberOfItems": 22, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Peugeot Rifter", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F09%2F14%2F27%2F44%2F4d6d5d43-e06d-4e84-ae16-3081d1cf591b%2F63847_eR5xvUZOZ55vVr_SA1XkYQ.jpg", "offers": {"@type": "Offer", "price": 47000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10458009-peugeot-rifter"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Peugeot 408", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F13%2F23%2F26%2F55%2F6cd61fa9-b612-4dd3-b6a7-71dfb63bc4ed%2F63817_E4idxD_pGCw57FTmUApiGw.jpg", "offers": {"@type": "Offer", "price": 36500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10698900-peugeot-408"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Peugeot Partner", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F22%2F11%2F13%2F14%2Facb711ba-dd57-4c63-b53c-e8f11fead23b%2F77950_Nu-12ywSIvs5N92OduoCeA.jpg", "offers": {"@type": "Offer", "price": 43000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10412889-peugeot-partner"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Peugeot Traveller", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F09%2F10%2F38%2F03%2Fc1324c95-2dd8-41a7-aa18-81ff57519e32%2F59452_zw9ruHA75t7RgF5RPI4Suw.jpg", "offers": {"@type": "Offer", "price": 85000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10457366-peugeot-traveller"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Peugeot 405", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F17%2F37%2F07%2F1209e7e7-fba2-4e42-b708-e2b8a71b5932%2F39478_F77NsVVvsrluCHGCoi-9VA.jpg", "offers": {"@type": "Offer", "price": 5900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844870-peugeot-405"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Peugeot 405", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F06%2F20%2F09%2F19%2F76cad562-deb2-4838-b877-24c8b3b7ab6f%2F84676_sF4BZpde8BEpWpSh7dC_4Q.jpg", "offers": {"@type": "Offer", "price": 5950, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10832372-peugeot-405"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Peugeot Pars", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F16%2F24%2F49%2Fa8055bef-3848-42e8-a7f9-ba824493238a%2F42481_muQho7GY5_Q6TTOpYWVNqQ.jpg", "offers": {"@type": "Offer", "price": 6500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855015-peugeot-pars"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Peugeot Khazar 406", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F23%2F38%2F43%2Fd7bf33ed-c6c5-4d8c-92d1-e3da3b2432ba%2F39478_wcdQ66e6ZTDMk0nZxueQMg.jpg", "offers": {"@type": "Offer", "price": 8500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10848071-peugeot-khazar-406"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Peugeot Khazar 406", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F13%2F34%2F25%2Ff3888622-8cb9-4a84-959e-381f9d820b8a%2F89801_tjRcfVDocyq9G4QqhLgxng.jpg", "offers": {"@type": "Offer", "price": 9800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851505-peugeot-khazar-406"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Peugeot 301", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F11%2F56%2F21%2Fbbc8f3d9-a7e8-4680-a18c-3a6935086030%2F51757_9YTL6h9PKCGlI_dy_9TbDg.jpg", "offers": {"@type": "Offer", "price": 7000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851195-peugeot-301"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Peugeot 308", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F22%2F20%2F08%2F36%2F566c6269-b501-4e5b-a48b-40caab481ede%2F69244_eDGnTKh0Ob6cSJFVkXjaDQ.jpg", "offers": {"@type": "Offer", "price": 9900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10414213-peugeot-308"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Peugeot Partner", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F26%2F19%2F41%2F53%2F9db1702a-99b2-463d-af70-58c5a6284d2a%2F68124_3SA8aeggIziHetISCUvRiw.jpg", "offers": {"@type": "Offer", "price": 13500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10654263-peugeot-partner"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Peugeot 207", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F04%2F21%2F23%2F76ba934b-e46c-4a51-bcfe-f23c1c3591b1%2F39447_U6rIuuEJGk99a_riOKC-Hg.jpg", "offers": {"@type": "Offer", "price": 9800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10834765-peugeot-207"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Peugeot 307", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F02%2F11%2F28%2F16%2F045d7703-627f-4bad-a362-cad5d2a16ff0%2F72736_DCT8uIep5_PdwiqvRxo1TQ.jpg", "offers": {"@type": "Offer", "price": 8500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10279963-peugeot-307"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "Peugeot 407", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F20%2F37%2F36%2F849184c5-2e4d-4152-acb4-c05df5e6fd34%2F39482_0q00TknWwlsAWh-V8CBulw.jpg", "offers": {"@type": "Offer", "price": 7500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10836389-peugeot-407"}}}, {"@type": "ListItem", "position": 16, "item": {"@type": "Product", "name": "Peugeot 307", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F21%2F14%2F03%2F01%2Fd5562d1e-5584-4122-a890-4845372acc91%2F87256_FvhijeFUqkbCV1hUBZjFog.jpg", "offers": {"@type": "Offer", "price": 2000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10792396-peugeot-307"}}}, {"@type": "ListItem", "position": 17, "item": {"@type": "Product", "name": "Peugeot 405", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F27%2F17%2F48%2F57%2Ff242f79e-ecf2-4b04-8a9c-ba0d9a51009c%2F40068_b-G-9elbL7NDcFTJBac0RA.jpg", "offers": {"@type": "Offer", "price": 3000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10348592-peugeot-405"}}}, {"@type": "ListItem", "position": 18, "item": {"@type": "Product", "name": "Peugeot Partner Tepee", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F02%2F08%2F19%2F48%2F1e77ebf2-a26c-4b9c-a4b3-604b7495fd67%2F60841_fP2ZXO4QdPItnmGXIoJiFw.jpg", "offers": {"@type": "Offer", "price": 3100, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10820486-peugeot-partner-tepee"}}}, {"@type": "ListItem", "position": 19, "item": {"@type": "Product", "name": "Peugeot 206", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F27%2F12%2F57%2F20%2Fe5fc5fc5-eb76-4066-a8bf-38816b132440%2F83227_pe8Uu0c8xxWvqaaTJDvG2A.jpg", "offers": {"@type": "Offer", "price": 4400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10806437-peugeot-206"}}}, {"@type": "ListItem", "position": 20, "item": {"@type": "Product", "name": "Peugeot 407", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F02%2F10%2F56%2F10%2Fa8cc481e-6162-430e-a0ba-bcf761fd9667%2F18682_banqc1j7HYGvWuo1EhjVUQ.jpg", "offers": {"@type": "Offer", "price": 5800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10820727-peugeot-407"}}}, {"@type": "ListItem", "position": 21, "item": {"@type": "Product", "name": "Peugeot 307", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F09%2F33%2F08%2F421a3cfa-98e9-4585-aa47-4df31023f9f6%2F39483_qus25XMIquN8pKs-15hnXA.jpg", "offers": {"@type": "Offer", "price": 6500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10845950-peugeot-307"}}}, {"@type": "ListItem", "position": 22, "item": {"@type": "Product", "name": "Peugeot 407", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F15%2F03%2F24%2Fef315e9a-f96d-45c4-a317-bace9f82e1d2%2F67480_j-CF2GWQXHVgZA53w3e54w.jpg", "offers": {"@type": "Offer", "price": 6000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849110-peugeot-407"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

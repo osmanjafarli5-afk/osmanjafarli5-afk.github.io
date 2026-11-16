@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Cadillac elanları Bakı — 14 maşın, 9000 ₼-dən", "numberOfItems": 14, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Cadillac LYRIQ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F17%2F53%2F02%2Fc3a940a1-6254-4bb5-a0f2-ea2edefa6d65%2F39473_cWgkuqxcMsdhOgpuV3e1cg.jpg", "offers": {"@type": "Offer", "price": 85000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10852705-cadillac-lyriq"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F28%2F15%2F34%2F19%2Fbde43b61-cf4c-4102-873f-13ade7bc9a2b%2F93818_JqPBTV8Vj19D_Ig4Hd-iSQ.jpg", "offers": {"@type": "Offer", "price": 224777, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10736386-cadillac-escalade"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F19%2F25%2F44%2F574a152d-9064-46e3-a019-4b0ae58acec0%2F89853_JoxILuxiKXrPY7a_4KVn8w.jpg", "offers": {"@type": "Offer", "price": 195000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10847552-cadillac-escalade"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F20%2F12%2F38%2F04%2F7a87b0ce-9c38-4ae8-9fa7-d1c3cf7284cd%2F2312_-rjBVf4-TnINPi158v37wg.jpg", "offers": {"@type": "Offer", "price": 195160, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10789639-cadillac-escalade"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://cdn4.telesco.pe/file/Btllhv63HF2EPb0s963Jd6v9LJArUKvCvPYO6-uRXlr1KHuwE480I4Oobi02QYdgS59Fixhqqo3pd7AKlMaE853NnlE3BNbnXGmF9HEflOmipZ3EEKeb_RamzLvk8l6m2Jr25BE-GH7mjFIE30HIIKxvnztgfVG26qkwoOSOxXqG0P-Mqa6vMQSrJyDx0iLvC-nus-SGpi9Pyf7OXCN3nkwXHwVH5FQMVaGBsVEVGu5vEehDb5xA8XCs-MzpcJyNLPBwFwEcO26qNmChNdel7KYX_JPTHMSE97u7bRkwkrAsTnklyEf3QUuWQoDk1AxGefDeauWrY4V5ibKi_CTXAQ.jpg", "offers": {"@type": "Offer", "price": 213000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10694083"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F02%2F16%2F20%2F49%2F3c01f8f0-26d2-4040-8a87-ed5191cce84e%2F63771_EzBMKXQqU7O9sPpctnLGJg.jpg", "offers": {"@type": "Offer", "price": 215000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10670240-cadillac-escalade"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F02%2F08%2F42%2F00%2Fd0fcc82f-f3f2-4329-a5cf-550789d40036%2F21879_A0OdbRFNJJZanwcfMxkV1w.jpg", "offers": {"@type": "Offer", "price": 225000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10820494-cadillac-escalade"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F31%2F16%2F01%2F20%2F69f9b44f-003a-40a0-897f-802ed1460ece%2F64455_trIFMno6okqX4Ug2lO8gWw.jpg", "offers": {"@type": "Offer", "price": 212500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10588211-cadillac-escalade"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F10%2F14%2F29%2F32%2Fd71237ec-b1a7-4224-a79f-41a2f85c1180%2F72325_JLaarJGyPVmnNJiUYKpYHg.jpg", "offers": {"@type": "Offer", "price": 188888, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10677115-cadillac-escalade"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F24%2F15%2F30%2F57%2Fc6dbec9d-5e5e-4c3c-a51c-add572e121f1%2F59360_qQoNkbaSUIA4ZGGCI2-jcg.jpg", "offers": {"@type": "Offer", "price": 122400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10723224-cadillac-escalade"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F24%2F12%2F26%2F35%2Fb012da47-8b7d-4aad-acb2-f00e1bff9082%2F71683_6s26I4e2bKEA8nu31BgG7g.jpg", "offers": {"@type": "Offer", "price": 99450, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10725672-cadillac-escalade"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Cadillac SRX", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F09%2F00%2F40%2Ff871c13a-9be9-4a20-acaf-93f054131463%2F61271_RkXRs_7iJDiAjX3JCSPlPA.jpg", "offers": {"@type": "Offer", "price": 10800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843653-cadillac-srx"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Cadillac Escalade", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F16%2F15%2F18%2F07%2F7be5d8a7-b29d-46b4-9bcd-029a0bae7205%2F32424_nQrpNQ4dJeT2ouCNbCTLkQ.jpg", "offers": {"@type": "Offer", "price": 33700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10705511-cadillac-escalade"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Cadillac BLS", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F25%2F21%2F58%2F58%2F42195c36-2aad-4f75-b6d6-5043bc24a2db%2F87141_pL5Nx4bvyz4Ms4tV5ilo0A.jpg", "offers": {"@type": "Offer", "price": 9000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10652278-cadillac-bls"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

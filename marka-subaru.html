@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Subaru elanları Bakı — 15 maşın, 6500 ₼-dən", "numberOfItems": 15, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Subaru XV", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F03%2F16%2F14%2F11%2F203ccdb8-7c7d-4fe0-8197-815d6542d65e%2F13219_oddG6CbnAY55Vz2LPnf_KA.jpg", "offers": {"@type": "Offer", "price": 23000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10824529-subaru-xv"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Subaru Forester", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F19%2F37%2F27%2Fdf9af8d9-9f9a-42b9-a3dd-22b072fe92a2%2F38977_EDbZ8qomCInAvAAe0FMc_Q.jpg", "offers": {"@type": "Offer", "price": 32800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10819663-subaru-forester"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Subaru Impreza", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F01%2F11%2F13%2F42%2F24%2F3cea7149-ec11-44d6-8a42-b2f79d06cc84%2F69368_MqZLmzZX_q4H-_ZzVIVkHA.jpg", "offers": {"@type": "Offer", "price": 8500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10064181-subaru-impreza"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Subaru Legacy", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F17%2F00%2F14%2Fc3f49324-5714-4339-9d18-d2d9d26b62dc%2F39478_BszLRqKLhY2vQeAZDKoJwQ.jpg", "offers": {"@type": "Offer", "price": 11800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10852439-subaru-legacy"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Subaru Forester", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F09%2F48%2F56%2F6ef599c2-a8d5-4221-a869-741086912833%2F67464_2ooZ8Io_j24eokupklp3yQ.jpg", "offers": {"@type": "Offer", "price": 13900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853962-subaru-forester"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Subaru Tribeca", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F13%2F46%2F47%2F40f216c3-1bb3-4f49-8aad-d610c9944725%2F54390_oXuOL4H5zODoFIBi422_rg.jpg", "offers": {"@type": "Offer", "price": 9000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10829165-subaru-tribeca"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Subaru Impreza", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F09%2F16%2F44%2F58%2Fca95bee4-cb71-4ad6-a530-074afd024764%2F67455_xtw5jlw46GguIVx7QTimKA.jpg", "offers": {"@type": "Offer", "price": 9100, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10837933-subaru-impreza"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Subaru Forester", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F14%2F16%2F42%2F17fd7427-5ace-4309-b04a-22c332189010%2F2391_Gn8jJTUWXZgkKrTrkgnb4Q.jpg", "offers": {"@type": "Offer", "price": 10000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844249-subaru-forester"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Subaru Impreza", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F03%2F08%2F45%2F41%2F1932a279-fb95-4ee1-b7ef-cc3876e2de82%2F77963_lp3Q4e7nHfEkeznbDXsc6A.jpg", "offers": {"@type": "Offer", "price": 7200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10595261-subaru-impreza"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Subaru Impreza", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F29%2F13%2F45%2F54%2F996fab6a-ab09-4ec5-8a88-f99090f9fc5d%2F90189_HQxnDz_dmq3StLx95uylsg.jpg", "offers": {"@type": "Offer", "price": 7700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10811546-subaru-impreza"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Subaru Impreza", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F24%2F02%2F44%2F25%2Fe81eb14a-7d68-4551-bab4-0eb064b162d3%2F85515_8lho1qlmSOntXUvSgaQOXg.jpg", "offers": {"@type": "Offer", "price": 9900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10798651-subaru-impreza"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Subaru Outback", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F10%2F20%2F28%2F53%2F9141b724-478f-434d-a102-0ca126597129%2F39458_6h7j-0Z4DCVC74AibMJEag.jpg", "offers": {"@type": "Offer", "price": 10000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10840854-subaru-outback"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Subaru Forester", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F31%2F20%2F55%2F25%2Fd980e341-e283-4ebf-8ad9-887c8910754e%2F65696_LiziW5h8dwihSd9KRSta_A.jpg", "offers": {"@type": "Offer", "price": 11500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10816965-subaru-forester"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Subaru Forester", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F11%2F24%2F14%2Fd234ab1f-b719-4720-ae54-0b97170f243d%2F36275_oXkNA_jnHkaMCgWULzA6ZQ.jpg", "offers": {"@type": "Offer", "price": 6500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10854135-subaru-forester"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "Subaru B9 Tribeca", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F13%2F37%2F39%2F06f21c36-d6cc-41cb-93b4-76612a027b15%2F37013_U5NUsyar-aR2_2rPEP2Liw.jpg", "offers": {"@type": "Offer", "price": 8999, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10854508-subaru-b9-tribeca"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

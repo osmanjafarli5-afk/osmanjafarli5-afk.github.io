@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "M-Hero elanları Bakı — 9 maşın, 99500 ₼-dən", "numberOfItems": 9, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "M-Hero 817", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F04%2F16%2F19%2F41%2Fb3b25196-34d8-45a5-baf5-7ae63f290c07%2F72294_zdcgq-tD8L2cDqAO3dXtUg.jpg", "offers": {"@type": "Offer", "price": 99500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10675248-m-hero-817"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "M-Hero 817", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F16%2F01%2F25%2F745fe145-589b-4002-afb7-645bc6b590b4%2F60579_xZU0sod4kwG43-FLAzQJkw.jpg", "offers": {"@type": "Offer", "price": 99800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10789483-m-hero-817"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "M-Hero 817", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F08%2F17%2F54%2F36%2Fd15fb82d-5b2f-4427-a150-ddf4150207c6%2F40004_QhpPOpdfSG143eeFPTMV0Q.jpg", "offers": {"@type": "Offer", "price": 99900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10297092-m-hero-817"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "M-Hero 917", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F07%2F09%2F14%2F05%2Fbe39068a-cffe-4415-b6f5-4239feac7fb9%2F59549_2j7tjROX1weWYUjblW5siA.jpg", "offers": {"@type": "Offer", "price": 142460, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9368225-m-hero-917"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "M-Hero 917", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F05%2F26%2F17%2F55%2F14%2Ffdd1a412-737c-45c9-9349-90ea35288b55%2F92313_wLbwyJGJi75X1LikQGRJwg.jpg", "offers": {"@type": "Offer", "price": 184790, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9490032-m-hero-917"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "M-Hero 917", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F05%2F06%2F18%2F54%2F38%2Fb5ad7522-4cbf-4f6d-bb5c-4a516a5bb261%2F43897_-Q4P3xohzGoNtBQd6dffGw.jpg", "offers": {"@type": "Offer", "price": 185300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9366597-m-hero-917"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "M-Hero 917", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F28%2F20%2F59%2F39%2F6f99bab2-3b6c-45e9-b567-3131675f0aae%2F48841_OcwXak7_eH54nmX4qYo5lg.jpg", "offers": {"@type": "Offer", "price": 166666, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10477570-m-hero-917"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "M-Hero 917", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F18%2F20%2F26%2F88e4d836-dd21-4718-9ad9-3659544299c3%2F1959_qmF-d4KlVYj2eKRIqrSPKg.jpg", "offers": {"@type": "Offer", "price": 193300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10836115-m-hero-917"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "M-Hero 917", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F11%2F28%2F32%2F915f02d8-cf1d-437a-86e0-3ea44a7f7b4c%2F90175_ppW21F4nXeeLhaFOG5AJTA.jpg", "offers": {"@type": "Offer", "price": 156000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10817700-m-hero-917"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

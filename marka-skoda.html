@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Skoda elanları Bakı — 24 maşın, 6900 ₼-dən", "numberOfItems": 24, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Skoda Superb", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F15%2F11%2F02%2F13%2Fb473639a-2c4f-405d-a157-3480507cb174%2F16442_t10Nom_4OdyiF_K7mCSYIQ.jpg", "offers": {"@type": "Offer", "price": 69500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10625378-skoda-superb"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Skoda Kamiq", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F03%2F10%2F06%2F56%2F999068e8-c723-469c-a8d3-82551cbcb9d3%2F75506_w5KP_iuONR55fixBnZmWEQ.jpg", "offers": {"@type": "Offer", "price": 28900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10747359-skoda-kamiq"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Skoda Kamiq", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F12%2F12%2F15%2F55%2F45%2Ff0013447-e7d2-432c-9785-07813ed9cb01%2F98730_-DNkCvgpiDZB2MKGEmgwoQ.jpg", "offers": {"@type": "Offer", "price": 35900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9996986-skoda-kamiq"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Skoda Kodiaq", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F26%2F17%2F02%2F48%2Fd21d6290-73e8-439c-9d6e-322f274ce1be%2F82677_NMCXt4AfvYFCgYw63K60Ow.jpg", "offers": {"@type": "Offer", "price": 36500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10804754-skoda-kodiaq"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Skoda Superb", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F16%2F51%2F45%2F2da693d5-47bc-4c83-8925-6098e8080c91%2F34231_EMcmw9GdKvA4hvw-G4Cn_g.jpg", "offers": {"@type": "Offer", "price": 41000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10847103-skoda-superb"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Skoda Kodiaq", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F02%2F09%2F34%2F44%2F8024484b-759f-43d8-a4d0-f1fe70de9651%2F7223_k-C9DhkN1Dknnec5yYR7fw.jpg", "offers": {"@type": "Offer", "price": 71500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10820560-skoda-kodiaq"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Skoda Rapid", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F11%2F24%2F13%2F3efe792c-8aa0-4c74-ade0-cb1b2f3db15c%2F3817_5_MVyQJrmVk-VNSyO_G9Tg.jpg", "offers": {"@type": "Offer", "price": 25000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10848474-skoda-rapid"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Skoda Octavia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F02%2F00%2F49%2F49%2Fdee24f5b-5bec-470e-a1ce-0a4125dbf557%2F18668_cQqrGVDS5i7xWGEOevwlJw.jpg", "offers": {"@type": "Offer", "price": 29900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10820374-skoda-octavia"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Skoda Kodiaq", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F17%2F21%2F47%2F45%2F18676482-4c06-4187-95c3-9cf213ae4ef9%2F78400_nvBhM5502ADYZQAis-TlLw.jpg", "offers": {"@type": "Offer", "price": 32800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10782902-skoda-kodiaq"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Skoda Rapid", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F04%2F11%2F54%2F09%2F565f912a-6b03-4948-bc59-d049dcddf107%2F84610_2P5pLOhaneIfx0wl-hOLYQ.jpg", "offers": {"@type": "Offer", "price": 17200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10826360-skoda-rapid"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Skoda Rapid", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F02%2F14%2F14%2F37%2F0c1512ee-7786-4624-a41a-dbe7b6f90165%2F72351_eT6DOvInewhh7_OO_A3CtA.jpg", "offers": {"@type": "Offer", "price": 19500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10639032-skoda-rapid"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Skoda Octavia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F15%2F16%2F05%2F41%2F0490df2e-06b3-44fc-85cf-f42c33747e91%2F42668_WucGyyj6lQnSXducgofG2g.jpg", "offers": {"@type": "Offer", "price": 25000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10777461-skoda-octavia"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Skoda Superb", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F19%2F13%2F20%2F50%2F2b2d4640-13e1-4e69-a925-9cc06c1e2190%2F66416_v4ZqJx54EdGxzTimO3GYjQ.jpg", "offers": {"@type": "Offer", "price": 39000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10712472-skoda-superb"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Skoda Rapid", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F16%2F48%2F25%2Faed64258-9252-4263-92ce-e42fbc9afd0d%2F1349_qtQbAbXiGXi6p_ZB6mL-gg.jpg", "offers": {"@type": "Offer", "price": 8500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849443-skoda-rapid"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "Skoda Rapid", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F07%2F16%2F29%2F52%2F8c799842-3716-440e-bc2f-21a6d0f5fb21%2F53496_UUb87Td6N3FvFsq78WevMg.jpg", "offers": {"@type": "Offer", "price": 18900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10833893-skoda-rapid"}}}, {"@type": "ListItem", "position": 16, "item": {"@type": "Product", "name": "Skoda Rapid", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F20%2F18%2F29%2F03%2Fefe21de6-c38e-4e75-8a19-db6c51372704%2F2753_Wca3zjZOS93l8g4CzV3-yQ.jpg", "offers": {"@type": "Offer", "price": 22500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10790797-skoda-rapid"}}}, {"@type": "ListItem", "position": 17, "item": {"@type": "Product", "name": "Skoda Octavia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F14%2F07%2F43%2F42%2F8bc9cc61-aabb-4f41-a6b7-aa52d3dc69ec%2F58181_8-BZPhsxJgX-8q66jDypFQ.jpg", "offers": {"@type": "Offer", "price": 18800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10773720-skoda-octavia"}}}, {"@type": "ListItem", "position": 18, "item": {"@type": "Product", "name": "Skoda Octavia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F14%2F45%2F30%2Fadd3754f-6255-402c-af7e-692f10f22d6c%2F89851_tOBGb1Y5jBxj8k4ybLiwgw.jpg", "offers": {"@type": "Offer", "price": 9500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844335-skoda-octavia"}}}, {"@type": "ListItem", "position": 19, "item": {"@type": "Product", "name": "Skoda Yeti", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F18%2F54%2F32%2F21ebcdcb-829d-49f4-abce-e7b1ec77ef9b%2F60579_2vf1ETgsD80OcTCBg1_YdQ.jpg", "offers": {"@type": "Offer", "price": 10200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10852911-skoda-yeti"}}}, {"@type": "ListItem", "position": 20, "item": {"@type": "Product", "name": "Skoda Fabia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F20%2F07%2F40%2Fbf1e9302-6f39-43b5-9058-7e4a385bbb3a%2F34229_ykyTr99cvy9DZnSN84LOVQ.jpg", "offers": {"@type": "Offer", "price": 10000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853087-skoda-fabia"}}}, {"@type": "ListItem", "position": 21, "item": {"@type": "Product", "name": "Skoda Fabia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F04%2F12%2F24%2F53%2F735d54ca-be59-42b5-8918-05e9ef546bc0%2F67450_iLTC91iGYd5eVGhR-ukw5w.jpg", "offers": {"@type": "Offer", "price": 11000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10826375-skoda-fabia"}}}, {"@type": "ListItem", "position": 22, "item": {"@type": "Product", "name": "Skoda Octavia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F22%2F51%2F31%2Fcb62421a-e554-4417-b5d2-b6075c39978c%2F89820_HvMm8caQHdeZRISznuwn9Q.jpg", "offers": {"@type": "Offer", "price": 11900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853589-skoda-octavia"}}}, {"@type": "ListItem", "position": 23, "item": {"@type": "Product", "name": "Skoda Fabia", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F21%2F12%2F06%2F46%2F5285fca5-3721-4468-a1a6-e627b41ee0e7%2F68105_aXHNtqBqdteipNqG8Qk90w.jpg", "offers": {"@type": "Offer", "price": 6900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10640592-skoda-fabia"}}}, {"@type": "ListItem", "position": 24, "item": {"@type": "Product", "name": "Skoda Roomster", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F16%2F11%2F08%2F09%2Fada5d20e-edbb-4358-99cf-123e95281143%2F70710_KBPdQwW9WwEhxqEZHILIWQ.jpg", "offers": {"@type": "Offer", "price": 8000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10704812-skoda-roomster"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

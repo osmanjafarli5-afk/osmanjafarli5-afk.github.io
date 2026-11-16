@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Baic elanları Bakı — 20 maşın, 7000 ₼-dən", "numberOfItems": 20, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Baic X7", "image": "https://turbo.azstatic.com/uploads/f460x343/2022%2F08%2F30%2F14%2F28%2F49%2F313a2376-c784-4ba3-9e3b-c7015206e982%2F18934_i8pWuYbp_9-8hTt4D56kMg.jpg", "offers": {"@type": "Offer", "price": 39900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/6584332-baic-x7"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Baic X55 II", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F15%2F02%2F15%2F0a8bfe2e-8197-46ac-80d8-b1d81c5e51e5%2F28918_1bA3KYEDrLrnk1gL85MiRQ.jpg", "offers": {"@type": "Offer", "price": 63225, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10829406-baic-x55-ii"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Baic BJ40", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F31%2F15%2F31%2F38%2F71677172-13f0-4ec4-b10f-931a5296520c%2F83077_KX3m286bdllGOMOA62no1A.jpg", "offers": {"@type": "Offer", "price": 70000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10815961-baic-bj40"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Baic BJ40", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F17%2F17%2F43%2F48%2Fc00449a0-a712-4158-81a0-497ce8153569%2F12543_kbgZH7w-rbCXDG8wv28CDg.jpg", "offers": {"@type": "Offer", "price": 73500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10631601-baic-bj40"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Baic BJ30", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F18%2F17%2F43%2F46%2Fdbb13923-dc2f-47dc-87de-41ea257815c0%2F24745_fYCSXgU41974KPKRBMdrPA.jpg", "offers": {"@type": "Offer", "price": 43900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10167769-baic-bj30"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Baic X7", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F12%2F04%2F17%2F47%2F29%2Fc19f7650-08dc-40f6-af9a-6f677be1132d%2F58594_MAqwvxpPPBO-sdkH_Ic6cQ.jpg", "offers": {"@type": "Offer", "price": 43900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9980289-baic-x7"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Baic BJ40", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F29%2F14%2F48%2F39%2F650edc41-794e-4327-960f-fd436788d8d5%2F35445__hXePfdfVXew8V2A20zS4g.jpg", "offers": {"@type": "Offer", "price": 73500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10739003-baic-bj40"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Baic X7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F27%2F12%2F24%2F18%2F9919c970-8003-4784-957a-21576f9a878e%2F96636_ue9WszxwIX6LnKNy8DX0VQ.jpg", "offers": {"@type": "Offer", "price": 31900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10806349-baic-x7"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Baic M60", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F24%2F10%2F55%2F51%2F57711cec-c101-4a42-9c55-1bc3644fd0f9%2F30625_xIcRHiS4ZgYu-fsEQYpEJw.jpg", "offers": {"@type": "Offer", "price": 18900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10339098-baic-m60"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Baic Senova X55", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F13%2F13%2F50%2F58%2Fa9f6bf21-d928-495c-a98f-f2dde860643b%2F37067_KKyZOO-lrqAUBw_EHZ-uBA.jpg", "offers": {"@type": "Offer", "price": 22000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10771769-baic-senova-x55"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Baic M60", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F17%2F47%2F10%2Fa615e04b-f410-4c48-9f6a-55fb2a05c830%2F47790_3a5-LvdmH1AQsN2uhghpOg.jpg", "offers": {"@type": "Offer", "price": 7000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844898-baic-m60"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "Baic Senova D50", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F01%2F17%2F44%2F8c8f4934-0f70-4cf1-bc2f-d482d22bac0b%2F73366_cinKd25HYgmlWyi_5q-aWA.jpg", "offers": {"@type": "Offer", "price": 13800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843565-baic-senova-d50"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "Baic M60", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F12%2F45%2F46%2F499e6f58-e5f6-4166-b35f-a4dbef9863e3%2F66598_caUXThvch56dxPtjs6g9NQ.jpg", "offers": {"@type": "Offer", "price": 19500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851365-baic-m60"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "Baic X35", "image": null, "offers": {"@type": "Offer", "price": 20000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10735452"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "Baic A115", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F03%2F21%2F58%2F42%2Fef34de2f-2790-486d-8892-90d3e9b2c130%2F39466_wrv_fgbUYidoETpA2tOGfw.jpg", "offers": {"@type": "Offer", "price": 7000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10806630-baic-a115"}}}, {"@type": "ListItem", "position": 16, "item": {"@type": "Product", "name": "Baic A115", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F14%2F14%2F23%2F12%2F6a482bfa-8967-4b96-a182-24f65b5091c6%2F37107_s-g3qdPh4ZzIf247vvP38g.jpg", "offers": {"@type": "Offer", "price": 7200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10774587-baic-a115"}}}, {"@type": "ListItem", "position": 17, "item": {"@type": "Product", "name": "Baic A115", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F08%2F18%2F14%2F48%2F97f85afd-b7ca-47fb-b59d-732c6c852b6d%2F71676_8Euuk5jcvXboaTOgMdp9Gg.jpg", "offers": {"@type": "Offer", "price": 9200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10836107-baic-a115"}}}, {"@type": "ListItem", "position": 18, "item": {"@type": "Product", "name": "Baic A115", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F25%2F20%2F05%2F01%2F8adf3106-c79f-4bc3-93ac-6c7a8470b2c7%2F69450_4U9imfFXLKIcG8WdBla4Fw.jpg", "offers": {"@type": "Offer", "price": 9300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10802923-baic-a115"}}}, {"@type": "ListItem", "position": 19, "item": {"@type": "Product", "name": "Baic A115", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F10%2F45%2F42%2F89380208-82a9-4ec1-b47d-6679d6f00138%2F67459_XXP2kX43ed8gGr5jLI8uNg.jpg", "offers": {"@type": "Offer", "price": 9800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843777-baic-a115"}}}, {"@type": "ListItem", "position": 20, "item": {"@type": "Product", "name": "Baic A115", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F16%2F19%2F40%2F2e111241-bd10-4dd6-94a2-e533eced1d81%2F40318_lfGgmoX05jPhGyIy7X9THQ.jpg", "offers": {"@type": "Offer", "price": 10700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10852227-baic-a115"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Jaguar elanları Bakı — 11 maşın, 21800 ₼-dən", "numberOfItems": 11, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Jaguar E-Pace", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F10%2F12%2F30%2F21%2F959a7e47-804b-4d1c-8552-3434dd959f65%2F60590_6wolryq6ghvdge-9BTpuiQ.jpg", "offers": {"@type": "Offer", "price": 39800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10556747-jaguar-e-pace"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Jaguar F-Pace", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F03%2F15%2F27%2F33%2Fa7321dee-4d94-4bef-a8ca-61ea31e4f96e%2F23449_pEk-dqFjNlk669-sl9Vg2Q.jpg", "offers": {"@type": "Offer", "price": 50150, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10443108-jaguar-f-pace"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Jaguar F-Pace R", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F25%2F10%2F56%2F37%2F2fbfa724-d60e-49e7-9044-0f636577407b%2F59363_srRw2z9X6sjiJ3MaBwk_Fw.jpg", "offers": {"@type": "Offer", "price": 39500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10727844-jaguar-f-pace-r"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Jaguar XF", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F10%2F22%2F14%2F40%2F48%2F990b0f12-d585-4cd7-ad7b-1ee31ee3d6cb%2F89649_IdiJWhN4F5E3SSESYyyqZg.jpg", "offers": {"@type": "Offer", "price": 64500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9871481-jaguar-xf"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Jaguar F-Type", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F07%2F14%2F03%2F17%2Fe78cdff3-5d12-4055-ab2e-40ef3a97813d%2F88511_IEmrAQIIJ8aGIfDjuVqM8A.jpg", "offers": {"@type": "Offer", "price": 84900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10606208-jaguar-f-type"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Jaguar F-Pace", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F08%2F21%2F31%2F10%2F0444f42b-86da-47bc-921d-7775c3fb27db%2F43857_Xx9D8qffs4CsCFLMb1d1ww.jpg", "offers": {"@type": "Offer", "price": 36000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10378109-jaguar-f-pace"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Jaguar F-Pace", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F19%2F00%2F13%2F2bd1b9be-6964-4866-b252-5df1e89d1621%2F6996_k5PnfUOWh6XgqwbHS6J_PA.jpg", "offers": {"@type": "Offer", "price": 39700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10819546-jaguar-f-pace"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Jaguar XE", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F25%2F22%2F02%2F35%2Faf2cd4db-285c-4e05-98e6-41b22a46140b%2F69157_JfVFQjhthwYtZ-v2iFhK_A.jpg", "offers": {"@type": "Offer", "price": 21800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10803161-jaguar-xe"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Jaguar XF", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F24%2F22%2F22%2F24%2F14863d58-56a9-4641-b555-fbb037f6bc41%2F87178_HHL13GNlVuGa5rhOjSnXdw.jpg", "offers": {"@type": "Offer", "price": 39100, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10649932-jaguar-xf"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Jaguar F-Type", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F19%2F30%2F45%2F468a51f0-9d35-441f-b7ca-58bd45044f5b%2F39484_evrob-zzs5NYmjwiOkiBfg.jpg", "offers": {"@type": "Offer", "price": 51000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10041381-jaguar-f-type"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "Jaguar XKR-S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F20%2F11%2F30%2F16%2Fc6269159-2ae2-49f1-a8ac-1835b5d30b84%2F85535_QqJE3fvXYOSF2swti7bmiQ.jpg", "offers": {"@type": "Offer", "price": 88400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10789477-jaguar-xkr-s"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>

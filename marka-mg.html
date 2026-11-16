@@ -207,6 +207,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 @media (prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
 }
+.btn-sup{background:#fff;border:1px solid #f0c9d2;color:#d6336c;font-weight:700}
+.btn-sup:hover{background:#fff5f8;border-color:#e9a7b8;transform:translateY(-1px)}
+.sup-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:18px;z-index:200}
+.sup-wrap.on{display:flex}
+.sup-card{position:relative;background:#fff;border-radius:18px;padding:26px 22px 20px;max-width:420px;
+ width:100%;box-shadow:0 24px 60px rgba(15,23,42,.28);animation:rise .28s var(--ease) both}
+.sup-card h3{margin:0 0 8px;font-size:19px}
+.sup-card p{margin:0 0 16px;color:var(--dim);font-size:14px;line-height:1.5}
+.sup-x{position:absolute;top:12px;right:12px;border:0;background:#f1f4f9;width:32px;height:32px;
+ border-radius:50%;cursor:pointer;font-size:14px;color:#5a6675}
+.sup-row{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid var(--line);
+ border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.sup-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);width:100%}
+.sup-num{font-size:19px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.sup-copy{margin-left:auto;padding:8px 14px;font-size:13px}
+.sup-note{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.sup-note a{color:var(--acc);font-weight:600}
 </style>
 </head>
 <body>
@@ -223,6 +241,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
   </div>
   <div class="stats">
@@ -481,6 +500,23 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- destek penceresi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
+      x=document.getElementById('supX'), c=document.getElementById('supCopy'),
+      n=document.getElementById('supNum');
+  if(!b||!w) return;
+  function close(){ w.classList.remove('on'); w.setAttribute('aria-hidden','true'); }
+  b.addEventListener('click', function(){ w.classList.add('on'); w.setAttribute('aria-hidden','false'); });
+  if(x) x.addEventListener('click', close);
+  w.addEventListener('click', function(e){ if(e.target===w) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  if(c&&n) c.addEventListener('click', function(){
+    var t=n.textContent.replace(/\s/g,'');
+    if(navigator.clipboard) navigator.clipboard.writeText(t);
+    c.textContent='Kopyalandı ✓'; setTimeout(function(){ c.textContent='Kopyala'; }, 1600);
+  });
+});
 // --- PWA: service worker qeydiyyati ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
@@ -505,5 +541,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "MG elanları Bakı — 15 maşın, 4800 ₼-dən", "numberOfItems": 15, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "MG 5", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F05%2F17%2F53%2F58%2F02c012ab-5653-440a-b7e4-77d752cd65c6%2F91577_I2dYaZnUJFyliRFhw3TJgw.jpg", "offers": {"@type": "Offer", "price": 24700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10752995-mg-5"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "MG 5", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F19%2F13%2F57%2F32%2F4e42ba69-ebfa-468c-808c-153c9de12291%2F90614_GJAtkcWuNjg0xdrNQR2gyQ.jpg", "offers": {"@type": "Offer", "price": 24800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10712550-mg-5"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "MG 5", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F01%2F14%2F52%2F21%2Fa70d6f06-b99e-4388-a8eb-dbb0bc754ca3%2F74653_Qecd2Lfsf2_ggJ3XGh-rrw.jpg", "offers": {"@type": "Offer", "price": 24900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10743785-mg-5"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "MG ZS", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F01%2F14%2F18%2F54%2F32%2F94814de0-5e51-427b-9e78-3e30e87194cb%2F69480_O45sCOnADZFVMG_PsEXe_g.jpg", "offers": {"@type": "Offer", "price": 28800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8484781-mg-zs"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "MG 7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F17%2F08%2F13%2Fe2a45794-57b4-4a48-9be9-9705aecc3be9%2F67505_9GNNppmVDwbB0PTi-6hDZg.jpg", "offers": {"@type": "Offer", "price": 44000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849495-mg-7"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "MG Marvel R", "image": "https://turbo.azstatic.com/uploads/f460x343/2024%2F04%2F01%2F13%2F54%2F06%2F4c92747f-48d0-4996-9ec2-cb1640301602%2F32444_OikwS_ZIYofkU92pw8zouQ.jpg", "offers": {"@type": "Offer", "price": 63200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8201060-mg-marvel-r"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "MG 4 EV", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F13%2F54%2F53%2F43da21fe-1b5b-4077-b536-d0e2df2bdd51%2F36001_dB_8uM30pJfBSNeEwbt79g.jpg", "offers": {"@type": "Offer", "price": 26900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10854564-mg-4-ev"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "MG 4 EV", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F01%2F14%2F18%2F41%2F54%2F272ef8b1-106e-43ff-802e-ece2701392f6%2F69385_YRJijNrCn6ywi3848WP1Xw.jpg", "offers": {"@type": "Offer", "price": 36200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/7562095-mg-4-ev"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "MG ZS", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F21%2F47%2F19%2Fdfc36fa7-415f-4fa8-89de-f5bff3ffe6d0%2F9677_8KW0lRJHIFeDBUKHc71u5Q.jpg", "offers": {"@type": "Offer", "price": 22800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843251-mg-zs"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "MG 6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F14%2F47%2F43%2F576eda0f-b46d-41a9-8f06-c5164225a96e%2F35096_f5kASjHaGNPUlscJ6Ekcbg.jpg", "offers": {"@type": "Offer", "price": 9000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849122-mg-6"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "MG 3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F01%2F34%2F14%2F64857283-3829-48a6-ad75-e96b73d03e27%2F67459_649a8Q-NSuwwFMQvU1ij6A.jpg", "offers": {"@type": "Offer", "price": 4800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10845816-mg-3"}}}, {"@type": "ListItem", "position": 12, "item": {"@type": "Product", "name": "MG 3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F09%2F11%2F46%2Fdc3dc5e2-e139-4a6c-9901-dc952ac70ac0%2F86643_5DR6sHPkcWWMr8H21NyDgA.jpg", "offers": {"@type": "Offer", "price": 6300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843667-mg-3"}}}, {"@type": "ListItem", "position": 13, "item": {"@type": "Product", "name": "MG 6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F14%2F33%2F53%2Fb9a2012f-1aa4-488b-b59a-cc9bd17ba03b%2F47790_oncwtCdC1I2hmKNK7AtH7A.jpg", "offers": {"@type": "Offer", "price": 8500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844319-mg-6"}}}, {"@type": "ListItem", "position": 14, "item": {"@type": "Product", "name": "MG 350", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F17%2F27%2F26%2F7b25e5ee-5dd6-4b97-991f-81cbc2c8f490%2F73936_e9J6JOamv4GQ51g7Yd6SYA.jpg", "offers": {"@type": "Offer", "price": 9000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844843-mg-350"}}}, {"@type": "ListItem", "position": 15, "item": {"@type": "Product", "name": "MG 350", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F11%2F30%2F13%2Fa686b948-fb55-4dd9-b89d-e57b7a81ef36%2F39448_n1HaWurjyU0pf6mN3M6p6A.jpg", "offers": {"@type": "Offer", "price": 10300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10841715-mg-350"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
+<div class="sup-wrap" id="supWrap" aria-hidden="true">
+  <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
+    <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
+    <h3>❤️ Sayta dəstək ol</h3>
+    <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
+    <div class="sup-row">
+      <div class="sup-label">Kart nömrəsi</div>
+      <div class="sup-num" id="supNum">5315 9921 5789 0523</div>
+      <button class="btn btn-primary sup-copy" id="supCopy">Kopyala</button>
+    </div>
+    <div class="sup-note">Ad: <b>Osman Cəfərli</b> · Bank: <b>Dost Bank</b></div>
+    <div class="sup-note">Köçürmədən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota yaz</a> — adınızı saytda "Dəstəkçilər" siyahısında qeyd edək.</div>
+  </div>
+</div>
 </body>
 </html>
