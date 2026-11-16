@@ -121,6 +121,8 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
  transition:transform .38s var(--ease),box-shadow .38s var(--ease),border-color .38s var(--ease);
  animation:rise .5s var(--ease) both;
  will-change:transform;
+ content-visibility:auto;
+ contain-intrinsic-size:300px;
 }
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .card:hover{transform:translateY(-6px);box-shadow:var(--shadow2);border-color:#dbe3f0}
@@ -249,6 +251,9 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
       </select>
     </div>
     <div class="grid" id="grid"></div>
+    <div style="text-align:center;margin:26px 0 10px">
+      <button class="btn btn-ghost" id="more" style="display:none">Daha çox göstər ↓</button>
+    </div>
     <div class="empty" id="empty" style="display:none">
       <b>Uyğun elan tapılmadı</b>
       Filtrləri dəyişdirin və ya axtarışı qısaldın.
@@ -313,7 +318,10 @@ if (!bodies.length) document.getElementById('bodyGroup').style.display = 'none';
 
 function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
-function render(){
+let LIMIT = 24;
+
+function render(reset){
+  if (reset !== false) LIMIT = 24;
   const term = q.value.trim().toLowerCase();
   const lo = pmin.value ? +pmin.value : 0;
   const hi = pmax.value ? +pmax.value :
@@ -338,7 +346,7 @@ function render(){
   shown.textContent = rows.length;
   empty.style.display = rows.length ? 'none' : 'block';
 
-  grid.innerHTML = rows.slice(0, 240).map((d,i) => `
+  grid.innerHTML = rows.slice(0, LIMIT).map((d,i) => `
     <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
@@ -356,12 +364,21 @@ function render(){
         </div>
       </div>
     </article>`).join('');
+  document.getElementById('more').style.display =
+    rows.length > LIMIT ? 'inline-flex' : 'none';
 }
 
-[q, pmin, pmax, ymin, ymax, sortSel].forEach(el => {
-  el.addEventListener('input', render);
-  el.addEventListener('change', render);
+document.getElementById('more').addEventListener('click', () => {
+  LIMIT += 24;
+  render(false);
 });
+
+[pmin, pmax, ymin, ymax, sortSel].forEach(el => {
+  el.addEventListener('input', () => render());
+  el.addEventListener('change', () => render());
+});
+let qt;
+q.addEventListener('input', () => { clearTimeout(qt); qt = setTimeout(() => render(), 220); });
 prange.addEventListener('input', () => {
   prange.style.setProperty('--p', prange.value + '%');
   if (!pmax.value) render();
@@ -380,24 +397,25 @@ document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
 
-// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+// link ilə gələndə (#ad-123) hemin elanı önə çıxarır və işıqlandırır
 (function(){
   const m = (location.hash || '').match(/ad-(\d+)/);
   if (!m) return;
-  let tries = 0;
-  const t = setInterval(() => {
-    const el = document.getElementById('ad-' + m[1]);
-    if (el) {
-      el.scrollIntoView({behavior:'smooth', block:'center'});
-      el.style.outline = '3px solid var(--acc)';
-      el.style.outlineOffset = '3px';
-      clearInterval(t);
-      return;
-    }
-    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
-      document.getElementById('clear').click();
-    }
-  }, 200);
+  const want = m[1];
+  const idx = DATA.findIndex(d => String(d.id) === want);
+  if (idx < 0) return;
+  if (idx > 0) {                        // elan ilk 24-lükdə olmaya bilər — önə çıxar
+    DATA.unshift(DATA.splice(idx, 1)[0]);
+    render();
+  }
+  setTimeout(() => {
+    const el = document.getElementById('ad-' + want);
+    if (!el) return;
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.style.outline = '3px solid var(--acc)';
+    el.style.outlineOffset = '3px';
+    el.style.animation = 'none';
+  }, 350);
 })();
 </script>
 
