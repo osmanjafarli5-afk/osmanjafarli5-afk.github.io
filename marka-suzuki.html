@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+<meta name="theme-color" content="#0b63f6">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Maşın Elanları">
+<link rel="icon" href="/icon-192.png" sizes="192x192">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Suzuki elanları Bakı — 6 maşın, 7950 ₼-dən</title>
@@ -474,6 +481,13 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- PWA: service worker qeydiyyati ---
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   var ftog = document.getElementById('ftog'), side = document.getElementById('side');
   if (ftog && side) ftog.addEventListener('click', function(){
