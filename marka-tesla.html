@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Tesla elanları Bakı — 5 maşın, 39000 ₼-dən", "numberOfItems": 5, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Tesla Cybertruck", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F17%2F14%2F40%2F15%2F0c802384-cf99-4783-9878-a7f617ea4468%2F78462_V5uJBwTpXfh8ZkJ6eSW2RQ.jpg", "offers": {"@type": "Offer", "price": 113777, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10781659-tesla-cybertruck"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Tesla Model Y", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F14%2F13%2F57%2F27%2Fd097f55d-f2b8-461e-9ad7-7d8f4ce5585c%2F65208_KeafmizdlVg4-38h3ntn1g.jpg", "offers": {"@type": "Offer", "price": 39000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10544811-tesla-model-y"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Tesla Model Y", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F28%2F10%2F00%2F39%2F5429256f-201a-4468-a32c-158b7ce220c2%2F59325_JTyRoal3Ks9HYFiUKjCkQQ.jpg", "offers": {"@type": "Offer", "price": 45000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10735357-tesla-model-y"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Tesla Model S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F17%2F33%2F56%2F6bb1e3f6-7114-43d5-9e94-a2450dae3f0e%2F1961_IkEpHOhrOK-aBVgSUx2mVg.jpg", "offers": {"@type": "Offer", "price": 56100, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855230-tesla-model-s"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Tesla Model S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F02%2F18%2F59%2F16%2F8045ebaa-6478-4067-bd23-f1d6030f51e6%2F89597_UDd4jdv2QaeZFJQv05tODw.jpg", "offers": {"@type": "Offer", "price": 97750, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10515208-tesla-model-s"}}}]}</script>

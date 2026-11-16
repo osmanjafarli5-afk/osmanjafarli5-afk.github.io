@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Avatr elanları Bakı — 4 maşın, 54400 ₼-dən", "numberOfItems": 4, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Avatr 07", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F23%2F12%2F34%2F58%2F14c3bfdb-3ed1-4f8f-971e-b0298135d4df%2F9307_JpjpX_DyJJ1COY-Pqv21gg.jpg", "offers": {"@type": "Offer", "price": 69900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9479682-avatr-07"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Avatr 12", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F02%2F10%2F53%2F10%2Fc87d57f1-5537-4fa6-aad4-89c856c71c3f%2F704_IkzpUPFrzlrfWLowhPV02g.jpg", "offers": {"@type": "Offer", "price": 89900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10745407-avatr-12"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Avatr 12", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F14%2F18%2F20%2F09%2F7981dfe0-7889-4536-8656-756539a7b599%2F55033_XOMWJ-9jq3Wj_8eYA1I_5A.jpg", "offers": {"@type": "Offer", "price": 64900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10394327-avatr-12"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Avatr 11", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F06%2F01%2F32%2F36%2F21023943-e5b2-41a0-a17a-4eecd3c39ae2%2F39463__YHN5ZHkyEhyC7yfozXOcA.jpg", "offers": {"@type": "Offer", "price": 54400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10390162-avatr-11"}}}]}</script>

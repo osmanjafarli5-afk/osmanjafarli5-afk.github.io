@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "ZEEKR elanları Bakı — 11 maşın, 61000 ₼-dən", "numberOfItems": 11, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "ZEEKR X", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F20%2F19%2F01%2F25%2Fcec85a59-f9c4-47f3-ad2c-e67d117a3cff%2F12786_v84SNGFix27lNOqtYclt3w.jpg", "offers": {"@type": "Offer", "price": 61030, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10330527-zeekr-x"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "ZEEKR 001", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F02%2F15%2F47%2F17%2Fa1a79c96-5d75-4b22-b061-a1d439e0a139%2F71513_idWQPyNVNJk0cz_VeTg1Ag.jpg", "offers": {"@type": "Offer", "price": 110330, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10440752-zeekr-001"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "ZEEKR 8X", "image": "https://cdn4.telesco.pe/file/qCy-4zDzO5eZbvZmKWBk8wQQ7Uuz_T0XwbJHLIk6SBCcgQfBYD2GPkO279y4HsyWP5YCkyJ8u3y_SRp4b6tRUXwv3TyGasrGKf8mkb-WxnRHAqPe91Uam3lQY6yLUkrR_AQ9sw5hTDIhwKLqG_ZRj_9kW8SmjO-L0RUOgAm4re6klZLHN-Oyv7uvKYKfMRZPix7YxZYDL0_1Oq-s6R-tzzqXeANmA0ovMBAD2UdQq2HDfgWc0LmRtZBd-txxfixjgbd1daGfJzAsJdQqXPo1QfPw_SKR3oLuyV1W9NJ1wLPXgv-yfJbMV_6VPiYu-FxojMnur9G0K0jFg9Z-KRUEkw.jpg", "offers": {"@type": "Offer", "price": 139230, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10720186"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "ZEEKR 8X", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F07%2F16%2F12%2F13%2F37%2Fbfd7e2f6-f01b-4684-8ba8-1d44a0a38470%2F12077_P-TfkMZWn_LtgtbVdUBh-g.jpg", "offers": {"@type": "Offer", "price": 150450, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10549609-zeekr-8x"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "ZEEKR 8X", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F01%2F13%2F28%2F09%2Fad45c2ff-efca-4610-a892-ef73f0172d77%2F42927_DuZLhQLz2XY1s6m81BWqfg.jpg", "offers": {"@type": "Offer", "price": 167450, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10590293-zeekr-8x"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "ZEEKR 9X", "image": "https://cdn4.telesco.pe/file/XGqrbVEgPA_9G571qU6O-pxX_byWeL5Slf1Ypknxch8OidJWOYlELU1tbKgGpT-NzjepC65yyx_SUCFqU8kJZe4gYQKUI63Dfg-xZqIYkpTqLH7Qnhcnz7ZWiBvZxvklwBDAtHlViCpw-rHu48eCaaEGgHqwinTmZs1sEo-QfFp7zVyi8mt25K3HKy_R4YjAB02P2NARpaAIpJLzgRJ3j89TnfDuEpvr08zhifvPlTlk7MSSF-AtRuv75nssJgWprbOGUWiF6WxCkb7uypC4UQosdLIGntzYC_nHENxARx2rrqZ3l-6MLry5vuwdsEjG4piLf7sYbYlxRcSQEjLOXw.jpg", "offers": {"@type": "Offer", "price": 186150, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10051821"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "ZEEKR 9X", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F11%2F20%2F53%2F19%2F903830ca-8073-4adb-85b9-3381fc930a71%2F24729_wuJKOYX94wllTlVnX--5Sg.jpg", "offers": {"@type": "Offer", "price": 200600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10148577-zeekr-9x"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "ZEEKR 9X", "image": "https://cdn4.telesco.pe/file/FnFpG-us_sdTk5NvLSBZN2q3LVNyFqzlKW6ithsAWvsUjQTQX89pRhL768EC-PTp84RxYgrXu3vE2Oq0e6A4kau-5uN50mjCqTXJIEpE8vLV6GDxsRk7aTPWKJFY0ygYSSbBBvA1dQuqPyGYMNr9zMH1Ubq99lhbiGwlJ_YTWoKBnLOA27EiOIVABlAY9yoAD-K_Zk_8zOD2b_9gOXlRy_DCLctoO65fNJThKc6Md4V6cp0vjhuqcflRaiTQXhT-LVJT94Wf-3-38hp8Jesz5lDfnmIEbmGnOHGX6OLruk34TyaMc0OgRsfEIoSOszQ9UUAFqoCUiC0lcyp6aBpF1g.jpg", "offers": {"@type": "Offer", "price": 164500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10793152"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "ZEEKR 001", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F19%2F33%2F56%2Fb336f473-dc44-4a59-a908-6a8efa511fa4%2F42481_yZiDMrNzKoNnI93guWa_ww.jpg", "offers": {"@type": "Offer", "price": 61000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851941-zeekr-001"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "ZEEKR 001", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F19%2F08%2F31%2F361fa733-7066-4be7-a367-0c684ee78856%2F86463_hb7xHwydXiCS7-dmZT-Svg.jpg", "offers": {"@type": "Offer", "price": 65400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855491-zeekr-001"}}}, {"@type": "ListItem", "position": 11, "item": {"@type": "Product", "name": "ZEEKR 001", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F18%2F45%2F34%2Fc841d528-094f-4246-8b69-7d0f72f92a90%2F6564_bsr5JBysrvxq2XVJ81zpDg.jpg", "offers": {"@type": "Offer", "price": 68900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10852851-zeekr-001"}}}]}</script>

@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Lincoln elanları Bakı — 2 maşın, 22500 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Lincoln Navigator", "image": "https://cdn4.telesco.pe/file/mSN2amqNWiGuoWGRkNVFzIWR4r2oi-i_BRQSW0MSRiOXLuwtpe9v2ErVMEVnGzSouIUp1BbWVlVLtCruASP1UvmcLTqIjBY0_UQ_dCPerKs27LNIPdKo-3g3m-mgz8Xi5F1_1SKEhaF4o5O8_EQdfv4gjf6YCf8IWyYi_OYbTI91DO4qFrcnP5vcgyvz_qUaLzzK_Pv_Kli5bvp59TqD2SCMtRl-BhKVTURLkWsgAeU4ibDV7e4mGe25j-W-bPlD0hMcCXovtSWr5irHzIcB1wtkR-IjSkwXzPI0-3pJywaJniyLcu1HKhRCE8HhWn3Mrf8nVkdwhWAZJP5fabkQ5w.jpg", "offers": {"@type": "Offer", "price": 102000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10835972"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F06%2F13%2F55%2F11%2Fd35cd7a8-13f1-407f-b4c8-1fc77a8be182%2F60580_xHLxIoomW_XOtjtLFMXpHQ.jpg", "offers": {"@type": "Offer", "price": 22500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10754683-lincoln-mkz"}}}]}</script>

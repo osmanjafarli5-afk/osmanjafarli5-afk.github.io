@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Denza elanları Bakı — 3 maşın, 107950 ₼-dən", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Denza N9", "image": "https://cdn4.telesco.pe/file/CalETZw7CBFA9Uty8NmcP9ZCoEgIH-Ng_pNIa_pv-jAgOu1IRae5pC19zLL9PubctvBuBj1zMEb6Ni3GBYmkrEPSkoYU1cgzbvxE5rTBwFEgLi0C5-1k6AKRqKPCKXvcxWtT_3LCW_KwVg-BMcNOL6Dxiq4UAo-YTHeBgYJsODJ8djPbhxTnxucXimULEvBnnfpEVcImbVg6itVreKIzbSc5oPfuRHuIUjmY6IKSIK3VLhNA6GFJ24W9sdksCdxV8jwUORvlS2NUZFj_Fl5IG-tNT2kHDk_1K7TehouJLq3mPACGO_TErctooRBXQ1fOMrGwfpdOGtuhjRGGxbUxsg.jpg", "offers": {"@type": "Offer", "price": 107950, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10822685"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Denza N9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F12%2F55%2F52%2Fa71bc548-ff29-43a6-98df-5969d0da857a%2F39459_sYt46t496H64oLmLpru5dw.jpg", "offers": {"@type": "Offer", "price": 109800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10854374-denza-n9"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Denza N9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F01%2F20%2F14%2F06%2F21%2F965d660b-b979-4808-a672-2eb6b8802107%2F32512_awnF9w21Vk_E6cbW_g8pMQ.jpg", "offers": {"@type": "Offer", "price": 130050, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10088362-denza-n9"}}}]}</script>

@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Renault elanları Bakı — 6 maşın, 3900 ₼-dən", "numberOfItems": 6, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Renault Sandero Stepway", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F01%2F15%2F06%2F36%2F793b7469-382d-4500-a78f-7661a5502d7c%2F64529_VF5r5aaaqlvA_Fl1LRjxag.jpg", "offers": {"@type": "Offer", "price": 20500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10590557-renault-sandero-stepway"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Renault Twizy", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F26%2F13%2F32%2F18%2Fd4119661-ea1c-4f6f-a9b5-a8347c3155b6%2F69156_RWaCyWqkVCh55fw7-wJTJw.jpg", "offers": {"@type": "Offer", "price": 13000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10804118-renault-twizy"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Renault Scenic", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F09%2F14%2F21%2F05%2F555a990d-1eb5-4583-8cc0-35d4b04adf6a%2F60767_xwWSR3HMFx5U8npFSEL4xg.jpg", "offers": {"@type": "Offer", "price": 6400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10761603-renault-scenic"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Renault Megane Scenic", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F19%2F17%2F33%2F08%2F9b48b9e4-f26b-4a3b-a2e8-58f25b0d0acb%2F73095_i-UsyXG681OEOaP_OH6IHg.jpg", "offers": {"@type": "Offer", "price": 6500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10326947-renault-megane-scenic"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Renault Scenic", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F17%2F27%2F53%2F59289f4e-d5f3-4009-8de6-dedd8f809f2d%2F39440_Belw93EjmbfNre0KKS8SMA.jpg", "offers": {"@type": "Offer", "price": 6500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855226-renault-scenic"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Renault Megane", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F17%2F11%2F31%2Fc0470a5f-2403-4467-87ba-0252420991fb%2F61817_vbK9Gfb6ETE6ay6q4jUArA.jpg", "offers": {"@type": "Offer", "price": 3900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855183-renault-megane"}}}]}</script>

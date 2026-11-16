@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Ferrari elanları Bakı — 5 maşın, 304300 ₼-dən", "numberOfItems": 5, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Ferrari 296 GTB", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F20%2F18%2F34%2F14%2F1e8c7126-4eb2-4e90-aadd-6f967641cb41%2F55033_fNmNt_Vudn3ycn7OIBpSyA.jpg", "offers": {"@type": "Offer", "price": 574600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10409111-ferrari-296-gtb"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Ferrari 296 GTB", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F07%2F14%2F22%2F45%2Fc3070b7d-02f1-4191-adf9-f3769fbd975e%2F39493_QZLpEcPoRmWuSmr3ijRHHQ.jpg", "offers": {"@type": "Offer", "price": 561930, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10165048-ferrari-296-gtb"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Ferrari 488 GTB", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F01%2F11%2F52%2F52%2F3e1790ba-9fcf-4fae-a083-41a2126559a3%2F72328_ixO0Zbbw53E6ZaHoiExdvw.jpg", "offers": {"@type": "Offer", "price": 304300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10667005-ferrari-488-gtb"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Ferrari 458 Italia", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F07%2F02%2F18%2F56%2F53%2F2741ed59-5f35-4e22-9bf9-1fd44c3e55aa%2F4513_SdFmiiX51JZHxZnCDO0xMg.jpg", "offers": {"@type": "Offer", "price": 338300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9583222-ferrari-458-italia"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Ferrari FF", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F29%2F10%2F29%2F58%2F3fbc14ad-5ba9-49c4-be0a-d563980623e8%2F23158_76rZMLWOTnoxj5JD1aL6_Q.jpg", "offers": {"@type": "Offer", "price": 323000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10738268-ferrari-ff"}}}]}</script>

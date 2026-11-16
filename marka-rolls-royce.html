@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Rolls-Royce elanları Bakı — 2 maşın, 423300 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Rolls-Royce Spectre", "image": "https://cdn4.telesco.pe/file/OizZOsit9ujrAy3pK0gYWd7yKVdjnrdLz5tm4ieRytwyFrvC9G8raJJIREx1WVkkx8woXc7YvOtM_oR8ksZAzOJzS4EhAfUaZEg7gHNpnwZyUHJJxu37xxDKI80w-EYaLuXbApJNYpuTobjben4obAyH6C1p8x9CP9EUz3urBzDpPGcvtrLGeZlW08e4jy8rD2HUP3fJp0AtkAsISID5_H62m2w2B9zai5mamza6t9RmW7HJjy5tMm8eJhatsUhSXgqb5oUAxNi-aQ-uPE-7n1iX6BvSnNpVzD4qNOwPFtTHEtbxyd9HTL9mhTWK_feiJk1gyvwCoDGby6KvlBICdA.jpg", "offers": {"@type": "Offer", "price": 841500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10811477"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Rolls-Royce Wraith", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F13%2F52%2F17%2F29bee08f-550f-4bae-8b82-4fa3e1e12f2e%2F83310_uC3RtXqqsoV3REgrf69u3Q.jpg", "offers": {"@type": "Offer", "price": 423300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10818161-rolls-royce-wraith"}}}]}</script>

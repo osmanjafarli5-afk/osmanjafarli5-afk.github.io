@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Haval elanları Bakı — 10 maşın, 33500 ₼-dən", "numberOfItems": 10, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Haval M6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F16%2F16%2F08%2F14%2F4c3e74b9-2970-4c8d-86c1-e79fce32efc1%2F60232_xfjBOR7_lgXii_ifQH23rQ.jpg", "offers": {"@type": "Offer", "price": 34900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10474861-haval-m6"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Haval H6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F06%2F16%2F57%2F56%2F24df88c7-34b9-485a-ad84-19d5ddaaf9c1%2F73250_HeiXrn62MJnIMS-BDiy7VA.jpg", "offers": {"@type": "Offer", "price": 40900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10134368-haval-h6"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Haval H6", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F10%2F04%2F15%2F44%2F14%2Febaa7b80-1e69-4765-bbaf-0bd0f2a5e2fc%2F13017_XQnsOqZNTk7pAJTxuXLkPA.jpg", "offers": {"@type": "Offer", "price": 49900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9824774-haval-h6"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Haval H6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F01%2F12%2F15%2F56%2F12%2Feaa85044-3208-4657-8b3e-e7d955e92e6d%2F22646_ACC0AbKE94FqK0A8uQA0gg.jpg", "offers": {"@type": "Offer", "price": 50900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10068028-haval-h6"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Haval Raptor", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F24%2F13%2F35%2F38%2Fed933085-ff0e-437b-8e32-4489dd4d682d%2F66165_D53Cc8xtR1plMJ6TVavc4Q.jpg", "offers": {"@type": "Offer", "price": 52900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10494488-haval-raptor"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Haval Raptor", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F13%2F12%2F11%2F47%2F70f589fb-0a08-4a21-9ff1-bd1903b4b660%2F37050_jUkXgyaP8xtT6w0ov2qnmw.jpg", "offers": {"@type": "Offer", "price": 55900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10771423-haval-raptor"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Haval H5", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F12%2F16%2F20%2F40%2F2d26b79a-32df-427f-b73d-25ee289f5993%2F91861_qZyuOLrdhmmy1snoTjvE0g.jpg", "offers": {"@type": "Offer", "price": 58900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10465233-haval-h5"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Haval Raptor", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F05%2F14%2F36%2F02%2F35493c93-15a1-4a1b-943c-deab80dfcb02%2F52904_s4va_zQ8p8DuMiC8yC75rg.jpg", "offers": {"@type": "Offer", "price": 64900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10529728-haval-raptor"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Haval H6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F10%2F54%2F26%2Fa53f6cb4-7774-423e-9728-bf69fc5a1ada%2F39495__WqRI9EfaPwEdymY-e57Rw.jpg", "offers": {"@type": "Offer", "price": 33500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10854057-haval-h6"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Haval H6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F21%2F08%2F09%2F38%2F7a8f7df0-372f-41bc-9207-a1fe3863b0b2%2F78102_MRYM5Qq5xcLkCBDARdfuFg.jpg", "offers": {"@type": "Offer", "price": 38500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10791728-haval-h6"}}}]}</script>

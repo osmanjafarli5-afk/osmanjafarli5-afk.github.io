@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "JETOUR elanları Bakı — 6 maşın, 52000 ₼-dən", "numberOfItems": 6, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "JETOUR T1", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F08%2F08%2F51%2F09%2F0666843f-ea89-46ae-a7d5-4fe7281ec32e%2F32991_86_zNHT2VX4-_QbUGIfmYg.jpg", "offers": {"@type": "Offer", "price": 55000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10694552-jetour-t1"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "JETOUR T2 i-DM", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F16%2F13%2F22%2F2b629372-68aa-4ec5-915c-9b0157e4cdac%2F61247_jG5tuZXeB2f6z0w6FhwLCQ.jpg", "offers": {"@type": "Offer", "price": 52000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843868-jetour-t2-i-dm"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "JETOUR T2 i-DM", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F26%2F10%2F54%2F09%2F4ca1fd70-54f5-4356-b425-b22729dd0ce5%2F55362_u4vydUne-d22M7gspizhvQ.jpg", "offers": {"@type": "Offer", "price": 65800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10498711-jetour-t2-i-dm"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "JETOUR T2 i-DM", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F04%2F12%2F28%2F38%2Fc93f0ee1-5215-4d2e-b8d8-328f44c53cba%2F69025_4OEh3468l9-Ftdov_k-pJg.jpg", "offers": {"@type": "Offer", "price": 52500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10366038-jetour-t2-i-dm"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "JETOUR T2", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F27%2F21%2F51%2F56%2F887e8c3b-6868-4f7f-8fe6-d4767e494d82%2F64617_yliUab4aSxuVtDS6JXuoWw.jpg", "offers": {"@type": "Offer", "price": 52500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10656799-jetour-t2"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "JETOUR T2", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F29%2F17%2F58%2F55%2F9cff507f-56d4-4159-bb10-3a4871702a5a%2F68144_j-gmGTD801KkYRti55kpFg.jpg", "offers": {"@type": "Offer", "price": 53500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10660576-jetour-t2"}}}]}</script>

@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "JMC elanları Bakı — 3 maşın, 59900 ₼-dən", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "JMC Grand Avenue", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F09%2F16%2F18%2F11%2F47%2Fae7f91d5-7a35-4cfb-8343-c0e438ae205d%2F66008_-f1hpkebL9FYqnHCOa3oWQ.jpg", "offers": {"@type": "Offer", "price": 59900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9780284-jmc-grand-avenue"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "JMC Grand Avenue Plus", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F29%2F09%2F14%2F26%2Fa7789c62-1146-4c20-ae19-fad2a0754109%2F68381_cy-neZAr-2d90nWTdt8beA.jpg", "offers": {"@type": "Offer", "price": 63900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10659383-jmc-grand-avenue-plus"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "JMC Grand Avenue Pro", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F25%2F17%2F55%2F37%2Ffee3c3cc-6de0-4819-bf02-8eb9ccd521eb%2F87164_cBobV7iBypdIXAcf1STwOA.jpg", "offers": {"@type": "Offer", "price": 75900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10651636-jmc-grand-avenue-pro"}}}]}</script>

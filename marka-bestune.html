@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Bestune elanları Bakı — 2 maşın, 26000 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Bestune B70", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F02%2F11%2F16%2F18%2F57%2F56feb2ba-49e4-41cb-95f9-f0c0438682ca%2F95089_EsDTLPuJOnSmWv7lbWx_PA.jpg", "offers": {"@type": "Offer", "price": 33000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10147885-bestune-b70"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Bestune T77", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F18%2F59%2F36%2Ff53650de-659b-4d5e-b517-40eec24c6bd6%2F61427_poJrXM6J5k9xF6rYItdp1w.jpg", "offers": {"@type": "Offer", "price": 26000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855475-bestune-t77"}}}]}</script>

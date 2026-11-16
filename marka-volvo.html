@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Volvo elanları Bakı — 8 maşın, 12550 ₼-dən", "numberOfItems": 8, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Volvo XC60", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F13%2F11%2F34%2F47%2F99f952df-978f-4261-a0f4-ee74915e2101%2F30835_drN7kEQ3Zu2n4Kl48iv4Og.jpg", "offers": {"@type": "Offer", "price": 111539, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10466697-volvo-xc60"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Volvo XC60", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F25%2F16%2F01%2F32%2F41ed5d6f-8231-4d5b-bc23-42ef6b128916%2F77765_7KbPmvMtqylB9XyNyUP7jg.jpg", "offers": {"@type": "Offer", "price": 112267, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10497082-volvo-xc60"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Volvo XC90", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F25%2F15%2F36%2F00%2Fcce0f12c-9124-4722-b4d6-c2b2a32cf2f6%2F77761_8OM5e_3t1VEwyV8JCzRvLA.jpg", "offers": {"@type": "Offer", "price": 135222, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10497027-volvo-xc90"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Volvo XC90", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F04%2F12%2F10%2F01%2Fcc79865d-1542-4215-afb9-1061a4054ef0%2F23449_opwxkUlq0qzGD4sexfnznQ.jpg", "offers": {"@type": "Offer", "price": 135757, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10365970-volvo-xc90"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Volvo XC90", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F26%2F11%2F33%2F51%2Ff603467a-81ff-4cce-939d-14c2f09e445d%2F68131_DfdD0SfnxvSm91gumjEIdQ.jpg", "offers": {"@type": "Offer", "price": 153560, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10653004-volvo-xc90"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Volvo EX30", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F11%2F12%2F20%2F49%2F50%2F274a3ecb-2720-4b52-8c8e-e3ba0b1638c1%2F65194_83vQZ9zEqmjfAiJ5pL6WCg.jpg", "offers": {"@type": "Offer", "price": 64000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9924933-volvo-ex30"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Volvo FH 460", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F14%2F04%2F38%2F938ada73-825f-46a9-9e58-da80e59cccff%2F22714_QYHb-06fAg5LQvkHj7kBnA.jpg", "offers": {"@type": "Offer", "price": 82000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10814015-volvo-fh-460"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Volvo XC90", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F15%2F54%2F49%2F8d005895-7bbe-4497-9d72-0eddec8fa83c%2F39491_FekQJXJNvH1evXSlT6JH5A.jpg", "offers": {"@type": "Offer", "price": 12550, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10846902-volvo-xc90"}}}]}</script>

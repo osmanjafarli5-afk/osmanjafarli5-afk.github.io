@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Peugeot elanları Bakı — 2 maşın, 13500 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Peugeot 408", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F13%2F23%2F26%2F55%2F6cd61fa9-b612-4dd3-b6a7-71dfb63bc4ed%2F63817_E4idxD_pGCw57FTmUApiGw.jpg", "offers": {"@type": "Offer", "price": 36500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10698900-peugeot-408"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Peugeot Partner", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F26%2F19%2F41%2F53%2F9db1702a-99b2-463d-af70-58c5a6284d2a%2F68124_3SA8aeggIziHetISCUvRiw.jpg", "offers": {"@type": "Offer", "price": 13500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10654263-peugeot-partner"}}}]}</script>

@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "SamAuto elanları Bakı — 2 maşın, 125000 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "SamAuto HC 45", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F06%2F23%2F11%2F56%2F57%2Fa5b49037-c0ce-482f-9b49-e9527426109a%2F92313_wLbwyJGJi75X1LikQGRJwg.jpg", "offers": {"@type": "Offer", "price": 125000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9558548-samauto-hc-45"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "SamAuto HD50", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F06%2F23%2F12%2F10%2F59%2F79bec277-f70d-43f7-acaf-3c12a909df29%2F66008_-f1hpkebL9FYqnHCOa3oWQ.jpg", "offers": {"@type": "Offer", "price": 149000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9558564-samauto-hd50"}}}]}</script>

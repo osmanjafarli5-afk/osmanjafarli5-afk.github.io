@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Haojue elanları Bakı — 2 maşın, 2762 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Haojue EX 125", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F12%2F14%2F17%2F51%2F01%2F13e0377a-01a3-48fc-9f06-3186423d0090%2F67941_xlvyZnkn0MvC4ru8N_jthA.jpg", "offers": {"@type": "Offer", "price": 2762, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10001916-haojue-ex-125"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Haojue TF125", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F05%2F01%2F17%2F55%2F35%2F77eba1ae-3087-4a43-8eda-f706a7a14bc6%2F27314_nl5hK4zSmPDP2ykAjfmWfg.jpg", "offers": {"@type": "Offer", "price": 2925, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9420753-haojue-tf125"}}}]}</script>

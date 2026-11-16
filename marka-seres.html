@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Seres elanları Bakı — 8 maşın, 52000 ₼-dən", "numberOfItems": 8, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Seres Aito M7", "image": "https://cdn4.telesco.pe/file/CdS7ZmMDReYKY3qhVxyqAL02l3vMJA-afpoVJGyLa9_AD8zL3fE_ZFhE-I4ljDH4fkfxeVpEuM3YnEpeF-3oGlNRdxILODG2B5yvL257SutKisv5vmOAePlKYXbCZfC4Y2L-0grxlkRQx78jQlzN_O-jk2v6u-ozUhTxkLwkJVFblYR6USkjMhKrODcQjHxqh6OsyAyjxArOGztnTUXWSwOr3nWQbnvbGa2a49dbA0BJR1EulJZq9RJAJYNnGQ0kB7yV1Yis-ykw2SL1jzoaekgB7ZdJi6oT4_Iyhe6VH5g1PioOEquG7bADfdpMfJ9N2SzVB7QziykimSVIM4f0XQ.jpg", "offers": {"@type": "Offer", "price": 106250, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10736556"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Seres Aito M8", "image": "https://cdn4.telesco.pe/file/gwGevdqUVnLkrssHibEXsDJBMMipmY9ItBxa1eIeLWEoz65CpjW4WKECEO94w0d8T7EieMV9kAZCpF-ra-N76iFqIY4_2xmMzDjnH4yOy3KbJmNNpARjP7cRFhPGY-WhQXStrig1I5aF6oocyPdaKu7eDWwUDnDgR546eKPe4OvSQ7HwqLuWh19-TUxyA3vQtSTvDydRcTbqrWJaAmVYiWr5sxxt2ObXLjXdxKCJruFVt18GQsmRXUkJZLnPOvZ6xTEgEsbuCBQps_rM6wj2-bFqb6s54ul-hEvGeHioxnUtsgzStFBoS9VZPYJTLshM8TkoFzjeGloKlOrNJ6XeOQ.jpg", "offers": {"@type": "Offer", "price": 136850, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10739107"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Seres Aito M7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F11%2F16%2F12%2F32%2F23527e61-7da0-42d1-beec-c3ab5287d8d0%2F38438_Ly8loO050KdvW3FPoZvE6Q.jpg", "offers": {"@type": "Offer", "price": 80070, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10463076-seres-aito-m7"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Seres Aito M9", "image": "https://cdn4.telesco.pe/file/mtACE5PnIAtt1PNe7o_81sMT9vZiPSV7RqdDBpgMpcRs2SemSt9-VVt1JGl40M05er1tfP1EPzsZd1VuTCk76U2FrqGuoMeYuympMu5OwtGv6w4doJnAwQP1skj6hziFmt58oQjsiwcefU0R17l7DVjQIFgsRrxvLpuQQA3WiZBv5t2XJwSKUw4es-Jtx0hH2ZVuiJZP4GYiFUJN-nVhP-RcJ1mFD9AilNQGveYQ0yPx9FY6iHYseRdVbcZbmVq9f8R5JwMxLMMyPyfyJg0Di5ZMQ0-RMWuXX7IOT1sc2Ob7YWIspui7qT6xa88WvhCOeiVS2II4eI4jhaB_XYwSrw.jpg", "offers": {"@type": "Offer", "price": 161500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10760045"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Seres Aito M7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F25%2F16%2F01%2F25%2Fa00ef7dc-d452-4c1e-96b9-65981adbbaaf%2F69419_gTBTxPdQgHSXbzzntdRz_A.jpg", "offers": {"@type": "Offer", "price": 52000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10802218-seres-aito-m7"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Seres Aito M9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F29%2F15%2F50%2F15%2F6bede6df-3e5d-444e-8075-7db04b420002%2F61638_I6nrx0NNWYzQakAp-gd4hg.jpg", "offers": {"@type": "Offer", "price": 115000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10739224-seres-aito-m9"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Seres Aito M9", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F05%2F13%2F11%2F48%2F53%2Fabcea6bd-1555-437f-b60e-6bc04ad2a828%2F66008_-f1hpkebL9FYqnHCOa3oWQ.jpg", "offers": {"@type": "Offer", "price": 141100, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9453483-seres-aito-m9"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Seres Aito M9", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F16%2F07%2F09%2F9b4a592c-0b86-487f-b226-263f763bd526%2F67493_ykEGUj4bsa9vNIG90URH_Q.jpg", "offers": {"@type": "Offer", "price": 148240, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10829618-seres-aito-m9"}}}]}</script>

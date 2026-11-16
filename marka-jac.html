@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "JAC elanları Bakı — 4 maşın, 28000 ₼-dən", "numberOfItems": 4, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "JAC LE745", "image": "https://turbo.azstatic.com/uploads/f460x343/2024%2F06%2F03%2F08%2F25%2F54%2F15c0fb00-848d-4276-a734-e677ce44e9fc%2F73879_Llsf7HE7T9ZVmMOurKtMGQ.jpg", "offers": {"@type": "Offer", "price": 54900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8501292-jac-le745"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "JAC Sunray", "image": "https://turbo.azstatic.com/uploads/f460x343/2024%2F03%2F19%2F12%2F06%2F44%2Fce2af04f-3a3d-4d11-8a22-c22b27fa6f59%2F90393_ODR1trMUn1QUOVEF2iZirw.jpg", "offers": {"@type": "Offer", "price": 69900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8264767-jac-sunray"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "JAC JS6", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F14%2F18%2F05%2F00%2F726f53c2-c5ab-424c-877e-f43d695a3c12%2F67465_EdgLZ99VGJNuNd9CApF1hA.jpg", "offers": {"@type": "Offer", "price": 28000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10849730-jac-js6"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "JAC T8", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F29%2F19%2F44%2F50%2F45b70214-c6f8-4789-9a62-484feb3694d0%2F72026_gfytXynsHJPIw8ff2njJhQ.jpg", "offers": {"@type": "Offer", "price": 29900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10660922-jac-t8"}}}]}</script>

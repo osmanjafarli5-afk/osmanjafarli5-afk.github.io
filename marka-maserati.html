@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Maserati elanları Bakı — 3 maşın, 38000 ₼-dən", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Maserati Levante", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F28%2F18%2F12%2F02%2F33b694cf-ab6d-47e3-b3af-e72e24e71dc2%2F83971_z8u6gMLbfJj5VfrU7mKsFw.jpg", "offers": {"@type": "Offer", "price": 76500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10504740-maserati-levante"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Maserati Ghibli", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F22%2F00%2F07%2Ff3dd508e-4f2e-4872-9744-75830b3d332e%2F61247_JHN9j5RyNFlNqgKIKh7XlQ.jpg", "offers": {"@type": "Offer", "price": 38000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10843272-maserati-ghibli"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Maserati Quattroporte Sport GT S", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F05%2F21%2F48%2F47%2F40df6bb7-390c-4eea-85d0-fce3369b6341%2F1959_qzqpqK9AL8EaryJfvVGd-A.jpg", "offers": {"@type": "Offer", "price": 39000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10830526-maserati-quattroporte-sport-gt-s"}}}]}</script>

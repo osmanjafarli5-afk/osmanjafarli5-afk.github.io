@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Fiat elanları Bakı — 4 maşın, 10500 ₼-dən", "numberOfItems": 4, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Fiat Doblo", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F16%2F12%2F41%2F0bafb590-e21d-4f53-8c2e-64820250a2a9%2F11592_0pinSDipOYb0RzJj_OxhRg.jpg", "offers": {"@type": "Offer", "price": 14500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10846959-fiat-doblo"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Fiat Doblo", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F17%2F08%2F21%2F8b08d65e-3168-409e-9534-5c94cc97660f%2F39446_3wuidrGy2K6JigSxFS1miw.jpg", "offers": {"@type": "Offer", "price": 10500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855165-fiat-doblo"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Fiat Doblo", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F18%2F01%2F34%2F18123126-998a-4afc-9dea-c06b0b5db51e%2F1374_OkyGkUhQD6tMN-40eKl9kg.jpg", "offers": {"@type": "Offer", "price": 13700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855323-fiat-doblo"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Fiat Qubo", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F13%2F18%2F07%2F19%2F53af42a9-2d2e-4822-ad21-b3475b974923%2F36102_VxFeFcJV73IcoTJPnOMUdA.jpg", "offers": {"@type": "Offer", "price": 11600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10847323-fiat-qubo"}}}]}</script>

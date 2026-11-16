@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "GAC elanları Bakı — 7 maşın, 42900 ₼-dən", "numberOfItems": 7, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "GAC Emkoo", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F07%2F14%2F42%2F48%2F151160a9-30f8-406f-8678-97144d5c911d%2F40881_HSrHy9q0LMeUj2FK7PE1Yw.jpg", "offers": {"@type": "Offer", "price": 42900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10293799-gac-emkoo"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "GAC Smilodon", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F25%2F13%2F34%2F56%2F218e2da7-b370-421c-bc4a-c6150663a7c0%2F71636_TsYFU0ZLrXeOCZlfQTg_Hg.jpg", "offers": {"@type": "Offer", "price": 43900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10728226-gac-smilodon"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "GAC Smilodon", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F25%2F09%2F43%2F04%2F8119fdd3-7ffc-4592-b464-38167f370aa7%2F71676_EQlnAXcXtnBDJG7PfChEdw.jpg", "offers": {"@type": "Offer", "price": 46900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10727922-gac-smilodon"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "GAC S7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F13%2F10%2F41%2F06%2F724fe292-a094-4882-9270-32620feba24a%2F57345_zhUPZssX6P1erWRJ7kNVHA.jpg", "offers": {"@type": "Offer", "price": 66900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9543914-gac-s7"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "GAC E8", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F03%2F30%2F11%2F42%2F23%2F149130a5-ad43-4b8a-bb47-233b1deba358%2F77101_45rTKqu5Km9mIluJnjy2ng.jpg", "offers": {"@type": "Offer", "price": 55900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10271836-gac-e8"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "GAC S7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F30%2F13%2F27%2F17%2Ff998df34-f769-4ff3-8ed1-9124c786a77c%2F45126_l4LM5LWl03RgRMCajThdaw.jpg", "offers": {"@type": "Offer", "price": 62000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10741076-gac-s7"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "GAC S7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F14%2F15%2F14%2F08%2Fd90e7038-4803-4185-905a-0002b777f154%2F37066_FzCjPQ9K-HwiUvyT09mXGQ.jpg", "offers": {"@type": "Offer", "price": 67000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10774722-gac-s7"}}}]}</script>

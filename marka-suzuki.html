@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Suzuki elanları Bakı — 4 maşın, 7950 ₼-dən", "numberOfItems": 4, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Suzuki Jimny", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F12%2F14%2F43%2F24%2Fe45c0488-8554-4d56-9930-784d36884f9c%2F84339__CetfZ2B7Obor0gnRrGAWg.jpg", "offers": {"@type": "Offer", "price": 46000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10844340-suzuki-jimny"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Suzuki Grand Vitara", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F05%2F21%2F33%2F20%2Fa8ad4c3c-2484-44a8-94f6-2a8077dc17f3%2F64423_yclkayfad8ewDzNZDNCK_A.jpg", "offers": {"@type": "Offer", "price": 37500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10595558-suzuki-grand-vitara"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Suzuki Swift", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F08%2F21%2F10%2F43%2F23%2Fba2b14b9-3c19-4f07-bcfe-067aa7a2b768%2F81318_QUZ5SiK8wrTgIAWR59rnNw.jpg", "offers": {"@type": "Offer", "price": 11700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10640393-suzuki-swift"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Suzuki Grand Vitara", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F27%2F14%2F10%2F17%2Fd7f60e94-cd22-47c0-a741-fb24db3b1b10%2F78750_szGJgBvIPnbfx6d7vHPp5g.jpg", "offers": {"@type": "Offer", "price": 7950, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10806678-suzuki-grand-vitara"}}}]}</script>

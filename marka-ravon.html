@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Ravon elanları Bakı — 3 maşın, 9500 ₼-dən", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F23%2F44%2F38%2F7f06d120-d400-43c6-b03c-cd7b53bf4023%2F53248_NLuo8Cyhww3FOnQIFswUXQ.jpg", "offers": {"@type": "Offer", "price": 9500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10814990-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F06%2F24%2F12%2F45%2F07%2F9ac8fb67-6405-4271-8232-27e0cea617f7%2F66008_-f1hpkebL9FYqnHCOa3oWQ.jpg", "offers": {"@type": "Offer", "price": 23400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9561402-ravon-nexia-r3"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Ravon Nexia R3", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F18%2F53%2F06%2Fe6000ea0-a9be-4256-9e50-e98fcecbf641%2F31642_ZWxdk2grxb-OwNg97Of0pg.jpg", "offers": {"@type": "Offer", "price": 9500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855435-ravon-nexia-r3"}}}]}</script>

@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Lynk elanları Bakı — 10 maşın, 62900 ₼-dən", "numberOfItems": 10, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Lynk & Co 10 EM-P", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F03%2F15%2F40%2F11%2Fd6a49c69-2362-47cc-b72d-37b81422bc23%2F83076_Z3q2gaINQQGrVjpzBww5dw.jpg", "offers": {"@type": "Offer", "price": 62900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10824416-lynk-co-10-em-p"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Lynk & Co 08", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F03%2F15%2F37%2F51%2F63380788-98bf-4f9d-ae0a-1e13ff958012%2F70567_tE_W9f-CDca3xUTxQn5CKw.jpg", "offers": {"@type": "Offer", "price": 64900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10824362-lynk-co-08"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Lynk & Co 09", "image": "https://turbo.azstatic.com/uploads/f460x343/2024%2F11%2F15%2F12%2F28%2F25%2F6b3b007a-034a-49b1-9aea-9c3abcf25a04%2F82570_03Jwy_e00fC2mfxpGD9upA.jpg", "offers": {"@type": "Offer", "price": 84900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8947990-lynk-co-09"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Lynk & Co 900", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F04%2F13%2F56%2F12%2Fc5df319c-4696-4611-8af7-80d15b305e49%2F75525_bnIkPcxwL9tOiTuGMIXFpw.jpg", "offers": {"@type": "Offer", "price": 96800, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10747441-lynk-co-900"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Lynk & Co 900", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F02%2F11%2F14%2F03%2F551d9d23-de5d-47b8-bfcf-94e487a037c4%2F60210_rfET3K2Zqrd0miPjKnaWRA.jpg", "offers": {"@type": "Offer", "price": 99500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10745442-lynk-co-900"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Lynk & Co 900", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F09%2F08%2F09%2F45%2F59%2Fcc67c6e8-9fd8-4e55-ac99-30cbf6326188%2F92313_wLbwyJGJi75X1LikQGRJwg.jpg", "offers": {"@type": "Offer", "price": 104900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9456333-lynk-co-900"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Lynk & Co 900", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F03%2F30%2F12%2F21%2F56%2F9b436bee-c3a5-4b3b-85a9-d5b3e0932f14%2F76236_Ke6VOmUyblYBpZwZgLM2pQ.jpg", "offers": {"@type": "Offer", "price": 106400, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10271740-lynk-co-900"}}}, {"@type": "ListItem", "position": 8, "item": {"@type": "Product", "name": "Lynk & Co 900", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F15%2F10%2F58%2F35%2F5ee4b4f5-d4f3-41cd-97f1-b06be4ece767%2F57319_tPcFiifCQrqEmnym7wJ_cA.jpg", "offers": {"@type": "Offer", "price": 127500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10471377-lynk-co-900"}}}, {"@type": "ListItem", "position": 9, "item": {"@type": "Product", "name": "Lynk & Co 900", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F10%2F21%2F13%2F26%2F44%2F17f41cfd-0f86-4ec2-8410-f783801ec26d%2F37302_ksBAd98Yipnr_0BzNr1yHg.jpg", "offers": {"@type": "Offer", "price": 89900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9868813-lynk-co-900"}}}, {"@type": "ListItem", "position": 10, "item": {"@type": "Product", "name": "Lynk & Co 09", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F02%2F15%2F59%2F38%2F2c1d7293-1d24-4261-9547-abc8d1e06178%2F18694_4x1wj4p3zM1TqQssfxXjag.jpg", "offers": {"@type": "Offer", "price": 68850, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10821717-lynk-co-09"}}}]}</script>

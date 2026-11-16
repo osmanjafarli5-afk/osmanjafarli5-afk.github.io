@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Chery elanları Bakı — 4 maşın, 3900 ₼-dən", "numberOfItems": 4, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Chery Himava", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F22%2F17%2F46%2F18%2F7c0a05f5-31b9-4fa6-a68c-fb5dd5937ae6%2F90382_QT6dMLNwCuo3tgk5T0bZ5g.jpg", "offers": {"@type": "Offer", "price": 45900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10721422-chery-himava"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Chery eQ7", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F09%2F19%2F11%2F28%2F05%2Fbfe897f7-b599-4154-a69b-cc9d16eb64cb%2F68087_AKQ4fReDqzHpTwW_wzFo_Q.jpg", "offers": {"@type": "Offer", "price": 39900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/8419493-chery-eq7"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Chery Fulwin 2", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F18%2F05%2F20%2F33a1c5aa-349f-4020-b083-5b45212a19ce%2F39454_j7jMx8MOb4kmH-kwyqCRIQ.jpg", "offers": {"@type": "Offer", "price": 4200, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855325-chery-fulwin-2"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Chery Amulet (A15)", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F19%2F16%2F49%2F89a4e517-e804-4d6a-bb8e-0cd943900d84%2F86463_BR_Q5nT7SmR_P-aLPYGugA.jpg", "offers": {"@type": "Offer", "price": 3900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10855503-chery-amulet-a15"}}}]}</script>

@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Voyah elanları Bakı — 4 maşın, 76500 ₼-dən", "numberOfItems": 4, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Voyah Free", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F03%2F18%2F17%2F33%2F38%2F5120f488-71d6-47d5-9940-a7ff2ef065ca%2F3903_vXv1cVE_ZQVPOs0OVVsA4Q.jpg", "offers": {"@type": "Offer", "price": 76500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10243860-voyah-free"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Voyah Taishan", "image": "https://cdn4.telesco.pe/file/qftNf1RKO9PMpsfwuZWBtQ4NyAelKRjk62NZbg_QbOpqN7jKeByeBNXHKGCB3OVDp98eyZ78cN0B8x7zB5qoSjOcUIJ41pN4313A0h4GXlGyb308Baza03mzwvfS5Bl1g71S4N_xhV7e9Gmf36naz2KWqCCGXXAYi_9CqKgmvEmXGCs_bdGQOtanFAal83RfGG_8Vc6FPh8JtGCH4feoyaEe2UYMp2Xmc3kL-jhHaUDDpgUM8QuaYkurVQHWXRS3B5p05JN17WQJtMDS3VsGmX3P8kVQEW249BNYKDz-ODn9jMQAVSEhn7Dzg7Vnl2UZryUyq2jESGe-UNJI3FHYng.jpg", "offers": {"@type": "Offer", "price": 147900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10406237"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Voyah Taishan", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F04%2F04%2F23%2F04%2F25%2Fe6800620-c92b-412b-ba40-40676a0a4dea%2F40017_J3uBk5KqpVFRA8ujsn4HIw.jpg", "offers": {"@type": "Offer", "price": 151300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10287505-voyah-taishan"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Voyah Dream", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F11%2F17%2F55%2F08%2F487e2b41-056b-4469-845c-d4eb87d01fda%2F5384_L1cr9NfzEJGBA_Zq1M9wbw.jpg", "offers": {"@type": "Offer", "price": 115600, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10826431-voyah-dream"}}}]}</script>

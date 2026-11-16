@@ -339,7 +339,7 @@ function render(){
   empty.style.display = rows.length ? 'none' : 'block';
 
   grid.innerHTML = rows.slice(0, 240).map((d,i) => `
-    <article class="card" style="animation-delay:${Math.min(i*18,360)}ms">
+    <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <img loading="lazy" src="${d.img}" alt="${d.name} ${d.year} — ${fmt(d.price)} AZN, ${d.city||''}">
@@ -377,6 +377,26 @@ document.getElementById('stTotal').textContent = DATA.length;
 document.getElementById('stBrands').textContent = brands.length;
 document.getElementById('stMin').textContent = fmt(P_MIN) + ' ₼';
 render();
+
+// link ilə gələndə (#ad-123) hemin karta sürüşür və işıqlandırır
+(function(){
+  const m = (location.hash || '').match(/ad-(\d+)/);
+  if (!m) return;
+  let tries = 0;
+  const t = setInterval(() => {
+    const el = document.getElementById('ad-' + m[1]);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.style.outline = '3px solid var(--acc)';
+      el.style.outlineOffset = '3px';
+      clearInterval(t);
+      return;
+    }
+    if (++tries > 25) {           // elan bu sehifede yoxdursa, axtarisi temizle
+      document.getElementById('clear').click();
+    }
+  }, 200);
+})();
 </script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Jaguar elanları Bakı — 3 maşın, 36000 ₼-dən", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Jaguar F-Pace", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F03%2F15%2F27%2F33%2Fa7321dee-4d94-4bef-a8ca-61ea31e4f96e%2F23449_pEk-dqFjNlk669-sl9Vg2Q.jpg", "offers": {"@type": "Offer", "price": 50150, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10443108-jaguar-f-pace"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Jaguar XF", "image": "https://turbo.azstatic.com/uploads/f460x343/2025%2F10%2F22%2F14%2F40%2F48%2F990b0f12-d585-4cd7-ad7b-1ee31ee3d6cb%2F89649_IdiJWhN4F5E3SSESYyyqZg.jpg", "offers": {"@type": "Offer", "price": 64500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/9871481-jaguar-xf"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Jaguar F-Pace", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F05%2F08%2F21%2F31%2F10%2F0444f42b-86da-47bc-921d-7775c3fb27db%2F43857_Xx9D8qffs4CsCFLMb1d1ww.jpg", "offers": {"@type": "Offer", "price": 36000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10378109-jaguar-f-pace"}}}]}</script>
