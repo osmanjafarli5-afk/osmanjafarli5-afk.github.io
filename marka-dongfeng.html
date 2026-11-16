@@ -319,6 +319,7 @@ if (!bodies.length) document.getElementById('bodyGroup').style.display = 'none';
 function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
 let LIMIT = 24;
+let PIN = null;                     // linkdən gələn elan həmişə birinci
 
 function render(reset){
   if (reset !== false) LIMIT = 24;
@@ -342,6 +343,11 @@ function render(reset){
   else if (s === 'exp') rows.sort((a,b)=>b.price-a.price);
   else if (s === 'km') rows.sort((a,b)=>(a.km||1e9)-(b.km||1e9));
   else rows.sort((a,b)=>b.year-a.year);
+
+  if (PIN) {                                   // linkdən gələn elanı önə çıxar
+    const pi = rows.findIndex(d => String(d.id) === String(PIN));
+    if (pi > 0) rows.unshift(rows.splice(pi, 1)[0]);
+  }
 
   shown.textContent = rows.length;
   empty.style.display = rows.length ? 'none' : 'block';
@@ -402,12 +408,9 @@ render();
   const m = (location.hash || '').match(/ad-(\d+)/);
   if (!m) return;
   const want = m[1];
-  const idx = DATA.findIndex(d => String(d.id) === want);
-  if (idx < 0) return;
-  if (idx > 0) {                        // elan ilk 24-lükdə olmaya bilər — önə çıxar
-    DATA.unshift(DATA.splice(idx, 1)[0]);
-    render();
-  }
+  if (!DATA.some(d => String(d.id) === want)) return;
+  PIN = want;
+  render();
   setTimeout(() => {
     const el = document.getElementById('ad-' + want);
     if (!el) return;
