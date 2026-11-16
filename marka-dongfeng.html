@@ -474,7 +474,7 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   var ftog = document.getElementById('ftog'), side = document.getElementById('side');
   if (ftog && side) ftog.addEventListener('click', function(){
     side.classList.toggle('folded');
@@ -485,7 +485,7 @@ render();
     addEventListener('scroll', function(){ up.classList.toggle('show', scrollY > 600); }, {passive:true});
     up.addEventListener('click', function(){ scrollTo({top:0, behavior:'smooth'}); });
   }
-})();
+});
 </script>
 </script>
 
