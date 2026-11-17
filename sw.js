@@ -1,6 +1,6 @@
 /* Maşın Elanları — PWA service worker
    HTML: şəbəkədən (həmişə təzə), şəkillər: keşdən (sürətli). */
-const VER = 'v3';
+const VER = 'v4';
 const STATIC = `masin-static-${VER}`;
 const SHELL = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png',
                '/apple-touch-icon.png'];
@@ -44,6 +44,18 @@ self.addEventListener('fetch', (e) => {
         caches.open(STATIC).then((c) => c.put(req, copy)).catch(() => {});
         return res;
       }).catch(() => hit))
+    );
+    return;
+  }
+
+  // JS/CSS — şəbəkə birinci (yeniliklər dərhal görünsün)
+  if (/\.(js|css)$/i.test(url.pathname)) {
+    e.respondWith(
+      fetch(req).then((res) => {
+        const copy = res.clone();
+        caches.open(STATIC).then((c) => c.put(req, copy)).catch(() => {});
+        return res;
+      }).catch(() => caches.match(req))
     );
     return;
   }
