@@ -354,14 +354,22 @@ footer{margin-top:34px}
  .stat{padding:10px 12px}
  .stat b{font-size:18px}
  .layout{display:block}
- .grid{grid-template-columns:1fr;gap:14px}
- .card .ph{aspect-ratio:16/10}
- .card .acts{right:8px;bottom:8px;gap:7px}
- .card .act{width:38px;height:38px;font-size:16px}
- .card .badge{font-size:11px;padding:4px 9px}
- .card .nm{font-size:15px}
- .price{font-size:22px}
- .more{padding:9px 12px}
+ .grid{grid-template-columns:1fr 1fr;gap:10px}
+ .card{border-radius:14px}
+ .card .ph{aspect-ratio:4/3;border-radius:14px 14px 0 0}
+ .card .acts{top:8px;right:8px;bottom:auto;flex-direction:column;gap:5px}
+ .card .act{width:29px;height:29px;font-size:13px;box-shadow:0 2px 7px rgba(0,0,0,.16)}
+ .card .badge{font-size:10px;padding:3px 7px;left:7px;top:7px}
+ .promoTag{font-size:9px;padding:3px 6px;left:7px;top:30px}
+ .card .body{padding:9px 10px 10px;display:flex;flex-direction:column}
+ .price{font-size:15.5px;order:1;margin:0 0 1px;letter-spacing:-.3px}
+ .card .nm{font-size:12.5px;order:2;line-height:1.3;margin:0 0 3px;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+ .card .meta{font-size:10.5px;order:3;line-height:1.35;margin:0 0 5px}
+ .card .foot{order:4;margin-top:auto}
+ .card .city{font-size:10px}
+ .card .more{font-size:11px;padding:0}
+ .card .more span{display:none}
  .supportBox{flex-direction:column;align-items:stretch;gap:12px;padding:16px}
  .sb-right{display:grid;grid-template-columns:1fr 1fr;gap:8px}
  .sb-right .btn{justify-content:center}
