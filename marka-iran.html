@@ -587,6 +587,8 @@ function volBand(d){
   return '3.0+ L';
 }
 DATA.forEach(d => { d._fuel = fuelOf(d); d._vol = volBand(d); });
+// yanacaq məlumatı azdırsa filtri göstərmə
+if (DATA.filter(d => d._fuel).length < DATA.length * 0.2) DATA.forEach(d => { d._fuel = ''; });
 const fuels = [...new Set(DATA.map(d => d._fuel).filter(Boolean))].sort();
 const vols = ['1.0–1.6 L', '1.6–2.0 L', '2.0–3.0 L', '3.0+ L']
   .filter(v => DATA.some(d => d._vol === v));
