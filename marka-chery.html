@@ -284,48 +284,16 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 .hchip{padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:#fff;
  font-size:13px;font-weight:600;cursor:pointer;color:var(--dim);transition:all .2s var(--ease)}
 .hchip:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-1px)}
-.card .fav{position:absolute;right:10px;bottom:10px;width:34px;height:34px;border-radius:50%;
- border:0;background:rgba(255,255,255,.94);box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer;
- font-size:16px;display:grid;place-items:center;transition:transform .2s var(--ease)}
-.card .fav:hover{transform:scale(1.1)}
-.card .fav.on{background:#ffe4ec}
-.card .promo{position:absolute;left:10px;bottom:10px;width:34px;height:34px;border-radius:50%;
- border:0;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;box-shadow:0 4px 14px rgba(249,115,22,.4);
- cursor:pointer;font-size:15px;display:grid;place-items:center;transition:transform .2s var(--ease)}
-.card .promo:hover{transform:scale(1.1)}
-.promoTag{position:absolute;left:10px;top:44px;font-size:10.5px;font-weight:800;padding:4px 8px;
- border-radius:8px;color:#fff;letter-spacing:.02em;box-shadow:0 2px 8px rgba(0,0,0,.16)}
-.promoTag.premium{background:linear-gradient(135deg,#7c3aed,#a855f7)}
-.promoTag.vip{background:linear-gradient(135deg,#0ea5e9,#2563eb)}
-.promoTag.boost{background:linear-gradient(135deg,#f59e0b,#f97316)}
-#splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;
- background:radial-gradient(900px 500px at 50% 0%,#ffffff,#eef5ff 60%,#e6efff);
- transition:opacity .55s var(--ease),visibility .55s}
-#splash.hide{opacity:0;visibility:hidden}
-.sp-inner{display:flex;flex-direction:column;align-items:center;gap:10px}
-.sp-logo{width:96px;height:96px;border-radius:50%;overflow:hidden;
- box-shadow:0 22px 50px rgba(6,32,60,.30), 0 0 0 6px rgba(11,99,246,.10);
- animation:spPop .7s var(--ease) both}
-.sp-name{font-size:19px;font-weight:800;letter-spacing:-.4px;margin-top:6px;animation:spUp .6s .12s var(--ease) both}
-.sp-tag{font-size:12.5px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;
- animation:spUp .6s .2s var(--ease) both}
-.sp-bar{width:150px;height:4px;border-radius:99px;background:#dbe6f7;overflow:hidden;margin-top:16px}
-.sp-bar i{display:block;height:100%;width:40%;border-radius:99px;
- background:linear-gradient(90deg,#0b63f6,#60a5fa);animation:spLoad 1.15s var(--ease) infinite}
-.sp-logo img{width:100%;height:100%;display:block;object-fit:cover}
-@keyframes spPop{from{opacity:0;transform:scale(.75) rotate(-10deg)}to{opacity:1;transform:none}}
-@keyframes spUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes spLoad{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
-.supportBox{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
- background:linear-gradient(135deg,#f8fafc,#eef6ff);border:1px solid var(--line);border-radius:18px;
- padding:18px 20px;margin:26px 0 18px;box-shadow:var(--shadow)}
-.sb-left{display:flex;align-items:center;gap:14px}
-.sb-ico{width:44px;height:44px;border-radius:13px;background:#fff;display:grid;place-items:center;
- box-shadow:var(--shadow);padding:9px}
-.sb-ico img{width:100%;height:100%;object-fit:contain;display:block}
-.sb-left b{display:block;font-size:15.5px}
-.sb-left span{color:var(--dim);font-size:12.8px}
-.sb-right{display:flex;gap:10px;flex-wrap:wrap}
+.btn-fav{background:#fff;border:1px solid #ffd0dd;color:#e11d48;font-weight:700;gap:6px}
+.btn-fav.on{background:#ffe4ec;border-color:#fb7185}
+.btn-fav b{font-size:13px}
+.card .acts{position:absolute;right:9px;bottom:9px;display:flex;gap:6px;z-index:3}
+.card .act{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.96);
+ box-shadow:0 3px 10px rgba(15,23,42,.18);cursor:pointer;font-size:15px;line-height:1;
+ display:grid;place-items:center;transition:transform .18s var(--ease),background .18s}
+.card .act:hover{transform:scale(1.12);background:#fff}
+.card .act.on{background:#ffe4ec}
+.card .act:active{transform:scale(.94)}
 .promoList{display:flex;flex-direction:column;gap:9px;margin-top:6px}
 .promoOpt{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:13px;
  border:1.5px solid var(--line);background:#fff;cursor:pointer;text-align:left;transition:all .2s var(--ease)}
@@ -386,7 +354,8 @@ footer{margin-top:34px}
     <div class="btns">
       <a class="btn btn-primary" href="https://t.me/mashinelanlari" target="_blank" rel="noopener">Telegram kanal →</a>
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
-      <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
+      <button class="btn btn-fav" id="favChip" title="Seçilmiş elanlar">❤️ <b id="favCount">0</b></button>
+      <button class="btn btn-sup" id="supBtn">Dəstək</button>
     </div>
   </div>
   <div class="heroSearch">
@@ -554,12 +523,22 @@ let PIN = null;                     // linkdən gələn elan həmişə birinci
 const FAV_KEY = 'masin_favs';
 function favs(){ try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch(e){ return []; } }
 function isFav(id){ return favs().indexOf(id) >= 0; }
-function toggleFav(id){
+function toggleFav(id, btn){
   const a = favs(); const i = a.indexOf(id);
   if (i >= 0) a.splice(i,1); else a.push(id);
   localStorage.setItem(FAV_KEY, JSON.stringify(a));
-  render(false);
+  const on = a.indexOf(id) >= 0;
+  if (btn) {
+    btn.classList.toggle('on', on);
+    btn.textContent = on ? '❤️' : '🤍';
+    btn.animate([{transform:'scale(.8)'},{transform:'scale(1.15)'},{transform:'scale(1)'}],
+                {duration:260, easing:'ease-out'});
+  }
+  const fc = document.getElementById('favCount');
+  if (fc) { fc.textContent = a.length; fc.style.display = a.length ? 'inline-flex' : 'none'; }
 }
+
+let ONLY_FAV = false;
 
 function render(reset){
   if (reset !== false) LIMIT = 24;
@@ -627,6 +606,7 @@ function render(reset){
     if (pi > 0) rows.unshift(rows.splice(pi, 1)[0]);
   }
 
+  if (ONLY_FAV) rows = rows.filter(d => isFav(d.id));
   shown.textContent = rows.length;
   empty.style.display = rows.length ? 'none' : 'block';
 
@@ -634,9 +614,11 @@ function render(reset){
     <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
-        <button class="fav${isFav(d.id) ? ' on' : ''}" data-fav="${d.id}" title="Seçilmişlərə at">${isFav(d.id) ? '❤️' : '🤍'}</button>
-        <button class="promo" data-promo="${d.post || ''}" title="Elanı irəli çək">🚀</button>
-        <button class="share" data-share="${d.id}" title="Paylaş">↗</button>
+        <div class="acts">
+          <button class="act${isFav(d.id) ? ' on' : ''}" data-fav="${d.id}" title="Seçilmişlərə at" aria-label="Seçilmişlərə at">${isFav(d.id) ? '❤️' : '🤍'}</button>
+          <button class="act" data-share="${d.id}" title="Paylaş" aria-label="Paylaş">↗</button>
+          <button class="act" data-promo="${d.post || ''}" title="Elanı irəli çək" aria-label="İrəli çək">🚀</button>
+        </div>
         ${d.promo ? `<span class="promoTag ${d.promo}">${d.promo === 'premium' ? '👑 Premium' : d.promo === 'vip' ? '⭐ VIP' : '⚡ İrəli'}</span>` : ''}
         ${d.id >= 900000000 ? '<span class="seller-tag">Satıcı</span>' : ''}
         ${d.img
@@ -658,13 +640,13 @@ function render(reset){
 }
 
 document.addEventListener('click', (e) => {
-  const f = e.target.closest('.fav');
+  const f = e.target.closest('[data-fav]');
   if (f) {
     e.preventDefault(); e.stopPropagation();
-    toggleFav(Number(f.dataset.fav));
+    toggleFav(Number(f.dataset.fav), f);
     return;
   }
-  const sh = e.target.closest('.share');
+  const sh = e.target.closest('[data-share]');
   if (sh) {
     e.preventDefault(); e.stopPropagation();
     const d = DATA.find(x => String(x.id) === String(sh.dataset.share));
@@ -675,6 +657,17 @@ document.addEventListener('click', (e) => {
     else window.open('https://wa.me/?text=' + encodeURIComponent(txt + ' ' + url), '_blank');
   }
 }, true);
+
+const favChip = document.getElementById('favChip');
+if (favChip) favChip.addEventListener('click', () => {
+  ONLY_FAV = !ONLY_FAV;
+  favChip.classList.toggle('on', ONLY_FAV);
+  LIMIT = 48;
+  render();
+});
+
+const fc0 = document.getElementById('favCount');
+if (fc0) fc0.textContent = favs().length;
 
 document.getElementById('more').addEventListener('click', () => {
   LIMIT += 24;
