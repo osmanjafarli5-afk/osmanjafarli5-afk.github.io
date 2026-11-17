@@ -208,6 +208,6 @@ if (cfgReady()) {
   if (go) go.addEventListener("click", function () {
     document.getElementById("authMsg").innerHTML =
       "⏳ Qeydiyyat hazırlanır. Hazırda elanı " +
-      '<a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota</a> göndərin.";
+      '<a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota</a> göndərin.';
   });
 }
