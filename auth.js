@@ -64,7 +64,8 @@ function buildUi() {
         <div><label class="auth-lbl">Yürüş (km) *</label><input id="adKm" type="number" placeholder="90000"></div>
         <div><label class="auth-lbl">Qiymət (₼) *</label><input id="adPrice" type="number" placeholder="19000"></div>
         <div><label class="auth-lbl">Şəhər</label><input id="adCity" placeholder="Bakı"></div>
-        <div class="full"><label class="auth-lbl">Telefon *</label><input id="adPhone" placeholder="+994 50 000 00 00"></div>
+        <div><label class="auth-lbl">Telefon *</label><input id="adPhone" placeholder="+994 50 000 00 00"></div>
+        <div><label class="auth-lbl">Telegram (username)</label><input id="adTg" placeholder="@username"></div>
         <div class="full"><label class="auth-lbl">Qeyd</label><input id="adNote" placeholder="Vuruğu yoxdur, ilk sahibindən..."></div>
       </div>
       <div class="auth-msg" id="adMsg"></div>
@@ -182,14 +183,14 @@ async function submitAd() {
   try {
     await fb.fsMod.addDoc(fb.fsMod.collection(fb.db, ADS_COLLECTION), {
       brand, model, year, km, price,
-      city: g("adCity"), phone, note: g("adNote"),
+      city: g("adCity"), phone, note: g("adNote"), tg: g("adTg").replace("@", ""),
       uid: window.__user ? window.__user.uid : null,
       email: window.__user ? window.__user.email : null,
       status: "pending",
       createdAt: Date.now()
     });
     msg.textContent = "✅ Elan göndərildi! Yoxlanıldıqdan sonra kanalda və saytda paylaşılacaq.";
-    ["adBrand", "adModel", "adYear", "adKm", "adPrice", "adCity", "adNote"].forEach(i => {
+    ["adBrand", "adModel", "adYear", "adKm", "adPrice", "adCity", "adNote", "adTg"].forEach(i => {
       const el = document.getElementById(i); if (el) el.value = "";
     });
     toggleWrap("adWrap", false);
