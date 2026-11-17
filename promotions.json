@@ -1,3 +1,8 @@
 {
-  "_note": "Elan promosyonları: post nömrəsi -> {type, until}. type: boost|vip|premium"
+  "156": {
+    "type": "premium",
+    "until": 1795534660.6099353,
+    "set": "2026-11-17"
+  },
+  "_note": "post -> {type, until}; type: boost|vip|premium"
 }
