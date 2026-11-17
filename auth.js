@@ -198,7 +198,10 @@ function buildUi() {
     if (pb) {
       e.preventDefault(); e.stopPropagation();
       if (window.__requireAuth && window.__requireAuth(
-          "🚀 Elanı önə çıxarmaq üçün daxil olun və ya qeydiyyatdan keçin (pulsuz).")) return;
+          "🚀 Elanı önə çıxarmaq üçün daxil olun və ya qeydiyyatdan keçin (pulsuz). Qeydiyyatdan sonra avtomatik VIP bota keçəcəksiniz.")) {
+        window.__pendingPromo = pb.dataset.promo || "";
+        return;
+      }
       var post = pb.dataset.promo || "";
       window.__promoPost = post;
       var url = "https://t.me/Boosted_mashinelanlari_bot" + (post ? "?start=" + post : "");
@@ -273,6 +276,17 @@ async function initFirebase() {
       fillProfile();
       if (!u.emailVerified) openVerify();
       else markVerified();
+      // 🚀 basıb qeydiyyata yönləndirilmişdisə — indi VIP bota apar
+      if (window.__pendingPromo !== undefined && window.__pendingPromo !== null) {
+        var p = window.__pendingPromo;
+        window.__pendingPromo = null;
+        var u2 = "https://t.me/Boosted_mashinelanlari_bot" + (p ? "?start=" + p : "");
+        setTimeout(function () {
+          var w = null;
+          try { w = window.open(u2, "_blank"); } catch (e) {}
+          if (!w) location.href = u2;
+        }, 600);
+      }
     }
   });
 
