@@ -199,6 +199,7 @@ async function initFirebase() {
       toggleWrap("authWrap", false);
       fillProfile();
       if (!u.emailVerified) openVerify();
+      else markVerified();
     }
   });
 
@@ -282,6 +283,19 @@ function openVerify() {
   toggleWrap("verWrap", true);
 }
 
+async function markVerified() {
+  const u = window.__user;
+  if (!u || !u.emailVerified || !fb) return;
+  const key = "verified_" + u.uid;
+  if (localStorage.getItem(key)) return;
+  try {
+    await fb.fsMod.addDoc(fb.fsMod.collection(fb.db, "verified"), {
+      email: u.email, uid: u.uid, createdAt: Date.now(), notified: false
+    });
+    localStorage.setItem(key, "1");
+  } catch (e) { console.log("verified yazilmadi", e); }
+}
+
 function requireVerified() {
   if (!window.__user) { toggleWrap("authWrap", true); return false; }
   if (!window.__user.emailVerified) { openVerify(); return false; }
@@ -297,6 +311,7 @@ async function checkVerified() {
       window.__verified = true;
       toggleWrap("verWrap", false);
       fillProfile();
+      markVerified();
     } else if (msg) {
       msg.textContent = "Hələ təsdiqlənməyib — emailinizə baxın (Spam qovluğuna da).";
     }
