@@ -97,6 +97,20 @@ function buildUi() {
   [wrap, form].forEach(w => w.addEventListener("click", e => {
     if (e.target === w) w.classList.remove("on");
   }));
+
+  // "Elana bax" — qeydiyyat tələb et
+  document.addEventListener("click", function (e) {
+    const a = e.target.closest(".more");
+    if (!a) return;
+    if (window.__user) return;
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWrap("authWrap", true);
+    const m = document.getElementById("authMsg");
+    if (m) m.textContent = "Elana baxmaq üçün daxil olun və ya qeydiyyatdan keçin.";
+    const t = document.querySelector('.auth-tab[data-tab="reg"]');
+    if (t) t.click();
+  }, true);
 }
 
 function toggleWrap(id, on) {
