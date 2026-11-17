@@ -289,8 +289,8 @@ async function markVerified() {
   const key = "verified_" + u.uid;
   if (localStorage.getItem(key)) return;
   try {
-    await fb.fsMod.addDoc(fb.fsMod.collection(fb.db, "verified"), {
-      email: u.email, uid: u.uid, createdAt: Date.now(), notified: false
+    await fb.fsMod.setDoc(fb.fsMod.doc(fb.db, "verified", u.uid), {
+      email: u.email, uid: u.uid, createdAt: Date.now()
     });
     localStorage.setItem(key, "1");
   } catch (e) { console.log("verified yazilmadi", e); }
