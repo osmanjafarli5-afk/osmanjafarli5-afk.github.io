@@ -458,6 +458,21 @@ footer{margin-top:34px}
       <div class="chips" id="bodyChips"></div>
     </div>
 
+    <div class="fgroup" id="fuelGroup">
+      <label class="flabel">Yanacaq</label>
+      <div class="chips" id="fuelChips"></div>
+    </div>
+
+    <div class="fgroup" id="gearGroup">
+      <label class="flabel">Sürətlər qutusu</label>
+      <div class="chips" id="gearChips"></div>
+    </div>
+
+    <div class="fgroup" id="cityGroup">
+      <label class="flabel">Şəhər / rayon</label>
+      <div class="chips" id="cityChips"></div>
+    </div>
+
     <div class="fgroup">
       <label class="flabel">Marka</label>
       <div class="chips" id="brandChips"></div>
@@ -545,7 +560,12 @@ const brands = [...new Set(DATA.map(d => (d.name.split(' ')[0] || '').trim()))]
   .filter(Boolean).sort((a,b)=>a.localeCompare(b));
 const bodies = [...new Set(DATA.map(d => d.body).filter(Boolean))].sort();
 
+const fuels = [...new Set(DATA.map(d => d.fuel).filter(Boolean))].sort();
+const gears = [...new Set(DATA.map(d => d.gearbox).filter(Boolean))].sort();
+const cities = [...new Set(DATA.map(d => d.city).filter(Boolean))].sort();
+
 let selBrands = new Set(), selBodies = new Set();
+let selFuels = new Set(), selGears = new Set(), selCities = new Set();
 
 function chip(text, container, set){
   const el = document.createElement('button');
@@ -559,7 +579,11 @@ function chip(text, container, set){
 }
 brands.forEach(b => chip(b, document.getElementById('brandChips'), selBrands));
 bodies.forEach(b => chip(b, document.getElementById('bodyChips'), selBodies));
-if (!bodies.length) document.getElementById('bodyGroup').style.display = 'none';
+fuels.forEach(b => chip(b, document.getElementById('fuelChips'), selFuels));
+gears.forEach(b => chip(b, document.getElementById('gearChips'), selGears));
+cities.forEach(b => chip(b, document.getElementById('cityChips'), selCities));
+[['bodyGroup', bodies], ['fuelGroup', fuels], ['gearGroup', gears], ['cityGroup', cities]]
+  .forEach(([id, arr]) => { if (!arr.length) document.getElementById(id).style.display = 'none'; });
 
 function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
@@ -600,7 +624,10 @@ function render(reset){
     d.price >= lo && d.price <= hi &&
     d.year >= yl && d.year <= yh &&
     (!selBrands.size || selBrands.has((d.name.split(' ')[0]||'').trim())) &&
-    (!selBodies.size || selBodies.has(d.body))
+    (!selBodies.size || selBodies.has(d.body)) &&
+    (!selFuels.size || selFuels.has(d.fuel)) &&
+    (!selGears.size || selGears.has(d.gearbox)) &&
+    (!selCities.size || selCities.has(d.city))
   );
 
   const s = sortSel.value;
@@ -758,7 +785,7 @@ prange.addEventListener('input', () => {
 document.getElementById('clear').addEventListener('click', () => {
   q.value=''; pmin.value=''; pmax.value=''; ymin.value=''; ymax.value='';
   prange.value=100; prange.style.setProperty('--p','100%');
-  selBrands.clear(); selBodies.clear();
+  selBrands.clear(); selBodies.clear(); selFuels.clear(); selGears.clear(); selCities.clear();
   document.querySelectorAll('.chip.on').forEach(c => c.classList.remove('on'));
   render();
 });
