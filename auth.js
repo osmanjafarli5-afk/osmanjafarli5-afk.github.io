@@ -191,9 +191,11 @@ function buildUi() {
 
   // "Elana bax" — qeydiyyat tələb et
   document.addEventListener("click", function (e) {
-    const pb = e.target.closest(".promo");
+    const pb = e.target.closest("[data-promo]");
     if (pb) {
       e.preventDefault(); e.stopPropagation();
+      if (window.__requireAuth && window.__requireAuth(
+          "🚀 Elanı önə çıxarmaq üçün daxil olun və ya qeydiyyatdan keçin (pulsuz).")) return;
       window.__promoPost = pb.dataset.promo || "";
       const c0 = document.getElementById("promoCmd");
       if (c0) c0.textContent = "/promo " + (window.__promoPost || "<post>") + " vip";
