@@ -123,11 +123,55 @@ function buildUi() {
   document.body.appendChild(ver);
 
 
+  // promosyon pəncərəsi
+  const promo = document.createElement("div");
+  promo.className = "auth-wrap";
+  promo.id = "promoWrap";
+  promo.innerHTML = `
+    <div class="auth-card wide" role="dialog" aria-modal="true">
+      <button class="sup-x" id="promoX" aria-label="Bağla">✕</button>
+      <h3>🚀 Elanı irəli çək</h3>
+      <p class="ad-sub">Elanınız siyahının başında görünsün. Ödənişdən sonra elan dərhal yuxarı qalxır.</p>
+      <div class="promoList">
+        <button class="promoOpt" data-p="boost">
+          <span class="po-ico">⚡</span>
+          <span class="po-txt"><b>İrəli çək</b><small>3 gün öndə</small></span>
+          <span class="po-price">3 ₼</span>
+        </button>
+        <button class="promoOpt" data-p="vip">
+          <span class="po-ico">⭐</span>
+          <span class="po-txt"><b>VIP</b><small>5 gün · VIP nişanı</small></span>
+          <span class="po-price">5 ₼</span>
+        </button>
+        <button class="promoOpt" data-p="premium">
+          <span class="po-ico">👑</span>
+          <span class="po-txt"><b>Premium</b><small>7 gün · həmişə birinci</small></span>
+          <span class="po-price">7 ₼</span>
+        </button>
+      </div>
+      <div class="sup-row" style="margin-top:14px">
+        <div class="sup-label">Kart nömrəsi</div>
+        <div class="sup-num" id="promoCard">5315 9921 5789 0523</div>
+        <button class="btn btn-primary sup-copy" id="promoCopy">Kopyala</button>
+      </div>
+      <div class="auth-msg" id="promoMsg"></div>
+      <p class="ad-sub" style="margin-top:12px">Ödənişdən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota</a> yazın:
+        <code id="promoCmd">/promo</code></p>
+    </div>`;
+  document.body.appendChild(promo);
+
   btn.addEventListener("click", () => {
     if (window.__user) { fillProfile(); toggleWrap("profWrap", true); }
     else toggleWrap("authWrap", true);
   });
   document.getElementById("authX").addEventListener("click", () => toggleWrap("authWrap", false));
+  document.getElementById("promoX")?.addEventListener("click", () => toggleWrap("promoWrap", false));
+  document.getElementById("promoCopy")?.addEventListener("click", function () {
+    var t = document.getElementById("promoCard").textContent.replace(/\s/g, "");
+    if (navigator.clipboard) navigator.clipboard.writeText(t);
+    this.textContent = "Kopyalandı ✓";
+    setTimeout(() => this.textContent = "Kopyala", 1500);
+  });
   document.getElementById("adX").addEventListener("click", () => toggleWrap("adWrap", false));
   [wrap, form].forEach(w => w.addEventListener("click", e => {
     if (e.target === w) w.classList.remove("on");
@@ -135,6 +179,27 @@ function buildUi() {
 
   // "Elana bax" — qeydiyyat tələb et
   document.addEventListener("click", function (e) {
+    const pb = e.target.closest(".promo");
+    if (pb) {
+      e.preventDefault(); e.stopPropagation();
+      window.__promoPost = pb.dataset.promo || "";
+      const c0 = document.getElementById("promoCmd");
+      if (c0) c0.textContent = "/promo " + (window.__promoPost || "<post>") + " vip";
+      toggleWrap("promoWrap", true);
+      return;
+    }
+    const op = e.target.closest(".promoOpt");
+    if (op) {
+      window.__promoType = op.dataset.p;
+      document.querySelectorAll(".promoOpt").forEach(x => x.classList.remove("on"));
+      op.classList.add("on");
+      const c1 = document.getElementById("promoCmd");
+      if (c1) c1.textContent = "/promo " + (window.__promoPost || "<post>") + " " + op.dataset.p;
+      return;
+    }
+  }, true);
+
+document.addEventListener("click", function (e) {
     const a = e.target.closest(".more");
     if (!a) return;
     if (!window.__authReady) return;

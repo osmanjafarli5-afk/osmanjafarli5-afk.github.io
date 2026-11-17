@@ -288,6 +288,34 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
  font-size:16px;display:grid;place-items:center;transition:transform .2s var(--ease)}
 .card .fav:hover{transform:scale(1.1)}
 .card .fav.on{background:#ffe4ec}
+.card .promo{position:absolute;left:10px;bottom:10px;width:34px;height:34px;border-radius:50%;
+ border:0;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;box-shadow:0 4px 14px rgba(249,115,22,.4);
+ cursor:pointer;font-size:15px;display:grid;place-items:center;transition:transform .2s var(--ease)}
+.card .promo:hover{transform:scale(1.1)}
+.promoTag{position:absolute;left:10px;top:44px;font-size:10.5px;font-weight:800;padding:4px 8px;
+ border-radius:8px;color:#fff;letter-spacing:.02em;box-shadow:0 2px 8px rgba(0,0,0,.16)}
+.promoTag.premium{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+.promoTag.vip{background:linear-gradient(135deg,#0ea5e9,#2563eb)}
+.promoTag.boost{background:linear-gradient(135deg,#f59e0b,#f97316)}
+.supportBox{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+ background:linear-gradient(135deg,#f8fafc,#eef6ff);border:1px solid var(--line);border-radius:18px;
+ padding:18px 20px;margin:26px 0 18px;box-shadow:var(--shadow)}
+.sb-left{display:flex;align-items:center;gap:14px}
+.sb-ico{width:44px;height:44px;border-radius:13px;background:#fff;display:grid;place-items:center;
+ font-size:20px;box-shadow:var(--shadow)}
+.sb-left b{display:block;font-size:15.5px}
+.sb-left span{color:var(--dim);font-size:12.8px}
+.sb-right{display:flex;gap:10px;flex-wrap:wrap}
+.promoList{display:flex;flex-direction:column;gap:9px;margin-top:6px}
+.promoOpt{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:13px;
+ border:1.5px solid var(--line);background:#fff;cursor:pointer;text-align:left;transition:all .2s var(--ease)}
+.promoOpt:hover{border-color:#f59e0b;transform:translateY(-1px);box-shadow:var(--shadow)}
+.promoOpt.on{border-color:#f59e0b;background:#fff8ee;box-shadow:0 6px 18px rgba(245,158,11,.18)}
+.po-ico{font-size:20px}
+.po-txt{display:flex;flex-direction:column;flex:1}
+.po-txt b{font-size:14.5px}
+.po-txt small{color:var(--dim);font-size:12px}
+.po-price{font-weight:800;color:#b45309;font-size:15px}
 .card .share{position:absolute;right:10px;top:44px;width:34px;height:34px;border-radius:50%;
  border:0;background:rgba(255,255,255,.94);box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer;
  font-size:15px;display:grid;place-items:center}
@@ -430,6 +458,19 @@ footer{margin-top:34px}
 </section>
 </div>
 
+<div class="wrap"><div class="supportBox">
+  <div class="sb-left">
+    <div class="sb-ico">🛟</div>
+    <div>
+      <b>Dəstək xidməti</b>
+      <span>Bazar ertəsi – Cümə · 09:00 – 19:00</span>
+    </div>
+  </div>
+  <div class="sb-right">
+    <a class="btn btn-primary" href="https://t.me/masin_destek_bot" target="_blank" rel="noopener">Dəstəyə yaz</a>
+    <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
+  </div>
+</div></div>
 <footer><div class="wrap fgrid">
   <div class="fnote">
     Elan yerləşdirmək <b>pulsuzdur</b> — <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">@yetimhanekundakcis_bot</a>-a yazın.<br>
@@ -534,6 +575,15 @@ function render(reset){
     rows.push(...out2);
   }
 
+  // promosyonlu elanlar ən öndə
+  const rank = { premium: 3, vip: 2, boost: 1 };
+  const pr = rows.filter(d => d.promo).sort((a, b) => (rank[b.promo] || 0) - (rank[a.promo] || 0));
+  if (pr.length) {
+    const rest0 = rows.filter(d => !d.promo);
+    rows.length = 0;
+    rows.push(...pr, ...rest0);
+  }
+
   // satıcı elanları həmişə öndə (ən yenisi birinci)
   const sel = rows.filter(d => d.id >= 900000000)
                    .sort((a, b) => (b.post || 0) - (a.post || 0));
@@ -556,7 +606,9 @@ function render(reset){
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
         <button class="fav${isFav(d.id) ? ' on' : ''}" data-fav="${d.id}" title="Seçilmişlərə at">${isFav(d.id) ? '❤️' : '🤍'}</button>
+        <button class="promo" data-promo="${d.post || ''}" title="Elanı irəli çək">🚀</button>
         <button class="share" data-share="${d.id}" title="Paylaş">↗</button>
+        ${d.promo ? `<span class="promoTag ${d.promo}">${d.promo === 'premium' ? '👑 Premium' : d.promo === 'vip' ? '⭐ VIP' : '⚡ İrəli'}</span>` : ''}
         ${d.id >= 900000000 ? '<span class="seller-tag">Satıcı</span>' : ''}
         ${d.img
           ? `<img loading="lazy" decoding="async" src="${d.img}" alt="${d.name} ${d.year} — ${d.price ? fmt(d.price) + ' AZN' : 'qiymət razılaşma'}, ${d.city||''}" onerror="this.style.opacity=.12">`
