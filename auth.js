@@ -70,7 +70,7 @@ function buildUi() {
         <div><label class="auth-lbl">Qiymət (₼) *</label><input id="adPrice" type="number" placeholder="19000"></div>
         <div><label class="auth-lbl">Şəhər</label><input id="adCity" placeholder="Bakı"></div>
         <div><label class="auth-lbl">Telefon *</label><input id="adPhone" placeholder="+994 50 000 00 00"></div>
-        <div><label class="auth-lbl">Telegram *</label><input id="adTg" placeholder="@username" required></div>
+        <div><label class="auth-lbl">Telegram *<span style="color:#d6336c">(mütləqdir)</span></label><input id="adTg" placeholder="@username" required><div style="font-size:11.5px;color:#7d8899;margin-top:4px">Elan linki bu Telegram hesabına göndəriləcək</div></div>
         <div class="full"><label class="auth-lbl">Qeyd</label><input id="adNote" placeholder="Vuruğu yoxdur, ilk sahibindən..."></div>
       </div>
       <div class="auth-msg" id="adMsg"></div>
@@ -393,7 +393,9 @@ async function submitAd() {
     return;
   }
   if (!tg) {
-    msg.textContent = "⚠️ Telegram username yazın (@username) — elan linki oraya göndəriləcək.";
+    msg.textContent = "❌ Telegram username mütləqdir — elan linki oraya göndəriləcək.";
+    const el = document.getElementById("adTg");
+    if (el) { el.style.borderColor = "#d6336c"; el.focus(); }
     return;
   }
   try {
