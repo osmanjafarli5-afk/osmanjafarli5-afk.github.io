@@ -167,7 +167,10 @@ function buildUi() {
         <button class="btn btn-primary sup-copy" id="promoCopy">Kopyala</button>
       </div>
       <div class="auth-msg" id="promoMsg"></div>
-      <p class="ad-sub" style="margin-top:12px">Ödənişdən sonra <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota</a> yazın:
+      <p class="ad-sub" style="margin-top:12px">Ödənişdən sonra VIP botuna yazın — elan dərhal önə çəkilir:</p>
+      <a class="btn btn-primary auth-go" href="https://t.me/Boosted_mashinelanlari_bot"
+         target="_blank" rel="noopener" style="margin-top:8px">🚀 VIP bota keç</a>
+      <p class="ad-sub" style="margin-top:10px;font-size:12px">Paket adı + elan linkini yazın.
         <code id="promoCmd">/promo</code></p>
     </div>`;
   document.body.appendChild(promo);
