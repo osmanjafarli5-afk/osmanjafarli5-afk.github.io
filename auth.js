@@ -79,7 +79,6 @@ function buildUi() {
     </div>`;
   document.body.appendChild(form);
 
-  if (cfgReady()) {
     // profil pəncərəsi (ad + mail)
   const prof = document.createElement("div");
   prof.className = "auth-wrap";
@@ -123,16 +122,6 @@ function buildUi() {
     </div>`;
   document.body.appendChild(ver);
 
-  const fab = document.createElement("button");
-    fab.id = "adFab";
-    fab.className = "ad-fab";
-    fab.textContent = "➕ Elan";
-    document.body.appendChild(fab);
-    fab.addEventListener("click", () => {
-      if (!requireVerified()) return;
-      toggleWrap("adWrap", true);
-    });
-  }
 
   btn.addEventListener("click", () => {
     if (window.__user) { fillProfile(); toggleWrap("profWrap", true); }
