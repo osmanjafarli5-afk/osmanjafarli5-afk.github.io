@@ -73,19 +73,21 @@ function buildUi() {
     </div>`;
   document.body.appendChild(form);
 
-  const fab = document.createElement("button");
-  fab.id = "adFab";
-  fab.className = "ad-fab";
-  fab.textContent = "➕ Elan yerləşdir";
-  document.body.appendChild(fab);
+  if (cfgReady()) {
+    const fab = document.createElement("button");
+    fab.id = "adFab";
+    fab.className = "ad-fab";
+    fab.textContent = "➕ Elan yerləşdir";
+    document.body.appendChild(fab);
+    fab.addEventListener("click", () => {
+      if (!window.__user) { toggleWrap("authWrap", true); return; }
+      toggleWrap("adWrap", true);
+    });
+  }
 
   btn.addEventListener("click", () => toggleWrap("authWrap", true));
   document.getElementById("authX").addEventListener("click", () => toggleWrap("authWrap", false));
   document.getElementById("adX").addEventListener("click", () => toggleWrap("adWrap", false));
-  fab.addEventListener("click", () => {
-    if (!window.__user) { toggleWrap("authWrap", true); return; }
-    toggleWrap("adWrap", true);
-  });
   [wrap, form].forEach(w => w.addEventListener("click", e => {
     if (e.target === w) w.classList.remove("on");
   }));
@@ -197,10 +199,15 @@ async function submitAd() {
 }
 
 /* ---------- start ---------- */
+buildUi();
 if (cfgReady()) {
-  buildUi();
   initFirebase().catch(() => {});
 } else {
-  // konfiqurasiya yoxdur — sadəcə bot düyməsi işləyir
-  console.log("Firebase konfiqurasiyası boşdur — sayt qeydiyyatsız rejimdə.");
+  // konfiqurasiya hələ yoxdur: pəncərə açılır, izahat göstərilir
+  const go = document.getElementById("authGo");
+  if (go) go.addEventListener("click", function () {
+    document.getElementById("authMsg").innerHTML =
+      "⏳ Qeydiyyat hazırlanır. Hazırda elanı " +
+      '<a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">bota</a> göndərin.";
+  });
 }
