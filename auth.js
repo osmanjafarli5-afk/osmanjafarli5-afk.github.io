@@ -12,6 +12,11 @@ const FIREBASE_CONFIG = {
 
 const ADS_COLLECTION = "listings";
 
+const CLOUDINARY = {
+  cloud: "",        // Cloudinary cloud name
+  preset: ""        // unsigned upload preset
+};
+
 function cfgReady() {
   return !!(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.projectId);
 }
@@ -67,6 +72,8 @@ function buildUi() {
         <div><label class="auth-lbl">Telefon *</label><input id="adPhone" placeholder="+994 50 000 00 00"></div>
         <div><label class="auth-lbl">Telegram (username)</label><input id="adTg" placeholder="@username"></div>
         <div class="full"><label class="auth-lbl">Qeyd</label><input id="adNote" placeholder="Vuruğu yoxdur, ilk sahibindən..."></div>
+        <div class="full"><label class="auth-lbl">Şəkil (2-3 foto)</label>
+          <input id="adPhoto" type="file" accept="image/*" multiple></div>
       </div>
       <div class="auth-msg" id="adMsg"></div>
       <button class="btn btn-primary auth-go" id="adGo">Göndər</button>
@@ -170,6 +177,30 @@ async function resetPass() {
   }
 }
 
+async function uploadPhoto(file) {
+  if (!CLOUDINARY.cloud || !CLOUDINARY.preset) return null;
+  const bmp = await new Promise((res, rej) => {
+    const img = new Image();
+    img.onload = () => res(img);
+    img.onerror = rej;
+    img.src = URL.createObjectURL(file);
+  });
+  const max = 1280;
+  const sc = Math.min(1, max / Math.max(bmp.width, bmp.height));
+  const cv = document.createElement("canvas");
+  cv.width = Math.round(bmp.width * sc);
+  cv.height = Math.round(bmp.height * sc);
+  cv.getContext("2d").drawImage(bmp, 0, 0, cv.width, cv.height);
+  const blob = await new Promise(r => cv.toBlob(r, "image/jpeg", 0.82));
+  const fd = new FormData();
+  fd.append("file", blob, "photo.jpg");
+  fd.append("upload_preset", CLOUDINARY.preset);
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY.cloud}/image/upload`,
+                          { method: "POST", body: fd });
+  const data = await res.json();
+  return data.secure_url || null;
+}
+
 async function submitAd() {
   const g = id => document.getElementById(id).value.trim();
   const msg = document.getElementById("adMsg");
@@ -181,16 +212,23 @@ async function submitAd() {
     return;
   }
   try {
+    let photoUrl = "";
+    const files = document.getElementById("adPhoto").files;
+    if (files && files.length) {
+      msg.textContent = "⏳ Şəkil yüklənir...";
+      photoUrl = (await uploadPhoto(files[0])) || "";
+    }
     await fb.fsMod.addDoc(fb.fsMod.collection(fb.db, ADS_COLLECTION), {
       brand, model, year, km, price,
       city: g("adCity"), phone, note: g("adNote"), tg: g("adTg").replace("@", ""),
       uid: window.__user ? window.__user.uid : null,
       email: window.__user ? window.__user.email : null,
+      photoUrl,
       status: "pending",
       createdAt: Date.now()
     });
     msg.textContent = "✅ Elan göndərildi! Yoxlanıldıqdan sonra kanalda və saytda paylaşılacaq.";
-    ["adBrand", "adModel", "adYear", "adKm", "adPrice", "adCity", "adNote", "adTg"].forEach(i => {
+    ["adBrand", "adModel", "adYear", "adKm", "adPrice", "adCity", "adNote", "adTg", "adPhoto"].forEach(i => {
       const el = document.getElementById(i); if (el) el.value = "";
     });
     toggleWrap("adWrap", false);
