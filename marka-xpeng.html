@@ -366,6 +366,7 @@ footer{margin-top:34px}
  .card .act{width:27px;height:27px;font-size:12px;box-shadow:0 2px 7px rgba(0,0,0,.16)}
  .card .actBoost img{width:15px;height:15px}
  .card .badge{font-size:10px;padding:3px 7px;left:7px;top:7px}
+ .seller-tag{right:7px;top:auto;bottom:7px;font-size:9px;padding:3px 7px}
  .promoTag{font-size:9.5px;padding:3px 7px;left:7px;bottom:7px;top:auto;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
  .card .body{padding:9px 10px 10px;display:flex;flex-direction:column}
  .price{font-size:15.5px;order:1;margin:0 0 1px;letter-spacing:-.3px}
@@ -448,7 +449,7 @@ footer{margin-top:34px}
     </div>
 
     <div class="fgroup">
-      <label class="flabel">Qiymət (₼)</label>
+      <label class="flabel">Qiymət (AZN)</label>
       <div class="row2">
         <input id="pmin" type="number" inputmode="numeric" placeholder="min">
         <input id="pmax" type="number" inputmode="numeric" placeholder="max">
@@ -757,7 +758,7 @@ function render(reset){
       <div class="body">
         <div class="nm">${d.name}</div>
         <div class="meta">${[d.engine, d.fuel, d.gearbox, d.km ? fmt(d.km)+' km' : ''].filter(Boolean).join(' · ')}</div>
-        <div class="price">${d.price ? fmt(d.price) + ' <small>₼</small>' : '<small style="font-size:16px">Qiymət: razılaşma</small>'}</div>
+        <div class="price">${d.price ? fmt(d.price) + ' <small>AZN</small>' : '<small style="font-size:16px">Qiymət: razılaşma</small>'}</div>
         <div class="foot">
           <span class="city">${d.city || ''}</span>
           <a class="more" href="${d.url}" target="_blank" rel="noopener">Elana bax <span>→</span></a>

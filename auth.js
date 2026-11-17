@@ -148,17 +148,17 @@ function buildUi() {
         <button class="promoOpt" data-p="boost">
           <span class="po-ico">⚡</span>
           <span class="po-txt"><b>İrəli çək</b><small>3 gün öndə</small></span>
-          <span class="po-price">3 ₼</span>
+          <span class="po-price">3 AZN</span>
         </button>
         <button class="promoOpt" data-p="vip">
           <span class="po-ico">⭐</span>
           <span class="po-txt"><b>VIP</b><small>5 gün · VIP nişanı</small></span>
-          <span class="po-price">5 ₼</span>
+          <span class="po-price">5 AZN</span>
         </button>
         <button class="promoOpt" data-p="premium">
           <span class="po-ico">👑</span>
           <span class="po-txt"><b>Premium</b><small>7 gün · həmişə birinci</small></span>
-          <span class="po-price">7 ₼</span>
+          <span class="po-price">7 AZN</span>
         </button>
       </div>
       <div class="sup-row" style="margin-top:14px">
