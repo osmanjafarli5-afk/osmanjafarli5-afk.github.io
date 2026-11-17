@@ -163,8 +163,13 @@ async function doAuth() {
   msg.textContent = "";
   try {
     if (mode === "reg") {
-      await fb.authMod.createUserWithEmailAndPassword(fb.auth, email, pass);
+      const cred = await fb.authMod.createUserWithEmailAndPassword(fb.auth, email, pass);
       await fb.authMod.sendEmailVerification(fb.auth.currentUser).catch(() => {});
+      try {
+        await fb.fsMod.addDoc(fb.fsMod.collection(fb.db, "registrations"), {
+          email, uid: cred.user.uid, createdAt: Date.now(), notified: false
+        });
+      } catch (err) { console.log("qeydiyyat qeydi yazilmadi", err); }
       msg.textContent = "✅ Qeydiyyat oldu — emailinizə təsdiq məktubu göndərildi.";
     } else {
       await fb.authMod.signInWithEmailAndPassword(fb.auth, email, pass);
