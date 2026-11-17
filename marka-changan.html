@@ -333,14 +333,7 @@ footer{margin-top:34px}
 </style>
 </head>
 <body>
-<div id="splash">
-  <div class="sp-inner">
-    <div class="sp-logo"><img src="logo.png" alt="AVTO ELANLAR AZ"></div>
-    <div class="sp-name">Maşın Elanları</div>
-    <div class="sp-tag">Günün fürsəti</div>
-    <div class="sp-bar"><i></i></div>
-  </div>
-</div>
+
 
 <header class="hero"><div class="wrap">
   <div class="top">
@@ -716,20 +709,6 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
-// --- splash ---
-(function () {
-  var t0 = Date.now();
-  function spHide() {
-    var el = document.getElementById('splash');
-    if (!el) return;
-    var wait = Math.max(0, 650 - (Date.now() - t0));
-    setTimeout(function () { el.classList.add('hide'); }, wait);
-  }
-  if (document.readyState === 'complete') spHide();
-  else window.addEventListener('load', spHide);
-  setTimeout(spHide, 2600);
-})();
-
 // --- hero axtarisi ---
 document.addEventListener('DOMContentLoaded', function(){
   var hq = document.getElementById('hq'), hqB = document.getElementById('hqBtn');
