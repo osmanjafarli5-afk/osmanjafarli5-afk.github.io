@@ -102,6 +102,7 @@ function buildUi() {
   document.addEventListener("click", function (e) {
     const a = e.target.closest(".more");
     if (!a) return;
+    if (!window.__authReady) return;      // auth yoxlanana qədər maneə qoymuruq
     if (window.__user) return;
     e.preventDefault();
     e.stopPropagation();
@@ -128,6 +129,9 @@ async function initFirebase() {
     import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js")
   ]);
   const app = initializeApp(FIREBASE_CONFIG);
+  try {
+    await authMod.setPersistence(authMod.getAuth(app), authMod.browserLocalPersistence);
+  } catch (e) { /* sus */ }
   fb = {
     auth: authMod.getAuth(app),
     authMod,
@@ -135,8 +139,11 @@ async function initFirebase() {
     fsMod
   };
 
+  const ab = document.getElementById("authBtn");
+  if (ab) ab.textContent = "⏳ ...";
   authMod.onAuthStateChanged(fb.auth, (u) => {
     window.__user = u;
+    window.__authReady = true;
     const b = document.getElementById("authBtn");
     if (b) b.textContent = u ? "👤 " + (u.email || "").split("@")[0] : "👤 Daxil ol";
     if (u) toggleWrap("authWrap", false);
