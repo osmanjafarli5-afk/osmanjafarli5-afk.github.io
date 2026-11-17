@@ -297,6 +297,23 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 .promoTag.premium{background:linear-gradient(135deg,#7c3aed,#a855f7)}
 .promoTag.vip{background:linear-gradient(135deg,#0ea5e9,#2563eb)}
 .promoTag.boost{background:linear-gradient(135deg,#f59e0b,#f97316)}
+#splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;
+ background:radial-gradient(900px 500px at 50% 0%,#ffffff,#eef5ff 60%,#e6efff);
+ transition:opacity .55s var(--ease),visibility .55s}
+#splash.hide{opacity:0;visibility:hidden}
+.sp-inner{display:flex;flex-direction:column;align-items:center;gap:10px}
+.sp-logo{width:86px;height:86px;border-radius:26px;display:grid;place-items:center;font-size:42px;
+ background:linear-gradient(135deg,#0b63f6,#3b82f6);box-shadow:0 20px 46px rgba(11,99,246,.34);
+ animation:spPop .7s var(--ease) both}
+.sp-name{font-size:19px;font-weight:800;letter-spacing:-.4px;margin-top:6px;animation:spUp .6s .12s var(--ease) both}
+.sp-tag{font-size:12.5px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;
+ animation:spUp .6s .2s var(--ease) both}
+.sp-bar{width:150px;height:4px;border-radius:99px;background:#dbe6f7;overflow:hidden;margin-top:16px}
+.sp-bar i{display:block;height:100%;width:40%;border-radius:99px;
+ background:linear-gradient(90deg,#0b63f6,#60a5fa);animation:spLoad 1.15s var(--ease) infinite}
+@keyframes spPop{from{opacity:0;transform:scale(.75) rotate(-10deg)}to{opacity:1;transform:none}}
+@keyframes spUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes spLoad{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
 .supportBox{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
  background:linear-gradient(135deg,#f8fafc,#eef6ff);border:1px solid var(--line);border-radius:18px;
  padding:18px 20px;margin:26px 0 18px;box-shadow:var(--shadow)}
@@ -344,6 +361,14 @@ footer{margin-top:34px}
 </style>
 </head>
 <body>
+<div id="splash">
+  <div class="sp-inner">
+    <div class="sp-logo">🚗</div>
+    <div class="sp-name">Maşın Elanları</div>
+    <div class="sp-tag">Günün fürsəti</div>
+    <div class="sp-bar"><i></i></div>
+  </div>
+</div>
 
 <header class="hero"><div class="wrap">
   <div class="top">
@@ -694,6 +719,20 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- splash ---
+(function () {
+  var t0 = Date.now();
+  function spHide() {
+    var el = document.getElementById('splash');
+    if (!el) return;
+    var wait = Math.max(0, 650 - (Date.now() - t0));
+    setTimeout(function () { el.classList.add('hide'); }, wait);
+  }
+  if (document.readyState === 'complete') spHide();
+  else window.addEventListener('load', spHide);
+  setTimeout(spHide, 2600);
+})();
+
 // --- hero axtarisi ---
 document.addEventListener('DOMContentLoaded', function(){
   var hq = document.getElementById('hq'), hqB = document.getElementById('hqBtn');
