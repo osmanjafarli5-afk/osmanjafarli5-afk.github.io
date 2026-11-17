@@ -80,7 +80,33 @@ function buildUi() {
   document.body.appendChild(form);
 
   if (cfgReady()) {
-    const fab = document.createElement("button");
+    // profil pəncərəsi (ad + mail)
+  const prof = document.createElement("div");
+  prof.className = "auth-wrap";
+  prof.id = "profWrap";
+  prof.innerHTML = `
+    <div class="auth-card" role="dialog" aria-modal="true">
+      <button class="sup-x" id="profX" aria-label="Bağla">✕</button>
+      <div class="prof-head">
+        <div class="prof-ava" id="profAva">👤</div>
+        <div class="prof-info">
+          <div class="prof-nameline">
+            <span class="prof-name" id="profName">—</span>
+            <button class="prof-edit" id="profEdit" title="Adı dəyiş">✏️</button>
+          </div>
+          <div class="prof-mail" id="profMail"></div>
+        </div>
+      </div>
+      <div id="profEditBox" style="display:none;margin-top:16px">
+        <label class="auth-lbl">Adınız</label>
+        <input id="profInput" placeholder="Ad Soyad">
+        <button class="btn btn-primary auth-go" id="profSave">Yadda saxla</button>
+      </div>
+      <button class="btn btn-ghost auth-go" id="profOut" style="margin-top:14px">Çıxış</button>
+    </div>`;
+  document.body.appendChild(prof);
+
+  const fab = document.createElement("button");
     fab.id = "adFab";
     fab.className = "ad-fab";
     fab.textContent = "➕ Elan yerləşdir";
@@ -91,7 +117,10 @@ function buildUi() {
     });
   }
 
-  btn.addEventListener("click", () => toggleWrap("authWrap", true));
+  btn.addEventListener("click", () => {
+    if (window.__user) { fillProfile(); toggleWrap("profWrap", true); }
+    else toggleWrap("authWrap", true);
+  });
   document.getElementById("authX").addEventListener("click", () => toggleWrap("authWrap", false));
   document.getElementById("adX").addEventListener("click", () => toggleWrap("adWrap", false));
   [wrap, form].forEach(w => w.addEventListener("click", e => {
@@ -145,13 +174,24 @@ async function initFirebase() {
     window.__user = u;
     window.__authReady = true;
     const b = document.getElementById("authBtn");
-    if (b) b.textContent = u ? "👤 " + (u.email || "").split("@")[0] : "👤 Daxil ol";
-    if (u) toggleWrap("authWrap", false);
+    const nm = u ? (u.displayName || (u.email || "").split("@")[0]) : "";
+    if (b) b.textContent = u ? "👤 " + nm : "👤 Daxil ol";
+    if (u) { toggleWrap("authWrap", false); fillProfile(); }
   });
 
   document.getElementById("authGo").addEventListener("click", doAuth);
   document.getElementById("adGo").addEventListener("click", submitAd);
   document.getElementById("authReset").addEventListener("click", resetPass);
+  document.getElementById("profX").addEventListener("click", () => toggleWrap("profWrap", false));
+  document.getElementById("profEdit").addEventListener("click", () => {
+    const box = document.getElementById("profEditBox");
+    const inp = document.getElementById("profInput");
+    inp.value = (window.__user && (window.__user.displayName || "")) || "";
+    box.style.display = box.style.display === "none" ? "block" : "none";
+    if (box.style.display === "block") inp.focus();
+  });
+  document.getElementById("profSave").addEventListener("click", saveProfileName);
+  document.getElementById("profOut").addEventListener("click", signOutNow);
   document.querySelectorAll(".auth-tab").forEach(t =>
     t.addEventListener("click", () => {
       document.querySelectorAll(".auth-tab").forEach(x => x.classList.remove("on"));
@@ -199,6 +239,38 @@ async function resetPass() {
   } catch (e) {
     msg.textContent = "⚠️ " + e.message;
   }
+}
+
+function fillProfile() {
+  const u = window.__user;
+  if (!u) return;
+  const nm = u.displayName || (u.email || "").split("@")[0];
+  const el = document.getElementById("profName");
+  const ml = document.getElementById("profMail");
+  const av = document.getElementById("profAva");
+  if (el) el.textContent = nm;
+  if (ml) ml.textContent = u.email || "";
+  if (av) av.textContent = (nm[0] || "👤").toUpperCase();
+  const t = document.getElementById("authBtn");
+  if (t) t.textContent = "👤 " + nm;
+  const box = document.getElementById("profEditBox");
+  if (box) box.style.display = "none";
+}
+
+async function saveProfileName() {
+  const v = (document.getElementById("profInput").value || "").trim();
+  if (!v || !fb) return;
+  try {
+    await fb.authMod.updateProfile(fb.auth.currentUser, { displayName: v });
+    fillProfile();
+  } catch (e) { alert("Ad saxlanmadı: " + e.message); }
+}
+
+async function signOutNow() {
+  try { await fb.authMod.signOut(fb.auth); } catch (e) {}
+  toggleWrap("profWrap", false);
+  const t = document.getElementById("authBtn");
+  if (t) t.textContent = "👤 Daxil ol";
 }
 
 async function uploadPhoto(file) {
