@@ -335,6 +335,49 @@ aside{border-radius:20px}
 .cta{border-radius:16px;box-shadow:var(--shadow)}
 footer{margin-top:34px}
 
+
+/* ================= AXICI MÜASİR ÜSLUB ================= */
+html{scroll-behavior:smooth}
+body{-webkit-font-smoothing:antialiased}
+[data-reveal]{opacity:0;transform:translateY(26px);
+ transition:opacity .7s var(--ease), transform .7s var(--ease)}
+[data-reveal].in{opacity:1;transform:none}
+
+header.hero{position:sticky;top:0;z-index:50;transition:padding .3s var(--ease),box-shadow .3s var(--ease)}
+header.hero.slim{padding:10px 0 10px;box-shadow:0 6px 24px rgba(15,23,42,.08)}
+header.hero.slim .sub{display:none}
+header.hero.slim h1{font-size:19px}
+
+.heroGlow{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.heroGlow i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;
+ animation:float 14s ease-in-out infinite}
+.heroGlow i:nth-child(1){width:420px;height:420px;left:-120px;top:-160px;background:#bfd7ff}
+.heroGlow i:nth-child(2){width:360px;height:360px;right:-90px;top:-120px;background:#ffe1b8;
+ animation-delay:-4s}
+.heroGlow i:nth-child(3){width:300px;height:300px;left:40%;top:-200px;background:#d6f5e3;
+ animation-delay:-8s}
+@keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}
+ 50%{transform:translate3d(16px,22px,0) scale(1.08)}}
+
+.grid .card{transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .3s}
+.btn{transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .2s}
+.btn:active{transform:scale(.97)}
+.card .ph:after{content:"";position:absolute;inset:0;
+ background:linear-gradient(180deg,transparent 55%,rgba(6,10,14,.35));
+ opacity:0;transition:opacity .35s}
+.card:hover .ph:after{opacity:1}
+
+.secTitle{display:flex;align-items:center;gap:12px;margin:34px 0 16px;font-size:20px;font-weight:800}
+.secTitle:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.step b{display:block;font-size:15px;margin-bottom:6px}
+.step span{color:var(--dim);font-size:13px;line-height:1.5}
+.step i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;margin-bottom:10px;
+ background:var(--soft);color:var(--acc);font-style:normal;font-weight:800}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+
 @media (max-width:760px){
  .wrap{padding:0 14px}
  header.hero{padding:16px 0 14px}
@@ -383,7 +426,7 @@ footer{margin-top:34px}
 <body>
 
 
-<header class="hero"><div class="wrap">
+<header class="hero"><div class="heroGlow"><i></i><i></i><i></i></div><div class="wrap">
   <div class="top">
     <div class="brand">
       <div class="logo"><img src="logo.png" alt="AVTO ELANLAR AZ" width="48" height="48"></div>
@@ -522,7 +565,15 @@ footer{margin-top:34px}
 </section>
 </div>
 
-<div class="wrap"><div class="supportBox">
+<div class="wrap">
+  <div class="secTitle">Necə işləyir?</div>
+  <div class="steps">
+    <div class="step"><i>1</i><b>Maşını seç</b><span>Marka, model və qiymət filtrləri ilə uyğun elanı tap.</span></div>
+    <div class="step"><i>2</i><b>Satıcı ilə əlaqə</b><span>Telefon nömrəsi elanın içində — birbaşa zəng et.</span></div>
+    <div class="step"><i>3</i><b>Öz maşınını sat</b><span>3–5 şəkil göndər, 5 dəqiqəyə kanalda və saytda olsun.</span></div>
+  </div>
+
+  <div class="supportBox">
   <div class="sb-left">
     <div class="sb-ico"><img src="support-logo.png" alt="Dəstək xidməti"></div>
     <div>
@@ -534,7 +585,8 @@ footer{margin-top:34px}
     <a class="btn btn-primary" href="https://t.me/destek_mashin_bot" target="_blank" rel="noopener">Dəstəyə yaz</a>
     <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
   </div>
-</div></div>
+  </div>
+</div>
 <footer><div class="wrap fgrid">
   <div class="fnote">
     Elan yerləşdirmək <b>pulsuzdur</b> — <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">@yetimhanekundakcis_bot</a>-a yazın.<br>
@@ -545,7 +597,7 @@ footer{margin-top:34px}
 </div></footer>
 
 <script>
-const DATA = [{"id": 10814060, "name": "Lincoln Aviator", "price": 84150, "year": 2021, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F16%2F33%2F52%2F07264cbd-38fc-4a75-9d6b-0e5a07bc203a%2F83077_8RmuaLjkFy0Shv2xVPi36Q.jpg", "url": "https://turbo.az/autos/10814060-lincoln-aviator", "km": 32000, "engine": "3.0 L"}, {"id": 10466143, "name": "Lincoln MKC", "price": 29700, "year": 2019, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F12%2F22%2F27%2F02%2F3222c162-6b22-4006-81ee-81461a57c393%2F26053_SYodNqv47shvSQiegzCNXQ.jpg", "url": "https://turbo.az/autos/10466143-lincoln-mkc", "km": 119000, "engine": "2.0 L"}, {"id": 10835972, "name": "Lincoln Navigator", "year": 2019, "price": 102000, "engine": "3.5 L · Benzin", "km": 172200, "cond": "2019-ci il üçün 172 200 km yürüş ildə ~24 600 km deməkdir — real göstərici. Vəziyyəti: vuruğu yoxdur, rənglənməyib.", "img": "https://cdn4.telesco.pe/file/dKaWx8bNIwrjE4I6yluQLSbRfTyXPeOjFwBfz22XIx_dYns7YVEhutL7Q5f0O1s467u0YxyIzcrRxImLA6dZskFyzrFI9fNr8qB3fhy9LOjyehIYBQ1URkpVB_fzFnmGnlF_vC9AY2To9EILJJdXQTHxXUYokj2MDzM1JXOG2DyIV4_Y3_8xE4Ax13W8YUDU5_4Sd_1WfeJ1F0musV3XZKLvPKL_gzBWUgTXlK5bq4DsPDK1pRrHELqhvkd3yp3lBkGDyPvO4wvrv1kCyjNsKy_aX1O55ltv7oUGNIBUFW9id0imius5jSo8LVP1JBcP7TBkcA5ZUn5M57WOSmMrEw.jpg", "url": "https://turbo.az/autos/10835972", "post": 29}, {"id": 10754683, "name": "Lincoln MKZ", "price": 22500, "year": 2017, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F06%2F13%2F55%2F11%2Fd35cd7a8-13f1-407f-b4c8-1fc77a8be182%2F60580_xHLxIoomW_XOtjtLFMXpHQ.jpg", "url": "https://turbo.az/autos/10754683-lincoln-mkz", "km": 90000, "engine": "2.0 L"}, {"id": 10851089, "name": "Lincoln MKZ", "price": 19900, "year": 2016, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F11%2F24%2F48%2F843a0ce7-883b-45ad-9d2c-472c913125b4%2F22494_mA6hftatKm6jde5xSO8G6A.jpg", "url": "https://turbo.az/autos/10851089-lincoln-mkz", "km": 230907, "engine": "2.0 L"}, {"id": 10799656, "name": "Lincoln MKZ", "price": 21500, "year": 2016, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F24%2F22%2F36%2F57%2Fe766702d-5588-4390-bc6a-a5c243e9fa28%2F69035_nCluHySTv3wIHGecgbcMmw.jpg", "url": "https://turbo.az/autos/10799656-lincoln-mkz", "km": 186000, "engine": "2.0 L"}, {"id": 10853992, "name": "Lincoln MKZ", "price": 17500, "year": 2015, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F10%2F11%2F31%2Ff8f7f418-3f0f-4e19-915d-58270e978963%2F67479_cdwxDVIFWZzhuG5rhCMAbw.jpg", "url": "https://turbo.az/autos/10853992-lincoln-mkz", "km": 215000, "engine": "2.0 L"}];
+const DATA = [{"id": 10814060, "name": "Lincoln Aviator", "price": 84150, "year": 2021, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F16%2F33%2F52%2F07264cbd-38fc-4a75-9d6b-0e5a07bc203a%2F83077_8RmuaLjkFy0Shv2xVPi36Q.jpg", "url": "https://turbo.az/autos/10814060-lincoln-aviator", "km": 32000, "engine": "3.0 L"}, {"id": 10466143, "name": "Lincoln MKC", "price": 29700, "year": 2019, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F12%2F22%2F27%2F02%2F3222c162-6b22-4006-81ee-81461a57c393%2F26053_SYodNqv47shvSQiegzCNXQ.jpg", "url": "https://turbo.az/autos/10466143-lincoln-mkc", "km": 119000, "engine": "2.0 L"}, {"id": 10835972, "name": "Lincoln Navigator", "year": 2019, "price": 102000, "engine": "3.5 L · Benzin", "km": 172200, "cond": "2019-ci il üçün 172 200 km yürüş ildə ~24 600 km deməkdir — real göstərici. Vəziyyəti: vuruğu yoxdur, rənglənməyib.", "img": "https://cdn4.telesco.pe/file/LH1AKs60JkkA-LdZfMVceE04EqhuD0le7Aj0uHFa9SZOGuYF2aHG8S6YC6ik51IrXfNAqtriTSifhOuwdRTuo-5rqc8IpvO9HGrKcY00tLvrO8gitGwgH3yMc4Qx0Hlc_7feu7wiaZpFt3PxFOFSCLs3fcERpZVNyMRD8GNSNYqYtmrGQ6Dc7_bSiNxLmquuEN7r8FtQaWjEKQkxmXNMEOUmWb8JYZZzsc96A2ESMln5Y6GUtIoqCb-TsYvOQLrd4C0ElEqYvpw8HKJTYkXrhewRXcT_22PgJoavCkuIFRC9BXTa8MAriHyDs18ziFBrIrjR4Tzprz-GGLVXjcOQEg.jpg", "url": "https://turbo.az/autos/10835972", "post": 29}, {"id": 10754683, "name": "Lincoln MKZ", "price": 22500, "year": 2017, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F06%2F13%2F55%2F11%2Fd35cd7a8-13f1-407f-b4c8-1fc77a8be182%2F60580_xHLxIoomW_XOtjtLFMXpHQ.jpg", "url": "https://turbo.az/autos/10754683-lincoln-mkz", "km": 90000, "engine": "2.0 L"}, {"id": 10851089, "name": "Lincoln MKZ", "price": 19900, "year": 2016, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F11%2F24%2F48%2F843a0ce7-883b-45ad-9d2c-472c913125b4%2F22494_mA6hftatKm6jde5xSO8G6A.jpg", "url": "https://turbo.az/autos/10851089-lincoln-mkz", "km": 230907, "engine": "2.0 L"}, {"id": 10799656, "name": "Lincoln MKZ", "price": 21500, "year": 2016, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F24%2F22%2F36%2F57%2Fe766702d-5588-4390-bc6a-a5c243e9fa28%2F69035_nCluHySTv3wIHGecgbcMmw.jpg", "url": "https://turbo.az/autos/10799656-lincoln-mkz", "km": 186000, "engine": "2.0 L"}, {"id": 10853992, "name": "Lincoln MKZ", "price": 17500, "year": 2015, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F10%2F11%2F31%2Ff8f7f418-3f0f-4e19-915d-58270e978963%2F67479_cdwxDVIFWZzhuG5rhCMAbw.jpg", "url": "https://turbo.az/autos/10853992-lincoln-mkz", "km": 215000, "engine": "2.0 L"}];
 const grid = document.getElementById('grid');
 const empty = document.getElementById('empty');
 const q = document.getElementById('q');
@@ -845,6 +897,28 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- axıcı animasiyalar ---
+(function () {
+  var hdr = document.querySelector('header.hero');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  function watch() {
+    document.querySelectorAll('.card:not([data-reveal]), .step:not([data-reveal])').forEach(function (el, i) {
+      el.setAttribute('data-reveal', '');
+      el.style.transitionDelay = Math.min(i * 30, 300) + 'ms';
+      io.observe(el);
+    });
+  }
+  watch();
+  var origRender = window.render;
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 90) hdr && hdr.classList.add('slim');
+    else hdr && hdr.classList.remove('slim');
+  }, { passive: true });
+  setInterval(watch, 1200);
+})();
+
 // --- hero axtarisi ---
 document.addEventListener('DOMContentLoaded', function(){
   var hq = document.getElementById('hq'), hqB = document.getElementById('hqBtn');
@@ -907,7 +981,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 </script>
 
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Lincoln elanları Bakı — 7 maşın, 17500 ₼-dən", "numberOfItems": 7, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Lincoln Aviator", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F16%2F33%2F52%2F07264cbd-38fc-4a75-9d6b-0e5a07bc203a%2F83077_8RmuaLjkFy0Shv2xVPi36Q.jpg", "offers": {"@type": "Offer", "price": 84150, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10814060-lincoln-aviator"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Lincoln MKC", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F12%2F22%2F27%2F02%2F3222c162-6b22-4006-81ee-81461a57c393%2F26053_SYodNqv47shvSQiegzCNXQ.jpg", "offers": {"@type": "Offer", "price": 29700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10466143-lincoln-mkc"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Lincoln Navigator", "image": "https://cdn4.telesco.pe/file/dKaWx8bNIwrjE4I6yluQLSbRfTyXPeOjFwBfz22XIx_dYns7YVEhutL7Q5f0O1s467u0YxyIzcrRxImLA6dZskFyzrFI9fNr8qB3fhy9LOjyehIYBQ1URkpVB_fzFnmGnlF_vC9AY2To9EILJJdXQTHxXUYokj2MDzM1JXOG2DyIV4_Y3_8xE4Ax13W8YUDU5_4Sd_1WfeJ1F0musV3XZKLvPKL_gzBWUgTXlK5bq4DsPDK1pRrHELqhvkd3yp3lBkGDyPvO4wvrv1kCyjNsKy_aX1O55ltv7oUGNIBUFW9id0imius5jSo8LVP1JBcP7TBkcA5ZUn5M57WOSmMrEw.jpg", "offers": {"@type": "Offer", "price": 102000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10835972"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F06%2F13%2F55%2F11%2Fd35cd7a8-13f1-407f-b4c8-1fc77a8be182%2F60580_xHLxIoomW_XOtjtLFMXpHQ.jpg", "offers": {"@type": "Offer", "price": 22500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10754683-lincoln-mkz"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F11%2F24%2F48%2F843a0ce7-883b-45ad-9d2c-472c913125b4%2F22494_mA6hftatKm6jde5xSO8G6A.jpg", "offers": {"@type": "Offer", "price": 19900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851089-lincoln-mkz"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F24%2F22%2F36%2F57%2Fe766702d-5588-4390-bc6a-a5c243e9fa28%2F69035_nCluHySTv3wIHGecgbcMmw.jpg", "offers": {"@type": "Offer", "price": 21500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10799656-lincoln-mkz"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F10%2F11%2F31%2Ff8f7f418-3f0f-4e19-915d-58270e978963%2F67479_cdwxDVIFWZzhuG5rhCMAbw.jpg", "offers": {"@type": "Offer", "price": 17500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853992-lincoln-mkz"}}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Lincoln elanları Bakı — 7 maşın, 17500 ₼-dən", "numberOfItems": 7, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Lincoln Aviator", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F30%2F16%2F33%2F52%2F07264cbd-38fc-4a75-9d6b-0e5a07bc203a%2F83077_8RmuaLjkFy0Shv2xVPi36Q.jpg", "offers": {"@type": "Offer", "price": 84150, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10814060-lincoln-aviator"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Lincoln MKC", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F06%2F12%2F22%2F27%2F02%2F3222c162-6b22-4006-81ee-81461a57c393%2F26053_SYodNqv47shvSQiegzCNXQ.jpg", "offers": {"@type": "Offer", "price": 29700, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10466143-lincoln-mkc"}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Lincoln Navigator", "image": "https://cdn4.telesco.pe/file/LH1AKs60JkkA-LdZfMVceE04EqhuD0le7Aj0uHFa9SZOGuYF2aHG8S6YC6ik51IrXfNAqtriTSifhOuwdRTuo-5rqc8IpvO9HGrKcY00tLvrO8gitGwgH3yMc4Qx0Hlc_7feu7wiaZpFt3PxFOFSCLs3fcERpZVNyMRD8GNSNYqYtmrGQ6Dc7_bSiNxLmquuEN7r8FtQaWjEKQkxmXNMEOUmWb8JYZZzsc96A2ESMln5Y6GUtIoqCb-TsYvOQLrd4C0ElEqYvpw8HKJTYkXrhewRXcT_22PgJoavCkuIFRC9BXTa8MAriHyDs18ziFBrIrjR4Tzprz-GGLVXjcOQEg.jpg", "offers": {"@type": "Offer", "price": 102000, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10835972"}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F06%2F13%2F55%2F11%2Fd35cd7a8-13f1-407f-b4c8-1fc77a8be182%2F60580_xHLxIoomW_XOtjtLFMXpHQ.jpg", "offers": {"@type": "Offer", "price": 22500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10754683-lincoln-mkz"}}}, {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F15%2F11%2F24%2F48%2F843a0ce7-883b-45ad-9d2c-472c913125b4%2F22494_mA6hftatKm6jde5xSO8G6A.jpg", "offers": {"@type": "Offer", "price": 19900, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10851089-lincoln-mkz"}}}, {"@type": "ListItem", "position": 6, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F10%2F24%2F22%2F36%2F57%2Fe766702d-5588-4390-bc6a-a5c243e9fa28%2F69035_nCluHySTv3wIHGecgbcMmw.jpg", "offers": {"@type": "Offer", "price": 21500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10799656-lincoln-mkz"}}}, {"@type": "ListItem", "position": 7, "item": {"@type": "Product", "name": "Lincoln MKZ", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F16%2F10%2F11%2F31%2Ff8f7f418-3f0f-4e19-915d-58270e978963%2F67479_cdwxDVIFWZzhuG5rhCMAbw.jpg", "offers": {"@type": "Offer", "price": 17500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10853992-lincoln-mkz"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
 <div class="sup-wrap" id="supWrap" aria-hidden="true">
   <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">

@@ -335,6 +335,49 @@ aside{border-radius:20px}
 .cta{border-radius:16px;box-shadow:var(--shadow)}
 footer{margin-top:34px}
 
+
+/* ================= AXICI MÜASİR ÜSLUB ================= */
+html{scroll-behavior:smooth}
+body{-webkit-font-smoothing:antialiased}
+[data-reveal]{opacity:0;transform:translateY(26px);
+ transition:opacity .7s var(--ease), transform .7s var(--ease)}
+[data-reveal].in{opacity:1;transform:none}
+
+header.hero{position:sticky;top:0;z-index:50;transition:padding .3s var(--ease),box-shadow .3s var(--ease)}
+header.hero.slim{padding:10px 0 10px;box-shadow:0 6px 24px rgba(15,23,42,.08)}
+header.hero.slim .sub{display:none}
+header.hero.slim h1{font-size:19px}
+
+.heroGlow{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.heroGlow i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;
+ animation:float 14s ease-in-out infinite}
+.heroGlow i:nth-child(1){width:420px;height:420px;left:-120px;top:-160px;background:#bfd7ff}
+.heroGlow i:nth-child(2){width:360px;height:360px;right:-90px;top:-120px;background:#ffe1b8;
+ animation-delay:-4s}
+.heroGlow i:nth-child(3){width:300px;height:300px;left:40%;top:-200px;background:#d6f5e3;
+ animation-delay:-8s}
+@keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}
+ 50%{transform:translate3d(16px,22px,0) scale(1.08)}}
+
+.grid .card{transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .3s}
+.btn{transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .2s}
+.btn:active{transform:scale(.97)}
+.card .ph:after{content:"";position:absolute;inset:0;
+ background:linear-gradient(180deg,transparent 55%,rgba(6,10,14,.35));
+ opacity:0;transition:opacity .35s}
+.card:hover .ph:after{opacity:1}
+
+.secTitle{display:flex;align-items:center;gap:12px;margin:34px 0 16px;font-size:20px;font-weight:800}
+.secTitle:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.step b{display:block;font-size:15px;margin-bottom:6px}
+.step span{color:var(--dim);font-size:13px;line-height:1.5}
+.step i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;margin-bottom:10px;
+ background:var(--soft);color:var(--acc);font-style:normal;font-weight:800}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+
 @media (max-width:760px){
  .wrap{padding:0 14px}
  header.hero{padding:16px 0 14px}
@@ -383,7 +426,7 @@ footer{margin-top:34px}
 <body>
 
 
-<header class="hero"><div class="wrap">
+<header class="hero"><div class="heroGlow"><i></i><i></i><i></i></div><div class="wrap">
   <div class="top">
     <div class="brand">
       <div class="logo"><img src="logo.png" alt="AVTO ELANLAR AZ" width="48" height="48"></div>
@@ -522,7 +565,15 @@ footer{margin-top:34px}
 </section>
 </div>
 
-<div class="wrap"><div class="supportBox">
+<div class="wrap">
+  <div class="secTitle">Necə işləyir?</div>
+  <div class="steps">
+    <div class="step"><i>1</i><b>Maşını seç</b><span>Marka, model və qiymət filtrləri ilə uyğun elanı tap.</span></div>
+    <div class="step"><i>2</i><b>Satıcı ilə əlaqə</b><span>Telefon nömrəsi elanın içində — birbaşa zəng et.</span></div>
+    <div class="step"><i>3</i><b>Öz maşınını sat</b><span>3–5 şəkil göndər, 5 dəqiqəyə kanalda və saytda olsun.</span></div>
+  </div>
+
+  <div class="supportBox">
   <div class="sb-left">
     <div class="sb-ico"><img src="support-logo.png" alt="Dəstək xidməti"></div>
     <div>
@@ -534,7 +585,8 @@ footer{margin-top:34px}
     <a class="btn btn-primary" href="https://t.me/destek_mashin_bot" target="_blank" rel="noopener">Dəstəyə yaz</a>
     <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
   </div>
-</div></div>
+  </div>
+</div>
 <footer><div class="wrap fgrid">
   <div class="fnote">
     Elan yerləşdirmək <b>pulsuzdur</b> — <a href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">@yetimhanekundakcis_bot</a>-a yazın.<br>
@@ -545,7 +597,7 @@ footer{margin-top:34px}
 </div></footer>
 
 <script>
-const DATA = [{"id": 10811477, "name": "Rolls-Royce Spectre", "year": 2025, "price": 841500, "engine": "120 kWh · Elektro", "km": 2000, "cond": "2025-ci il üçün 2 000 km yürüş ildə ~2 000 km deməkdir — real göstərici. Vəziyyəti: vuruğu yoxdur, rənglənməyib.", "img": "https://cdn4.telesco.pe/file/gvAB_Egd2NUgVqou8pHYG24Pj-VBOksuFpjp9rUZ_hhj6oiSpcaL0FsAWIWvpvFrqBBvsf0Kmey3lmXebtriJjynwAHs89YOTrAUZBszz-gam-myLuC8FqLND-QSAijsUecox0Z7FRujJbbgum99yKPzf1jxRNpblAIbySqewEGcYRXpF9lHaCXgxYGBj8h4zYmi_m1A6NDqk9DYQBfvLQR0dkcRlchfz3uTWDQcJ2htCNjdVhA_YzINNbx40VKGFyq3rY2jcRznbecppTy7A347aMer0oLF58KcflUm7C37W2HaRoAUT-Fr2Q29QMY5E8f9PWAZPE8fFa4JWy_YEg.jpg", "url": "https://turbo.az/autos/10811477", "post": 105}, {"id": 10818161, "name": "Rolls-Royce Wraith", "price": 423300, "year": 2016, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F13%2F52%2F17%2F29bee08f-550f-4bae-8b82-4fa3e1e12f2e%2F83310_uC3RtXqqsoV3REgrf69u3Q.jpg", "url": "https://turbo.az/autos/10818161-rolls-royce-wraith", "km": 11000, "engine": "6.6 L"}];
+const DATA = [{"id": 10811477, "name": "Rolls-Royce Spectre", "year": 2025, "price": 841500, "engine": "120 kWh · Elektro", "km": 2000, "cond": "2025-ci il üçün 2 000 km yürüş ildə ~2 000 km deməkdir — real göstərici. Vəziyyəti: vuruğu yoxdur, rənglənməyib.", "img": "https://cdn4.telesco.pe/file/jacU-c-o2AW9ECZERlnBBrb-2IKjb2myxYn-bvopK5KgdmzmJRjPMO8UO-hOKlwGlGi_kOvWO9p2lX-lRgITzO9Q1kkE23d3xrmGGA0OdjpoccRURPCRAjfIILE_skxI6ueZD8kRHBKWl5xnLa__gGX5L3U0mmEIfY1X_PNiN27OYO16oaEodZlkk6ADwIPJop4G6iz8Y32XKtgHycSpULt9bubDZgM_UpNSjMcWbA5Tyk81fi14vjr1WkI6c4ZCLVVcjgMG5MHZAjk3ml_gYtfxPgquZ9uIYaIhFGvRFOAoscPYjwsjZf-5AcxBxGbnDSS0BiGZu2ivpEx7ahiHZQ.jpg", "url": "https://turbo.az/autos/10811477", "post": 105}, {"id": 10818161, "name": "Rolls-Royce Wraith", "price": 423300, "year": 2016, "img": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F13%2F52%2F17%2F29bee08f-550f-4bae-8b82-4fa3e1e12f2e%2F83310_uC3RtXqqsoV3REgrf69u3Q.jpg", "url": "https://turbo.az/autos/10818161-rolls-royce-wraith", "km": 11000, "engine": "6.6 L"}];
 const grid = document.getElementById('grid');
 const empty = document.getElementById('empty');
 const q = document.getElementById('q');
@@ -845,6 +897,28 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- axıcı animasiyalar ---
+(function () {
+  var hdr = document.querySelector('header.hero');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  function watch() {
+    document.querySelectorAll('.card:not([data-reveal]), .step:not([data-reveal])').forEach(function (el, i) {
+      el.setAttribute('data-reveal', '');
+      el.style.transitionDelay = Math.min(i * 30, 300) + 'ms';
+      io.observe(el);
+    });
+  }
+  watch();
+  var origRender = window.render;
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 90) hdr && hdr.classList.add('slim');
+    else hdr && hdr.classList.remove('slim');
+  }, { passive: true });
+  setInterval(watch, 1200);
+})();
+
 // --- hero axtarisi ---
 document.addEventListener('DOMContentLoaded', function(){
   var hq = document.getElementById('hq'), hqB = document.getElementById('hqBtn');
@@ -907,7 +981,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 </script>
 
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Rolls-Royce elanları Bakı — 2 maşın, 423300 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Rolls-Royce Spectre", "image": "https://cdn4.telesco.pe/file/gvAB_Egd2NUgVqou8pHYG24Pj-VBOksuFpjp9rUZ_hhj6oiSpcaL0FsAWIWvpvFrqBBvsf0Kmey3lmXebtriJjynwAHs89YOTrAUZBszz-gam-myLuC8FqLND-QSAijsUecox0Z7FRujJbbgum99yKPzf1jxRNpblAIbySqewEGcYRXpF9lHaCXgxYGBj8h4zYmi_m1A6NDqk9DYQBfvLQR0dkcRlchfz3uTWDQcJ2htCNjdVhA_YzINNbx40VKGFyq3rY2jcRznbecppTy7A347aMer0oLF58KcflUm7C37W2HaRoAUT-Fr2Q29QMY5E8f9PWAZPE8fFa4JWy_YEg.jpg", "offers": {"@type": "Offer", "price": 841500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10811477"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Rolls-Royce Wraith", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F13%2F52%2F17%2F29bee08f-550f-4bae-8b82-4fa3e1e12f2e%2F83310_uC3RtXqqsoV3REgrf69u3Q.jpg", "offers": {"@type": "Offer", "price": 423300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10818161-rolls-royce-wraith"}}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Rolls-Royce elanları Bakı — 2 maşın, 423300 ₼-dən", "numberOfItems": 2, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Rolls-Royce Spectre", "image": "https://cdn4.telesco.pe/file/jacU-c-o2AW9ECZERlnBBrb-2IKjb2myxYn-bvopK5KgdmzmJRjPMO8UO-hOKlwGlGi_kOvWO9p2lX-lRgITzO9Q1kkE23d3xrmGGA0OdjpoccRURPCRAjfIILE_skxI6ueZD8kRHBKWl5xnLa__gGX5L3U0mmEIfY1X_PNiN27OYO16oaEodZlkk6ADwIPJop4G6iz8Y32XKtgHycSpULt9bubDZgM_UpNSjMcWbA5Tyk81fi14vjr1WkI6c4ZCLVVcjgMG5MHZAjk3ml_gYtfxPgquZ9uIYaIhFGvRFOAoscPYjwsjZf-5AcxBxGbnDSS0BiGZu2ivpEx7ahiHZQ.jpg", "offers": {"@type": "Offer", "price": 841500, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10811477"}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Rolls-Royce Wraith", "image": "https://turbo.azstatic.com/uploads/f460x343/2026%2F11%2F01%2F13%2F52%2F17%2F29bee08f-550f-4bae-8b82-4fa3e1e12f2e%2F83310_uC3RtXqqsoV3REgrf69u3Q.jpg", "offers": {"@type": "Offer", "price": 423300, "priceCurrency": "AZN", "availability": "https://schema.org/InStock", "url": "https://turbo.az/autos/10818161-rolls-royce-wraith"}}}]}</script>
 <button id="up" title="Yuxarı qalx">↑</button>
 <div class="sup-wrap" id="supWrap" aria-hidden="true">
   <div class="sup-card" role="dialog" aria-modal="true" aria-label="Sayta dəstək">
