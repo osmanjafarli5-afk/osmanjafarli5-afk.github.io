@@ -640,7 +640,7 @@ function render(reset){
         ${d.id >= 900000000 ? '<span class="seller-tag">Satıcı</span>' : ''}
         ${d.img
           ? `<img loading="lazy" decoding="async" src="${d.img}" alt="${d.name} ${d.year} — ${d.price ? fmt(d.price) + ' AZN' : 'qiymət razılaşma'}, ${d.city||''}" onerror="this.style.opacity=.12">`
-          : `<div style="display:grid;place-items:center;height:100%;font-size:22px;color:#9aa4b2">🚗</div>`}
+          : `<div style="display:grid;place-items:center;height:100%;background:#f3f6fb"><img src="logo.png" alt="" style="width:56px;height:56px;opacity:.35"></div>`}
       </div>
       <div class="body">
         <div class="nm">${d.name}</div>
