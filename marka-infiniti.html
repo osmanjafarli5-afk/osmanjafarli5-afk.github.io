@@ -495,6 +495,15 @@ function render(reset){
     rows.push(...out2);
   }
 
+  // satıcı elanları həmişə öndə (ən yenisi birinci)
+  const sel = rows.filter(d => d.id >= 900000000)
+                   .sort((a, b) => (b.post || 0) - (a.post || 0));
+  if (sel.length) {
+    const rest = rows.filter(d => d.id < 900000000);
+    rows.length = 0;
+    rows.push(...sel, ...rest);
+  }
+
   if (PIN) {                                   // linkdən gələn elanı önə çıxar
     const pi = rows.findIndex(d => String(d.id) === String(PIN));
     if (pi > 0) rows.unshift(rows.splice(pi, 1)[0]);
