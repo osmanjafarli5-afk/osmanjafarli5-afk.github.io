@@ -463,6 +463,11 @@ footer{margin-top:34px}
       <div class="chips" id="fuelChips"></div>
     </div>
 
+    <div class="fgroup" id="volGroup">
+      <label class="flabel">Mühərrik həcmi</label>
+      <div class="chips" id="volChips"></div>
+    </div>
+
     <div class="fgroup" id="gearGroup">
       <label class="flabel">Sürətlər qutusu</label>
       <div class="chips" id="gearChips"></div>
@@ -560,12 +565,36 @@ const brands = [...new Set(DATA.map(d => (d.name.split(' ')[0] || '').trim()))]
   .filter(Boolean).sort((a,b)=>a.localeCompare(b));
 const bodies = [...new Set(DATA.map(d => d.body).filter(Boolean))].sort();
 
-const fuels = [...new Set(DATA.map(d => d.fuel).filter(Boolean))].sort();
-const gears = [...new Set(DATA.map(d => d.gearbox).filter(Boolean))].sort();
-const cities = [...new Set(DATA.map(d => d.city).filter(Boolean))].sort();
+function fuelOf(d){
+  const e = (d.engine || '').toLowerCase();
+  if (e.includes('benzin')) return 'Benzin';
+  if (e.includes('dizel') || e.includes('diesel')) return 'Dizel';
+  if (e.includes('hibrid') || e.includes('hybrid')) return 'Hibrid';
+  if (e.includes('qaz') || e.includes('lpg')) return 'Qaz';
+  if (e.includes('elektro') || e.includes('electro') || e.includes('ev')) return 'Elektro';
+  return '';
+}
+function volOf(d){
+  const m = (d.engine || '').match(/([0-9]+(?:[.,][0-9]+)?)\s*l/i);
+  return m ? parseFloat(m[1].replace(',', '.')) : 0;
+}
+function volBand(d){
+  const v = volOf(d);
+  if (!v) return '';
+  if (v < 1.6) return '1.0–1.6 L';
+  if (v < 2.0) return '1.6–2.0 L';
+  if (v < 3.0) return '2.0–3.0 L';
+  return '3.0+ L';
+}
+DATA.forEach(d => { d._fuel = fuelOf(d); d._vol = volBand(d); });
+const fuels = [...new Set(DATA.map(d => d._fuel).filter(Boolean))].sort();
+const vols = ['1.0–1.6 L', '1.6–2.0 L', '2.0–3.0 L', '3.0+ L']
+  .filter(v => DATA.some(d => d._vol === v));
+const gears = [];
+const cities = [];
 
 let selBrands = new Set(), selBodies = new Set();
-let selFuels = new Set(), selGears = new Set(), selCities = new Set();
+let selFuels = new Set(), selGears = new Set(), selCities = new Set(), selVols = new Set();
 
 function chip(text, container, set){
   const el = document.createElement('button');
@@ -580,10 +609,10 @@ function chip(text, container, set){
 brands.forEach(b => chip(b, document.getElementById('brandChips'), selBrands));
 bodies.forEach(b => chip(b, document.getElementById('bodyChips'), selBodies));
 fuels.forEach(b => chip(b, document.getElementById('fuelChips'), selFuels));
-gears.forEach(b => chip(b, document.getElementById('gearChips'), selGears));
-cities.forEach(b => chip(b, document.getElementById('cityChips'), selCities));
-[['bodyGroup', bodies], ['fuelGroup', fuels], ['gearGroup', gears], ['cityGroup', cities]]
-  .forEach(([id, arr]) => { if (!arr.length) document.getElementById(id).style.display = 'none'; });
+vols.forEach(b => chip(b, document.getElementById('volChips'), selVols));
+[['bodyGroup', bodies], ['fuelGroup', fuels], ['volGroup', vols],
+ ['gearGroup', gears], ['cityGroup', cities]]
+  .forEach(([id, arr]) => { const el = document.getElementById(id); if (el && !arr.length) el.style.display = 'none'; });
 
 function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
@@ -625,7 +654,8 @@ function render(reset){
     d.year >= yl && d.year <= yh &&
     (!selBrands.size || selBrands.has((d.name.split(' ')[0]||'').trim())) &&
     (!selBodies.size || selBodies.has(d.body)) &&
-    (!selFuels.size || selFuels.has(d.fuel)) &&
+    (!selFuels.size || selFuels.has(d._fuel)) &&
+    (!selVols.size || selVols.has(d._vol)) &&
     (!selGears.size || selGears.has(d.gearbox)) &&
     (!selCities.size || selCities.has(d.city))
   );
@@ -785,7 +815,7 @@ prange.addEventListener('input', () => {
 document.getElementById('clear').addEventListener('click', () => {
   q.value=''; pmin.value=''; pmax.value=''; ymin.value=''; ymax.value='';
   prange.value=100; prange.style.setProperty('--p','100%');
-  selBrands.clear(); selBodies.clear(); selFuels.clear(); selGears.clear(); selCities.clear();
+  selBrands.clear(); selBodies.clear(); selFuels.clear(); selVols.clear(); selGears.clear(); selCities.clear();
   document.querySelectorAll('.chip.on').forEach(c => c.classList.remove('on'));
   render();
 });
