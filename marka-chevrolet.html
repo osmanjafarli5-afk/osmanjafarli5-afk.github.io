@@ -297,6 +297,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
  display:grid;place-items:center;transition:transform .18s var(--ease),background .18s}
 .card .act:hover{transform:scale(1.12);background:#fff}
 .card .act.on{background:#ffe4ec}
+.card .actBoost{background:linear-gradient(135deg,#f6c445,#e0a81a);color:#3a2c00;font-weight:900;font-size:17px}
 .card .act:active{transform:scale(.94)}
 .promoList{display:flex;flex-direction:column;gap:9px;margin-top:6px}
 .promoOpt{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:13px;
@@ -738,7 +739,7 @@ function render(reset){
         <div class="acts">
           <button class="act${isFav(d.id) ? ' on' : ''}" data-fav="${d.id}" title="Seçilmişlərə at" aria-label="Seçilmişlərə at">${isFav(d.id) ? '❤️' : '🤍'}</button>
           <button class="act" data-share="${d.id}" title="Paylaş" aria-label="Paylaş">↗</button>
-          <button class="act" data-promo="${d.post || ''}" title="Elanı irəli çək" aria-label="İrəli çək">🚀</button>
+          <button class="act actBoost" data-promo="${d.post || ''}" title="Elanı irəli çək" aria-label="İrəli çək">↑</button>
         </div>
         ${d.promo ? `<span class="promoTag ${d.promo}">${d.promo === 'premium' ? '👑 Premium' : d.promo === 'vip' ? '⭐ VIP' : '⚡ İrəli'}</span>` : ''}
         ${d.id >= 900000000 ? '<span class="seller-tag">Satıcı</span>' : ''}
