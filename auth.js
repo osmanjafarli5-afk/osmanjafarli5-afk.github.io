@@ -199,10 +199,10 @@ function buildUi() {
       e.preventDefault(); e.stopPropagation();
       if (window.__requireAuth && window.__requireAuth(
           "🚀 Elanı önə çıxarmaq üçün daxil olun və ya qeydiyyatdan keçin (pulsuz).")) return;
-      window.__promoPost = pb.dataset.promo || "";
-      const c0 = document.getElementById("promoCmd");
-      if (c0) c0.textContent = "/promo " + (window.__promoPost || "<post>") + " vip";
-      toggleWrap("promoWrap", true);
+      var post = pb.dataset.promo || "";
+      window.__promoPost = post;
+      var url = "https://t.me/Boosted_mashinelanlari_bot" + (post ? "?start=" + post : "");
+      window.open(url, "_blank");
       return;
     }
     const op = e.target.closest(".promoOpt");
