@@ -2,12 +2,12 @@
    Firebase konfiqurasiyası doldurulmayıbsa, UI görünmür və sayt əvvəlki kimi işləyir. */
 
 const FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyA8qgiGWFLsJRyIJAQ61scw9qk4PjRD8yQ",
+  authDomain: "mashinelanlari.firebaseapp.com",
+  projectId: "mashinelanlari",
+  storageBucket: "mashinelanlari.firebasestorage.app",
+  messagingSenderId: "999601852875",
+  appId: "1:999601852875:web:d8df12d037aa96609be64e"
 };
 
 const ADS_COLLECTION = "listings";
