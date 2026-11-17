@@ -287,6 +287,10 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 .btn-fav{background:#fff;border:1px solid #ffd0dd;color:#e11d48;font-weight:700;gap:6px}
 .btn-fav.on{background:#ffe4ec;border-color:#fb7185}
 .btn-fav b{font-size:13px}
+.favHead{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:13px 16px;
+ border-radius:14px;background:linear-gradient(135deg,#fff5f8,#ffe9f0);border:1px solid #ffd0dd;
+ font-weight:700;font-size:15px;color:#be123c}
+.favHead b{background:#fff;border-radius:8px;padding:2px 9px;font-size:13px;color:#be123c}
 .card .acts{position:absolute;right:9px;bottom:9px;display:flex;gap:6px;z-index:3}
 .card .act{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.96);
  box-shadow:0 3px 10px rgba(15,23,42,.18);cursor:pointer;font-size:15px;line-height:1;
@@ -464,6 +468,11 @@ footer{margin-top:34px}
         <option value="km">Ən az yürüş</option>
       </select>
     </div>
+  <div class="favHead" id="favHead" style="display:none">
+    <span>❤️ Seçilmiş elanlar</span>
+    <b id="favHeadN">0</b>
+    <button class="btn btn-ghost" id="favClear" style="margin-left:auto;padding:7px 12px;font-size:12.5px">Hamısını sil</button>
+  </div>
     <div class="grid" id="grid"></div>
     <div style="text-align:center;margin:26px 0 10px">
       <button class="btn btn-ghost" id="more" style="display:none">Daha çox göstər ↓</button>
@@ -636,6 +645,17 @@ function render(reset){
   }
 
   if (ONLY_FAV) rows = rows.filter(d => isFav(d.id));
+  const fh = document.getElementById('favHead');
+  if (fh) {
+    fh.style.display = ONLY_FAV ? 'flex' : 'none';
+    const fn = document.getElementById('favHeadN');
+    if (fn) fn.textContent = rows.length;
+  }
+  if (ONLY_FAV && !rows.length) {
+    const emp = document.getElementById('empty');
+    if (emp) emp.innerHTML = '<b>❤️ Hələ seçilmiş elanınız yoxdur</b>' +
+      '<div style="margin-top:6px;font-size:13.5px">Kartlardakı ürək ikonuna basın — elan burada toplanacaq.</div>';
+  }
   shown.textContent = rows.length;
   empty.style.display = rows.length ? 'none' : 'block';
 
@@ -672,12 +692,16 @@ document.addEventListener('click', (e) => {
   const f = e.target.closest('[data-fav]');
   if (f) {
     e.preventDefault(); e.stopPropagation();
+    if (window.__requireAuth && window.__requireAuth(
+        "❤️ Seçilmişlərə əlavə etmək üçün daxil olun və ya qeydiyyatdan keçin (pulsuz).")) return;
     toggleFav(Number(f.dataset.fav), f);
     return;
   }
   const sh = e.target.closest('[data-share]');
   if (sh) {
     e.preventDefault(); e.stopPropagation();
+    if (window.__requireAuth && window.__requireAuth(
+        "🔗 Elanı paylaşmaq üçün daxil olun və ya qeydiyyatdan keçin (pulsuz).")) return;
     const d = DATA.find(x => String(x.id) === String(sh.dataset.share));
     if (!d) return;
     const txt = (d.name || '') + ' ' + (d.year || '') + ' — ' + (d.price || 0) + ' AZN';
@@ -692,6 +716,15 @@ if (favChip) favChip.addEventListener('click', () => {
   ONLY_FAV = !ONLY_FAV;
   favChip.classList.toggle('on', ONLY_FAV);
   LIMIT = 48;
+  render();
+});
+
+const favClear = document.getElementById('favClear');
+if (favClear) favClear.addEventListener('click', function () {
+  localStorage.removeItem(FAV_KEY);
+  document.querySelectorAll('.act.on').forEach(b => { b.classList.remove('on'); b.textContent = '🤍'; });
+  const fc2 = document.getElementById('favCount');
+  if (fc2) fc2.textContent = '0';
   render();
 });
 

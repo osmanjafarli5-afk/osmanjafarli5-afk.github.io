@@ -102,6 +102,18 @@ function buildUi() {
         <button class="btn btn-primary auth-go" id="profSave">Yadda saxla</button>
       </div>
       <button class="btn btn-ghost auth-go" id="profOut" style="margin-top:14px">Çıxış</button>
+      <button class="btn btn-ghost auth-go" id="profDel"
+              style="margin-top:8px;color:#d6336c;border-color:#f7c9d6">🗑 Hesabı sil</button>
+      <div id="delBox" style="display:none;margin-top:12px;padding:13px 14px;border-radius:12px;
+           background:#fff5f8;border:1px solid #f7c9d6;font-size:13px;line-height:1.5;color:#7a1f3d">
+        <b>⚠️ Diqqət!</b> Hesabınız silinəcək və yaddaşda qalan hər şey
+        (seçilmişlər, elanlar, mesajlar) silinə bilər. Bu əməliyyat geri qaytarılmır.
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn btn-primary auth-go" id="delYes"
+                  style="background:#d6336c;box-shadow:0 6px 16px rgba(214,51,108,.28)">Bəli, sil</button>
+          <button class="btn btn-ghost auth-go" id="delNo">Ləğv et</button>
+        </div>
+      </div>
     </div>`;
   document.body.appendChild(prof);
 
@@ -270,6 +282,14 @@ async function initFirebase() {
   });
   document.getElementById("profSave").addEventListener("click", saveProfileName);
   document.getElementById("profOut").addEventListener("click", signOutNow);
+  document.getElementById("profDel").addEventListener("click", function () {
+    const b = document.getElementById("delBox");
+    b.style.display = b.style.display === "none" ? "block" : "none";
+  });
+  document.getElementById("delNo").addEventListener("click", function () {
+    document.getElementById("delBox").style.display = "none";
+  });
+  document.getElementById("delYes").addEventListener("click", deleteAccount);
   document.getElementById("verX").addEventListener("click", () => toggleWrap("verWrap", false));
   document.getElementById("verCheck").addEventListener("click", checkVerified);
   document.getElementById("verResend").addEventListener("click", resendVerify);
@@ -410,6 +430,48 @@ async function signOutNow() {
   toggleWrap("profWrap", false);
   const t = document.getElementById("authBtn");
   if (t) t.textContent = "👤 Daxil ol";
+}
+
+// Qeydiyyat tələb edən əməliyyatlar (seçilmişlər, paylaşma)
+window.__requireAuth = function (msg) {
+  if (window.__user) return false;
+  toggleWrap("authWrap", true);
+  const m = document.getElementById("authMsg");
+  if (m) m.textContent = msg || "Davam etmək üçün daxil olun və ya qeydiyyatdan keçin.";
+  const rt = document.querySelector('[data-tab="reg"]');
+  if (rt) rt.click();
+  return true;
+};
+
+async function deleteAccount() {
+  const u = fb && fb.auth.currentUser;
+  if (!u) return;
+  const box = document.getElementById("delBox");
+  if (box) box.style.display = "none";
+  try {
+    // Firestore-a silinmə sorğusu (admin görsün)
+    try {
+      await fb.fsMod.addDoc(fb.fsMod.collection(fb.db, "deletions"), {
+        uid: u.uid, email: u.email || "", createdAt: new Date(), done: false
+      });
+    } catch (e) {}
+    await fb.authMod.deleteUser(u);
+    localStorage.clear();
+    alert("✅ Hesabınız silindi. Bütün məlumatlar (seçilmişlər daxil) təmizləndi.");
+  } catch (e) {
+    // yenidən giriş tələb olunur → çıxış + sorğu qeydə alınıb
+    alert("⚠️ Hesab silinməsi üçün yenidən daxil olmaq tələb olunur.\n" +
+          "Sorğunuz qeydə alındı — 24 saat ərzində silinəcək.\n\n" +
+          "İndi hesabdan çıxış edilir və yaddaşda qalan məlumatlar təmizlənir.");
+    try { await fb.authMod.signOut(fb.auth); } catch (e2) {}
+    localStorage.clear();
+  }
+  toggleWrap("profWrap", false);
+  const t = document.getElementById("authBtn");
+  if (t) t.textContent = "👤 Daxil ol";
+  document.querySelectorAll(".act.on").forEach(b => { b.classList.remove("on"); b.textContent = "🤍"; });
+  const fc = document.getElementById("favCount");
+  if (fc) fc.textContent = "0";
 }
 
 async function uploadPhoto(file) {
