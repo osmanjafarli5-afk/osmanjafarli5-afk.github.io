@@ -275,6 +275,22 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 .prof-edit{border:0;background:#f1f4f9;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:13px}
 .prof-edit:hover{background:#e6ecf7}
 .prof-mail{color:var(--dim);font-size:12.5px;margin-top:2px;word-break:break-all}
+.heroSearch{display:flex;gap:10px;margin:18px 0 10px;max-width:640px}
+.heroSearch input{flex:1;padding:13px 16px;border-radius:13px;border:1px solid var(--line);
+ background:#fff;font-size:15px;outline:none;box-shadow:var(--shadow)}
+.heroSearch input:focus{border-color:var(--acc);box-shadow:0 0 0 4px rgba(11,99,246,.12)}
+.heroChips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.hchip{padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:#fff;
+ font-size:13px;font-weight:600;cursor:pointer;color:var(--dim);transition:all .2s var(--ease)}
+.hchip:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-1px)}
+.card .fav{position:absolute;right:10px;bottom:10px;width:34px;height:34px;border-radius:50%;
+ border:0;background:rgba(255,255,255,.94);box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer;
+ font-size:16px;display:grid;place-items:center;transition:transform .2s var(--ease)}
+.card .fav:hover{transform:scale(1.1)}
+.card .fav.on{background:#ffe4ec}
+.card .share{position:absolute;right:10px;top:44px;width:34px;height:34px;border-radius:50%;
+ border:0;background:rgba(255,255,255,.94);box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer;
+ font-size:15px;display:grid;place-items:center}
 /* --- vizual tekmillesdirme --- */
 body{background:radial-gradient(1200px 600px at 12% -12%,#e6efff 0%,transparent 58%),
  radial-gradient(900px 520px at 92% -6%,#e9fbf1 0%,transparent 52%),var(--bg)}
@@ -315,6 +331,19 @@ footer{margin-top:34px}
       <a class="btn btn-ghost" href="https://t.me/masin_elan_qebul_bot" target="_blank" rel="noopener">Elan göndər</a>
       <button class="btn btn-sup" id="supBtn">❤️ Dəstək</button>
     </div>
+  </div>
+  <div class="heroSearch">
+    <input id="hq" type="text" placeholder="Marka, model və ya açar söz — məs. Kia Cerato" autocomplete="off">
+    <button class="btn btn-primary" id="hqBtn">Axtar</button>
+  </div>
+  <div class="heroChips">
+    <button class="hchip" data-q="">Hamısı</button>
+    <button class="hchip" data-q="Kia">Kia</button>
+    <button class="hchip" data-q="Hyundai">Hyundai</button>
+    <button class="hchip" data-q="Toyota">Toyota</button>
+    <button class="hchip" data-q="BMW">BMW</button>
+    <button class="hchip" data-q="Mercedes">Mercedes</button>
+    <button class="hchip" data-q="Chevrolet">Chevrolet</button>
   </div>
   <div class="stats">
     <div class="stat"><b id="stTotal">0</b><span>elan saytda</span></div>
@@ -452,6 +481,16 @@ function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 let LIMIT = 24;
 let PIN = null;                     // linkdən gələn elan həmişə birinci
 
+const FAV_KEY = 'masin_favs';
+function favs(){ try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch(e){ return []; } }
+function isFav(id){ return favs().indexOf(id) >= 0; }
+function toggleFav(id){
+  const a = favs(); const i = a.indexOf(id);
+  if (i >= 0) a.splice(i,1); else a.push(id);
+  localStorage.setItem(FAV_KEY, JSON.stringify(a));
+  render(false);
+}
+
 function render(reset){
   if (reset !== false) LIMIT = 24;
   const term = q.value.trim().toLowerCase();
@@ -516,6 +555,8 @@ function render(reset){
     <article class="card" id="ad-${d.id}" style="animation-delay:${Math.min(i*18,360)}ms">
       <div class="ph">
         <span class="badge">${d.year || ''}</span>
+        <button class="fav${isFav(d.id) ? ' on' : ''}" data-fav="${d.id}" title="Seçilmişlərə at">${isFav(d.id) ? '❤️' : '🤍'}</button>
+        <button class="share" data-share="${d.id}" title="Paylaş">↗</button>
         ${d.id >= 900000000 ? '<span class="seller-tag">Satıcı</span>' : ''}
         ${d.img
           ? `<img loading="lazy" decoding="async" src="${d.img}" alt="${d.name} ${d.year} — ${d.price ? fmt(d.price) + ' AZN' : 'qiymət razılaşma'}, ${d.city||''}" onerror="this.style.opacity=.12">`
@@ -534,6 +575,25 @@ function render(reset){
   document.getElementById('more').style.display =
     rows.length > LIMIT ? 'inline-flex' : 'none';
 }
+
+document.addEventListener('click', (e) => {
+  const f = e.target.closest('.fav');
+  if (f) {
+    e.preventDefault(); e.stopPropagation();
+    toggleFav(Number(f.dataset.fav));
+    return;
+  }
+  const sh = e.target.closest('.share');
+  if (sh) {
+    e.preventDefault(); e.stopPropagation();
+    const d = DATA.find(x => String(x.id) === String(sh.dataset.share));
+    if (!d) return;
+    const txt = (d.name || '') + ' ' + (d.year || '') + ' — ' + (d.price || 0) + ' AZN';
+    const url = d.url || location.href;
+    if (navigator.share) navigator.share({title: txt, url}).catch(()=>{});
+    else window.open('https://wa.me/?text=' + encodeURIComponent(txt + ' ' + url), '_blank');
+  }
+}, true);
 
 document.getElementById('more').addEventListener('click', () => {
   LIMIT += 24;
@@ -582,6 +642,20 @@ render();
   }, 350);
 })();
 // --- komfort: mobil filtr paneli + yuxari qalx ---
+// --- hero axtarisi ---
+document.addEventListener('DOMContentLoaded', function(){
+  var hq = document.getElementById('hq'), hqB = document.getElementById('hqBtn');
+  function go(){ var v = (hq.value || '').trim(); var qq = document.getElementById('q');
+    if (qq) { qq.value = v; qq.dispatchEvent(new Event('input')); }
+    document.querySelector('.layout') && document.querySelector('.layout').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  if (hqB) hqB.addEventListener('click', go);
+  if (hq) hq.addEventListener('keydown', function(e){ if (e.key === 'Enter') go(); });
+  document.querySelectorAll('.hchip').forEach(function(c){
+    c.addEventListener('click', function(){ if (hq) hq.value = c.dataset.q || ''; go(); });
+  });
+});
+
 // --- destek penceresi ---
 document.addEventListener('DOMContentLoaded', function(){
   var b=document.getElementById('supBtn'), w=document.getElementById('supWrap'),
