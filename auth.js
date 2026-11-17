@@ -106,13 +106,30 @@ function buildUi() {
     </div>`;
   document.body.appendChild(prof);
 
+  // email təsdiqi pəncərəsi
+  const ver = document.createElement("div");
+  ver.className = "auth-wrap";
+  ver.id = "verWrap";
+  ver.innerHTML = `
+    <div class="auth-card" role="dialog" aria-modal="true">
+      <button class="sup-x" id="verX" aria-label="Bağla">✕</button>
+      <h3>📧 Emailinizi təsdiqləyin</h3>
+      <p class="ad-sub">Qeydiyyat üçün göstərdiyiniz ünvana təsdiq linki göndərdik.
+         Linkə basmadan elan yerləşdirmək və elanlara baxmaq mümkün deyil.</p>
+      <div class="prof-mail" id="verMail" style="margin-bottom:14px"></div>
+      <div class="auth-msg" id="verMsg"></div>
+      <button class="btn btn-primary auth-go" id="verCheck">Təsdiqlədim ✓</button>
+      <button class="btn btn-ghost auth-go" id="verResend" style="margin-top:10px">Linki yenidən göndər</button>
+    </div>`;
+  document.body.appendChild(ver);
+
   const fab = document.createElement("button");
     fab.id = "adFab";
     fab.className = "ad-fab";
     fab.textContent = "➕ Elan yerləşdir";
     document.body.appendChild(fab);
     fab.addEventListener("click", () => {
-      if (!window.__user) { toggleWrap("authWrap", true); return; }
+      if (!requireVerified()) return;
       toggleWrap("adWrap", true);
     });
   }
@@ -131,8 +148,9 @@ function buildUi() {
   document.addEventListener("click", function (e) {
     const a = e.target.closest(".more");
     if (!a) return;
-    if (!window.__authReady) return;      // auth yoxlanana qədər maneə qoymuruq
-    if (window.__user) return;
+    if (!window.__authReady) return;
+    if (window.__user && window.__user.emailVerified) return;
+    if (window.__user) { e.preventDefault(); openVerify(); return; }
     e.preventDefault();
     e.stopPropagation();
     toggleWrap("authWrap", true);
@@ -173,10 +191,15 @@ async function initFirebase() {
   authMod.onAuthStateChanged(fb.auth, (u) => {
     window.__user = u;
     window.__authReady = true;
+    window.__verified = !!(u && u.emailVerified);
     const b = document.getElementById("authBtn");
     const nm = u ? (u.displayName || (u.email || "").split("@")[0]) : "";
     if (b) b.textContent = u ? "👤 " + nm : "👤 Daxil ol";
-    if (u) { toggleWrap("authWrap", false); fillProfile(); }
+    if (u) {
+      toggleWrap("authWrap", false);
+      fillProfile();
+      if (!u.emailVerified) openVerify();
+    }
   });
 
   document.getElementById("authGo").addEventListener("click", doAuth);
@@ -192,6 +215,9 @@ async function initFirebase() {
   });
   document.getElementById("profSave").addEventListener("click", saveProfileName);
   document.getElementById("profOut").addEventListener("click", signOutNow);
+  document.getElementById("verX").addEventListener("click", () => toggleWrap("verWrap", false));
+  document.getElementById("verCheck").addEventListener("click", checkVerified);
+  document.getElementById("verResend").addEventListener("click", resendVerify);
   document.querySelectorAll(".auth-tab").forEach(t =>
     t.addEventListener("click", () => {
       document.querySelectorAll(".auth-tab").forEach(x => x.classList.remove("on"));
@@ -222,9 +248,17 @@ async function doAuth() {
       await fb.authMod.signInWithEmailAndPassword(fb.auth, email, pass);
     }
   } catch (e) {
+    if (e.code === "auth/email-already-in-use") {
+      msg.textContent = "⚠️ Bu email artıq qeydiyyatdadır — «Daxil ol» tabına keçin.";
+      const t = document.querySelector('.auth-tab[data-tab="login"]');
+      if (t) t.click();
+      const go = document.getElementById("authGo");
+      if (go) go.textContent = "Daxil ol";
+      return;
+    }
     msg.textContent = "⚠️ " + (e.code === "auth/invalid-credential" ? "Email və ya şifrə yanlışdır"
-      : e.code === "auth/email-already-in-use" ? "Bu email artıq qeydiyyatdadır"
       : e.code === "auth/weak-password" ? "Şifrə ən azı 6 simvol olmalıdır"
+      : e.code === "auth/invalid-email" ? "Email düzgün deyil"
       : e.message);
   }
 }
@@ -239,6 +273,42 @@ async function resetPass() {
   } catch (e) {
     msg.textContent = "⚠️ " + e.message;
   }
+}
+
+function openVerify() {
+  const u = window.__user;
+  const m = document.getElementById("verMail");
+  if (m) m.textContent = u ? (u.email || "") : "";
+  toggleWrap("verWrap", true);
+}
+
+function requireVerified() {
+  if (!window.__user) { toggleWrap("authWrap", true); return false; }
+  if (!window.__user.emailVerified) { openVerify(); return false; }
+  return true;
+}
+
+async function checkVerified() {
+  const msg = document.getElementById("verMsg");
+  try {
+    await fb.auth.currentUser.reload();
+    if (fb.auth.currentUser.emailVerified) {
+      window.__user = fb.auth.currentUser;
+      window.__verified = true;
+      toggleWrap("verWrap", false);
+      fillProfile();
+    } else if (msg) {
+      msg.textContent = "Hələ təsdiqlənməyib — emailinizə baxın (Spam qovluğuna da).";
+    }
+  } catch (e) { if (msg) msg.textContent = "Xəta: " + e.message; }
+}
+
+async function resendVerify() {
+  const msg = document.getElementById("verMsg");
+  try {
+    await fb.authMod.sendEmailVerification(fb.auth.currentUser);
+    if (msg) msg.textContent = "✅ Link yenidən göndərildi.";
+  } catch (e) { if (msg) msg.textContent = "Xəta: " + e.message; }
 }
 
 function fillProfile() {
