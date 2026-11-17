@@ -202,7 +202,9 @@ function buildUi() {
       var post = pb.dataset.promo || "";
       window.__promoPost = post;
       var url = "https://t.me/Boosted_mashinelanlari_bot" + (post ? "?start=" + post : "");
-      window.open(url, "_blank");
+      var w = null;
+      try { w = window.open(url, "_blank"); } catch (err) {}
+      if (!w) { location.href = url; }
       return;
     }
     const op = e.target.closest(".promoOpt");
