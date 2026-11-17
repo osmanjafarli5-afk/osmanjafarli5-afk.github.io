@@ -126,7 +126,7 @@ function buildUi() {
   const fab = document.createElement("button");
     fab.id = "adFab";
     fab.className = "ad-fab";
-    fab.textContent = "➕ Elan yerləşdir";
+    fab.textContent = "➕ Elan";
     document.body.appendChild(fab);
     fab.addEventListener("click", () => {
       if (!requireVerified()) return;
