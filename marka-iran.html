@@ -330,6 +330,42 @@ aside{border-radius:20px}
 .price{font-size:21px;color:var(--txt)}
 .cta{border-radius:16px;box-shadow:var(--shadow)}
 footer{margin-top:34px}
+
+@media (max-width:760px){
+ .wrap{padding:0 14px}
+ header.hero{padding:16px 0 14px}
+ .top{flex-direction:column;align-items:stretch;gap:12px}
+ .brand{gap:10px}
+ h1{font-size:19px;line-height:1.28}
+ .sub{font-size:12px;line-height:1.45}
+ .logo{width:40px;height:40px}
+ .btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+ .btns .btn{width:100%;padding:11px 6px;font-size:12.5px;justify-content:center}
+ .heroSearch{margin:14px 0 10px;gap:8px}
+ .heroSearch input{font-size:16px;padding:12px 14px}
+ .heroChips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+ .heroChips::-webkit-scrollbar{display:none}
+ .hchip{white-space:nowrap;flex:0 0 auto}
+ .stats{grid-template-columns:1fr 1fr;gap:8px}
+ .stat{padding:10px 12px}
+ .stat b{font-size:18px}
+ .layout{display:block}
+ .grid{grid-template-columns:1fr;gap:14px}
+ .card .ph{aspect-ratio:16/10}
+ .card .acts{right:8px;bottom:8px;gap:7px}
+ .card .act{width:38px;height:38px;font-size:16px}
+ .card .badge{font-size:11px;padding:4px 9px}
+ .card .nm{font-size:15px}
+ .price{font-size:22px}
+ .more{padding:9px 12px}
+ .supportBox{flex-direction:column;align-items:stretch;gap:12px;padding:16px}
+ .sb-right{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .sb-right .btn{justify-content:center}
+ footer .fgrid{grid-template-columns:1fr;gap:16px}
+ #up{bottom:14px;right:14px;width:44px;height:44px}
+ .auth-card,.ad-card{width:calc(100% - 22px)!important;max-height:88vh;overflow:auto}
+ .filters-toggle{margin-bottom:10px}
+}
 </style>
 </head>
 <body>
