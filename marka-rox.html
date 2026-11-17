@@ -339,7 +339,7 @@ footer{margin-top:34px}
 /* ================= AXICI MÜASİR ÜSLUB ================= */
 html{scroll-behavior:smooth}
 body{-webkit-font-smoothing:antialiased}
-[data-reveal]{opacity:0;transform:translateY(26px);
+[data-reveal]{opacity:.001;transform:translateY(18px);
  transition:opacity .7s var(--ease), transform .7s var(--ease)}
 [data-reveal].in{opacity:1;transform:none}
 
@@ -906,17 +906,23 @@ render();
   function watch() {
     document.querySelectorAll('.card:not([data-reveal]), .step:not([data-reveal])').forEach(function (el, i) {
       el.setAttribute('data-reveal', '');
-      el.style.transitionDelay = Math.min(i * 30, 300) + 'ms';
+      el.style.transitionDelay = Math.min(i * 22, 220) + 'ms';
       io.observe(el);
     });
   }
   watch();
+  // təhlükəsizlik: nə olursa olsun 2 san sonra hamısı görünsün
+  setTimeout(function () {
+    document.querySelectorAll('[data-reveal]:not(.in)').forEach(function (el) { el.classList.add('in'); });
+  }, 2000);
   var origRender = window.render;
   window.addEventListener('scroll', function () {
     if (window.scrollY > 90) hdr && hdr.classList.add('slim');
     else hdr && hdr.classList.remove('slim');
   }, { passive: true });
-  setInterval(watch, 1200);
+  var g = document.getElementById('grid');
+  if (g && window.MutationObserver) new MutationObserver(function () { watch(); }).observe(g, { childList: true });
+  setInterval(watch, 1500);
 })();
 
 // --- hero axtarisi ---
