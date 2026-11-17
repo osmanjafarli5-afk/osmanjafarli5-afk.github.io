@@ -24,11 +24,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
- --bg:#f7f8fa; --card:#fff; --line:#e7e9ee; --txt:#111827; --dim:#6b7280;
- --acc:#0b63f6; --acc2:#0a4fd0; --ok:#0a8f4f;
- --shadow:0 1px 2px rgba(16,24,40,.04), 0 8px 24px rgba(16,24,40,.06);
- --shadow2:0 2px 6px rgba(16,24,40,.06), 0 18px 40px rgba(16,24,40,.10);
- --r:16px;
+ --bg:#f4f7fc; --card:#fff; --line:#e5e9f2; --txt:#0f172a; --dim:#64748b;
+ --acc:#0b63f6; --acc2:#0846c4; --ok:#0a8f4f; --warn:#d6336c; --soft:#eef4ff;
+ --shadow:0 1px 2px rgba(15,23,42,.04), 0 10px 30px rgba(15,23,42,.07);
+ --shadow2:0 2px 8px rgba(15,23,42,.07), 0 22px 48px rgba(15,23,42,.13);
+ --r:18px;
  --ease:cubic-bezier(.22,.61,.36,1);
 }
 html{scroll-behavior:smooth}
@@ -275,6 +275,28 @@ footer{border-top:1px solid var(--line);background:#fff;padding:30px 0;margin-to
 .prof-edit{border:0;background:#f1f4f9;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:13px}
 .prof-edit:hover{background:#e6ecf7}
 .prof-mail{color:var(--dim);font-size:12.5px;margin-top:2px;word-break:break-all}
+/* --- vizual tekmillesdirme --- */
+body{background:radial-gradient(1200px 600px at 12% -12%,#e6efff 0%,transparent 58%),
+ radial-gradient(900px 520px at 92% -6%,#e9fbf1 0%,transparent 52%),var(--bg)}
+header.hero{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.62));
+ backdrop-filter:blur(10px);padding:30px 0 26px}
+h1{font-size:27px;letter-spacing:-.7px}
+.logo{width:48px;height:48px;border-radius:14px;box-shadow:0 10px 24px rgba(11,99,246,.30)}
+.btn-primary{background:linear-gradient(135deg,var(--acc),#3b82f6);
+ box-shadow:0 6px 18px rgba(11,99,246,.26)}
+.btn-primary:hover{box-shadow:0 12px 28px rgba(11,99,246,.36)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:12px;margin-top:20px}
+.stat{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:14px;
+ padding:12px 14px;box-shadow:var(--shadow)}
+.stat b{font-size:22px;color:var(--acc)}
+.stat span{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim)}
+aside{border-radius:20px}
+.card{border-radius:20px}
+.card .ph img{transition:transform .65s var(--ease)}
+.card:hover .ph img{transform:scale(1.07)}
+.price{font-size:21px;color:var(--acc)}
+.cta{border-radius:16px;box-shadow:var(--shadow)}
+footer{margin-top:34px}
 </style>
 </head>
 <body>
