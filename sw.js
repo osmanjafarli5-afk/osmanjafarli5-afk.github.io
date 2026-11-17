@@ -1,6 +1,6 @@
 /* Maşın Elanları — PWA service worker
    HTML: şəbəkədən (həmişə təzə), şəkillər: keşdən (sürətli). */
-const VER = 'v4';
+const VER = 'v5';
 const STATIC = `masin-static-${VER}`;
 const SHELL = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png',
                '/apple-touch-icon.png'];
