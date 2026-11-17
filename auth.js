@@ -72,8 +72,6 @@ function buildUi() {
         <div><label class="auth-lbl">Telefon *</label><input id="adPhone" placeholder="+994 50 000 00 00"></div>
         <div><label class="auth-lbl">Telegram (username)</label><input id="adTg" placeholder="@username"></div>
         <div class="full"><label class="auth-lbl">Qeyd</label><input id="adNote" placeholder="Vuruğu yoxdur, ilk sahibindən..."></div>
-        <div class="full"><label class="auth-lbl">Şəkil (2-3 foto)</label>
-          <input id="adPhoto" type="file" accept="image/*" multiple></div>
       </div>
       <div class="auth-msg" id="adMsg"></div>
       <button class="btn btn-primary auth-go" id="adGo">Göndər</button>
@@ -212,23 +210,17 @@ async function submitAd() {
     return;
   }
   try {
-    let photoUrl = "";
-    const files = document.getElementById("adPhoto").files;
-    if (files && files.length) {
-      msg.textContent = "⏳ Şəkil yüklənir...";
-      photoUrl = (await uploadPhoto(files[0])) || "";
-    }
+    const photoUrl = "";
     await fb.fsMod.addDoc(fb.fsMod.collection(fb.db, ADS_COLLECTION), {
       brand, model, year, km, price,
       city: g("adCity"), phone, note: g("adNote"), tg: g("adTg").replace("@", ""),
       uid: window.__user ? window.__user.uid : null,
       email: window.__user ? window.__user.email : null,
-      photoUrl,
       status: "pending",
       createdAt: Date.now()
     });
     msg.textContent = "✅ Elan göndərildi! Yoxlanıldıqdan sonra kanalda və saytda paylaşılacaq.";
-    ["adBrand", "adModel", "adYear", "adKm", "adPrice", "adCity", "adNote", "adTg", "adPhoto"].forEach(i => {
+    ["adBrand", "adModel", "adYear", "adKm", "adPrice", "adCity", "adNote", "adTg"].forEach(i => {
       const el = document.getElementById(i); if (el) el.value = "";
     });
     toggleWrap("adWrap", false);
