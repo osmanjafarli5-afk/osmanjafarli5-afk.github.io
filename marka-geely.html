@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(x) x.addEventListener('click', close);
   w.addEventListener('click', function(e){ if(e.target===w) close(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
-  var amts=[].slice.call(document.querySelectorAll('.amt')), cust=document.getElementById('amtCustom');
+  var amts=[], cust=null;
   amts.forEach(function(b){ b.addEventListener('click', function(){
     amts.forEach(function(o){ o.classList.remove('on'); });
     b.classList.add('on'); if(cust){ cust.value=b.getAttribute('data-v'); }
@@ -928,14 +928,6 @@ document.addEventListener('DOMContentLoaded', function(){
     <button class="sup-x" id="supX" aria-label="Bağla">✕</button>
     <h3>❤️ Sayta dəstək ol</h3>
     <p>Sayt pulsuzdur və reklamsızdır. Dəstəyiniz yeni funksiyalar və daha çox elan üçün gedir.</p>
-    <div class="sup-label">Məbləğ seçin</div>
-    <div class="sup-amts">
-      <button class="amt" data-v="1">1 ₼</button>
-      <button class="amt" data-v="5">5 ₼</button>
-      <button class="amt" data-v="10">10 ₼</button>
-      <button class="amt" data-v="20">20 ₼</button>
-      <input id="amtCustom" type="number" min="1" inputmode="numeric" placeholder="öz məbləğ">
-    </div>
     <div class="sup-row">
       <div class="sup-label">Dəstək üçün</div>
       <div class="sup-note" style="margin:0">Dəstək olmaq üçün <a href="https://t.me/destek_mashin_bot" target="_blank" rel="noopener">dəstək xidmətinə yaz</a> — köməyinizi qeydə alaq.</div>
